@@ -1,0 +1,33 @@
+To-Do:
+
+1. fix GET request output
+
+    - test @Transient
+    - test Fetch
+    - test Cascade
+
+2. create custom queries in PostRepo
+
+3. create tests in mockito/junit
+
+    - test 2 autowired/dependency injection impls
+
+4. impl Comments, then Hashtags
+
+    - write tests for comments
+    - use @ManyToMany for Post x Hashtags
+
+5. learn javascript for front end
+
+
+To learn:
+
+- reading logs
+
+- view h2
+
+- mvnw commands
+
+- docker
+
+- hosting

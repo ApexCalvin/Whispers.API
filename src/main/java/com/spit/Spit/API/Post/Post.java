@@ -1,5 +1,7 @@
 package com.spit.Spit.API.Post;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.spit.Spit.API.Account.Account;
 import com.spit.Spit.API.Comment.Comment;
 import jakarta.persistence.*;
@@ -30,6 +32,8 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "account_id")
+//    @JsonIgnoreProperties("posts") // or else it endlessly loops
+    @JsonBackReference
     private Account account;
 
     public Post(Date date, String message, Account account) { //for PostConfig

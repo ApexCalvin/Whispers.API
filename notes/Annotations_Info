@@ -1,0 +1,26 @@
+@JsonManagedReference and @JsonBackReference:
+
+These annotations are part of the Jackson library and are used to manage bidirectional relationships in JSON serialization. They are typically used with JPA or Hibernate entities when there's a parent-child or owner-non-owner relationship.
+
+    @JsonManagedReference:
+
+    is used on the "owning" side of the relationship, instructing Jackson to include this property in the JSON output.
+
+
+    @JsonBackReference:
+
+    is used on the "non-owning" side of the relationship, and it tells Jackson to exclude this property from the JSON output to avoid cyclic dependencies.
+
+
+@JsonIgnoreProperties:
+
+is also a Jackson annotation that allows you to specify a list of properties to be ignored during serialization and deserialization.
+
+You can use it at the class level to specify properties that should be ignored for all instances of the class, or at the property level to specify properties to be ignored on a per-property basis.
+
+
+@Transient:
+
+is a JPA (Java Persistence API) annotation used to indicate that a field should not be persisted to the database. In other words, it's used to mark properties that should not be treated as database columns.
+
+This is typically used when you have fields in your entity class that are not meant to be stored in the database.
