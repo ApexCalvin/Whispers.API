@@ -1,6 +1,7 @@
 package com.spit.Spit.API.Account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.spit.Spit.API.Post.Post;
 import jakarta.persistence.*;
@@ -30,10 +31,13 @@ public class Account {
     @Column(name = "handle", nullable = false)
     private String handle;
 
-    @OneToMany( mappedBy = "account",
-                targetEntity = Post.class,
-                fetch = FetchType.EAGER,
-                cascade = CascadeType.ALL)
+    @OneToMany(
+                mappedBy = "account"
+//                , targetEntity = Post.class // optional attributes
+//                , fetch = FetchType.EAGER
+//                , cascade = CascadeType.ALL
+                )
+//    @JsonIgnoreProperties("account") // or else it endlessly loops
     @JsonManagedReference
     private List<Post> posts;
 
