@@ -1,0 +1,11 @@
+version: '3'
+services:
+  app:
+    image: openjdk:17-jdk-slim
+    container_name: spit-api
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./target:/Spit.API
+    working_dir: /Spit.API
+    command: [ "java", "-jar", "Spit.API-0.0.1-SNAPSHOT.jar" ]
