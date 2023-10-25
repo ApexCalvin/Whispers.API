@@ -1,5 +1,7 @@
 package com.spit.Spit.API.Account;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.spit.Spit.API.Post.Post;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -32,6 +34,7 @@ public class Account {
                 targetEntity = Post.class,
                 fetch = FetchType.EAGER,
                 cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Post> posts;
 
     public Account(String name, String handle) { // AppConfig

@@ -1,5 +1,6 @@
 package com.spit.Spit.API.Post;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.spit.Spit.API.Account.Account;
 import com.spit.Spit.API.Comment.Comment;
 import jakarta.persistence.*;
@@ -30,6 +31,7 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "account_id")
+    @JsonBackReference
     private Account account;
 
     public Post(Date date, String message, Account account) { //for PostConfig
