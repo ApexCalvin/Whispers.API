@@ -1,11 +1,15 @@
 package com.spit.Spit.API.Account;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -19,50 +23,27 @@ public class AccountController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> createAccount(@RequestBody Account account) {
-
-        if (account.getAccount_id() != null) {
-            String message = "Remove account id when creating.";
-            return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
-        }
-
-        if (account.getName() == null || account.getHandle() == null ||
-            account.getName().isEmpty() || account.getHandle().isEmpty()) {
-            String message = "Name and handle cannot be null or empty";
-            return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
-        }
-
+    public ResponseEntity<String> createAccount(@Valid @RequestBody CreateAccountDTO account) {
         String message = accountServices.createAccount(account);
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
-    public List<Account> getAllAccounts() {
-        return accountServices.getAllAccounts();
+    public ResponseEntity<List<Account>> getAllAccounts() {
+        List<Account> accounts = accountServices.getAllAccounts();
+        return ResponseEntity.ok(accounts);
     }
-
-//    @GetMapping("/all")
-//    public ResponseEntity<List<Account>> getAllAccounts() {
-//        List<Account> accounts = accountServices.getAllAccounts();
-//        return ResponseEntity.ok(accounts);
-//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Account> getAccountById(@PathVariable Long id) {
-
         Optional<Account> exist = accountServices.getAccountById(id);
-
         return exist.map(account -> new ResponseEntity<>(account, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-
     }
 
     @GetMapping("/handle/{handle}")
     public ResponseEntity<Account> getAccountByHandle(@PathVariable String handle) {
-
         Optional<Account> exist = accountServices.getAccountByHandle(handle);
-
         return exist.map(account -> new ResponseEntity<>(account, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-
     }
 
     @DeleteMapping("/{id}")
@@ -80,16 +61,16 @@ public class AccountController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> fullyUpdateAccountById(@PathVariable Long id, @RequestBody EditAccountDTO updatedAccount) {
+    public ResponseEntity<String> fullyUpdateAccountById(@PathVariable Long id, @Valid @RequestBody CreateAccountDTO updatedAccount) {
 
         Account exist = accountServices.getAccountById(id).orElse(null);
 
         if(exist != null) {
-            if(!(updatedAccount.getName() == null || updatedAccount.getHandle() == null)) {
+            //if(!(updatedAccount.getName() == null || updatedAccount.getHandle() == null)) {
                 accountServices.fullyUpdateAccountById(exist, updatedAccount);
                 return new ResponseEntity<>("Account with id " +id+ " has been fully replaced.", HttpStatus.OK);
-            }
-            return new ResponseEntity<>("Partial edits require a PATCH request.", HttpStatus.BAD_REQUEST);
+            //}
+            //return new ResponseEntity<>("Partial edits require a PATCH request.", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -108,6 +89,21 @@ public class AccountController {
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+
+        Map<String, String> errors = new HashMap<>();
+
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+
+        return errors;
     }
 
 }
