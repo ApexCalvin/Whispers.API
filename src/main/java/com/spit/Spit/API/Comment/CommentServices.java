@@ -10,8 +10,11 @@ import java.util.Optional;
 @Service
 public class CommentServices {
 
-    @Autowired
-    CommentRepository commentRepository;
+    private final CommentRepository commentRepository;
+
+    public CommentServices(CommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
+    }
 
     public String createComment(Comment comment) {
         //comment.setDate(new Date());

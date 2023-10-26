@@ -1,20 +1,14 @@
 package com.spit.Spit.API.Account;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.spit.Spit.API.Post.Post;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
 @Entity
 @Table(name = "account")
@@ -31,17 +25,11 @@ public class Account {
     @Column(name = "handle", nullable = false)
     private String handle;
 
-    @OneToMany(
-                mappedBy = "account"
-//                , targetEntity = Post.class // optional attributes
-//                , fetch = FetchType.EAGER
-//                , cascade = CascadeType.ALL
-                )
-//    @JsonIgnoreProperties("account") // or else it endlessly loops
+    @OneToMany(mappedBy = "account")
     @JsonManagedReference
     private List<Post> posts;
 
-    public Account(String name, String handle) { // AppConfig
+    public Account(String name, String handle) {
         this.name = name;
         this.handle = handle;
     }

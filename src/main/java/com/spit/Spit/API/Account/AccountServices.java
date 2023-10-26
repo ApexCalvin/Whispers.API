@@ -1,26 +1,32 @@
 package com.spit.Spit.API.Account;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AccountServices {
 
-    @Autowired
-    AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
-    public String createAccount(Account account) {
+    public AccountServices(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
 
+    public String createAccount(CreateAccountDTO createAccountDTO) {
+
+        Account account = new Account();
+        account.setName(createAccountDTO.getName());
+        account.setHandle(createAccountDTO.getHandle());
         accountRepository.save(account);
+
         return "Account with id " +account.getAccount_id()+ " has been saved.";
     }
 
     public List<Account> getAllAccounts() {
+
         Iterable<Account> all = accountRepository.findAll();
         List<Account> accountList = new ArrayList<>();
         all.forEach(accountList::add);
@@ -39,7 +45,7 @@ public class AccountServices {
         accountRepository.deleteById(id);
     }
 
-    public void fullyUpdateAccountById(Account currentAccount, EditAccountDTO updatedAccount) {
+    public void fullyUpdateAccountById(Account currentAccount, CreateAccountDTO updatedAccount) {
 
         currentAccount.setName(updatedAccount.getName());
         currentAccount.setHandle(updatedAccount.getHandle());

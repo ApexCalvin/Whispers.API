@@ -12,8 +12,11 @@ import java.util.Optional;
 @RequestMapping("/comment")
 public class CommentController {
 
-    @Autowired
-    CommentServices commentServices;
+    private final CommentServices commentServices;
+
+    public CommentController(CommentServices commentServices) {
+        this.commentServices= commentServices;
+    }
 
     @PostMapping("/add")
     public ResponseEntity<String> createComment(@RequestBody Comment comment) {

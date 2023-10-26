@@ -14,11 +14,13 @@ import java.util.Optional;
 @RequestMapping("/post")
 public class PostController {
 
-    @Autowired
-    PostServices postServices;
+    private final PostServices postServices;
+    private final AccountServices accountServices;
 
-    @Autowired
-    AccountServices accountServices;
+    public PostController(PostServices postServices, AccountServices accountServices) {
+        this.postServices = postServices;
+        this.accountServices = accountServices;
+    }
 
     @PostMapping("/add")
     public ResponseEntity<String> createPost(@RequestBody CreatePostDTO postDTO) {
