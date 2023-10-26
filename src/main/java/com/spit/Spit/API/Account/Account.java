@@ -31,17 +31,11 @@ public class Account {
     @Column(name = "handle", nullable = false)
     private String handle;
 
-    @OneToMany(
-                mappedBy = "account"
-//                , targetEntity = Post.class // optional attributes
-//                , fetch = FetchType.EAGER
-//                , cascade = CascadeType.ALL
-                )
-//    @JsonIgnoreProperties("account") // or else it endlessly loops
+    @OneToMany(mappedBy = "account")
     @JsonManagedReference
     private List<Post> posts;
 
-    public Account(String name, String handle) { // AppConfig
+    public Account(String name, String handle) {
         this.name = name;
         this.handle = handle;
     }

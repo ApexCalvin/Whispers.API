@@ -1,10 +1,14 @@
 To-Do:
 
-1. fix GET request output
+1. fix GET request output - DONE
 
     - test @Transient
     - test Fetch
     - test Cascade
+
+1.5 - remove "services" from controller so that its only function is API calls
+
+    - Create GetPostDTO
 
 2. create custom queries in PostRepo
 

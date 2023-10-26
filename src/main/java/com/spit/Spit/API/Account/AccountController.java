@@ -12,8 +12,11 @@ import java.util.Optional;
 @RequestMapping("/account")
 public class AccountController {
 
-    @Autowired
-    AccountServices accountServices;
+    private final AccountServices accountServices;
+
+    public AccountController(AccountServices accountServices) {
+        this.accountServices = accountServices;
+    }
 
     @PostMapping("/add")
     public ResponseEntity<String> createAccount(@RequestBody Account account) {

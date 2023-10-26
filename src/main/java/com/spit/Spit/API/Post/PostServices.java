@@ -1,5 +1,6 @@
 package com.spit.Spit.API.Post;
 
+import com.spit.Spit.API.Account.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +11,11 @@ import java.util.Optional;
 @Service
 public class PostServices {
 
-    @Autowired
-    PostRepository postRepository;
+    private final PostRepository postRepository;
+
+    public PostServices(PostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
 
     public String createPost(Post post) {
         post.setDate(new Date());

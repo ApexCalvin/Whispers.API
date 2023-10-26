@@ -32,11 +32,10 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "account_id")
-//    @JsonIgnoreProperties("posts") // or else it endlessly loops
     @JsonBackReference
     private Account account;
 
-    public Post(Date date, String message, Account account) { //for PostConfig
+    public Post(Date date, String message, Account account) {
         this.date = date;
         this.message = message;
         this.account = account;
