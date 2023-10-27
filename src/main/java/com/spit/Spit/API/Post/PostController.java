@@ -54,6 +54,9 @@ public class PostController {
     @GetMapping("/all")
     public List<Post> getAllPosts() { return postServices.getAllPost(); }
 
+    @GetMapping("/desc/all")
+    public List<GetPostDTO> getAllPostsDESC() { return postServices.getAllPostDESC(); }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletedPostById(@PathVariable Long id) {
 

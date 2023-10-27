@@ -35,11 +35,11 @@ public class PostServices {
         postRepository.deleteById(id);
     }
 
-    public List<Post> getAllPostDESC() { //TODO: Create method
-        return null;
+    public List<GetPostDTO> getAllPostDESC() {
+        return postRepository.getAllPostsDESC();
     }
 
-    public List<Post> getPostByHandleDESC(Long id) { //TODO: Create method
+    public List<Post> getPostByHandleDESC(String handle) { //TODO: Create method
         return null;
     }
 

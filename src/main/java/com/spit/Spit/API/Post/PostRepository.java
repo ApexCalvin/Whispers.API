@@ -1,6 +1,7 @@
 package com.spit.Spit.API.Post;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -8,17 +9,9 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    /*
-        SELECT a.handle, a.name, p.date, p.message FROM account AS a
-        JOIN post AS p
-        WHERE a.account_id = p.account_id
-        ORDER BY p.date DESC;
+    @Query(name = "getAllPostsDesc-query", nativeQuery = true)
+    public List<GetPostDTO> getAllPostsDESC();
 
-        name = "query_name", nativeQuery = true
-
-        @Query()
-        public List<Post> getAllPostsDESC();
-     */
 
     /*
         SELECT a.handle, a.name, p.date, p.message FROM account AS a
@@ -28,8 +21,10 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 		a.handle = :handle
         ORDER BY p.date DESC;
 
-        public List<Post> getPostsByHandleDESC(String handle);
-     */
+    @Query(name = "getPostsByHandleDesc-query", nativeQuery = true)
+    public List<GetPostDTO> getPostsByHandleDESC(String handle);
+
+    */
 
     //public List<Post> getPostsByHashtagDESC(Long id);
 }

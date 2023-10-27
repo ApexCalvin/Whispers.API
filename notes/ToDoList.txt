@@ -17,16 +17,3 @@ impl Comments, then Hashtags
     - use @ManyToMany for Post x Hashtags
 
 learn javascript for front end
-
-
-To learn:
-
-- reading logs
-
-- view h2
-
-- mvnw commands
-
-- docker
-
-- hosting

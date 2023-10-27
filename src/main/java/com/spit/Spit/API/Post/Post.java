@@ -12,6 +12,26 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.List;
 
+@NamedNativeQuery(
+        name = "getAllPostsDesc-query",
+        query = """
+                SELECT a.handle, a.name, p.date, p.message FROM account a
+                JOIN post p ON a.account_id = p.account_id
+                ORDER BY p.date DESC
+                """,
+        resultSetMapping = "mapToGetPostDTO"
+)
+
+@SqlResultSetMapping(
+        name = "mapToGetPostDTO",
+        classes =   @ConstructorResult( targetClass = GetPostDTO.class,
+                                        columns = {
+                                            @ColumnResult(name = "name", type = String.class),
+                                            @ColumnResult(name = "handle", type = String.class),
+                                            @ColumnResult(name = "date", type = Date.class),
+                                            @ColumnResult(name = "message", type = String.class)
+                                         }))
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
