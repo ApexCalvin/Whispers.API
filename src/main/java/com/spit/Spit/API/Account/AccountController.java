@@ -54,6 +54,7 @@ public class AccountController {
         if(exist.isPresent()) {
             accountServices.deleteAccountById(id);
             String message = "Account with id " +id+ " has been deleted.";
+
             return new ResponseEntity<>(message, HttpStatus.OK);
         }
 
@@ -63,7 +64,7 @@ public class AccountController {
     @PutMapping("/{id}")
     public ResponseEntity<String> fullyUpdateAccountById(@PathVariable Long id, @Valid @RequestBody CreateAccountDTO updatedAccount) {
 
-        Account exist = accountServices.getAccountById(id).orElse(null);
+        Account exist = accountServices.getExistingAccount(id);
 
         if(exist != null) {
             //if(!(updatedAccount.getName() == null || updatedAccount.getHandle() == null)) {
@@ -78,7 +79,7 @@ public class AccountController {
     @PatchMapping("/{id}")
     public ResponseEntity<String> partiallyEditAccountById(@PathVariable Long id, @RequestBody EditAccountDTO patchedAccount) {
 
-        Account exist = accountServices.getAccountById(id).orElse(null);
+        Account exist = accountServices.getExistingAccount(id);
 
         if(exist != null) {
             if(!(patchedAccount.getName() != null && patchedAccount.getHandle() != null)) {

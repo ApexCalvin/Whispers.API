@@ -16,13 +16,13 @@ public class AccountServices {
     }
 
     public String createAccount(CreateAccountDTO createAccountDTO) {
-
-        Account account = new Account();
-        account.setName(createAccountDTO.getName());
-        account.setHandle(createAccountDTO.getHandle());
-        accountRepository.save(account);
-
-        return "Account with id " +account.getAccount_id()+ " has been saved.";
+        Account account = AccountMapper.fromCreateAccountDTO(createAccountDTO);
+        try{
+            accountRepository.save(account);
+        }catch (Exception e){
+            return "Account failed to save";
+        }
+        return "Account successfully saved";
     }
 
     public List<Account> getAllAccounts() {
@@ -64,5 +64,9 @@ public class AccountServices {
             currentAccount.setHandle(patchedAccount.getHandle());
         }
         accountRepository.save(currentAccount);
+    }
+
+    public Account getExistingAccount(Long id) {
+        return getAccountById(id).orElse(null);
     }
 }

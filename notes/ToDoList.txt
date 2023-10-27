@@ -8,6 +8,7 @@ create custom queries in PostRepo
 
 create tests in mockito/junit (test 2 autowired/dependency injection impls)
 
+Implement Mappers for DTO to Entity / Entity to DTO
 -
 
 impl Comments, then Hashtags
