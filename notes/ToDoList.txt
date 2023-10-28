@@ -6,12 +6,4 @@ move PostController bizlogic to PostServices
 
 create tests in mockito/junit (test 2 autowired/dependency injection impls)
 
-Implement Mappers for DTO to Entity / Entity to DTO
--
-
-impl Comments, then Hashtags
-
-    - write tests for comments
-    - use @ManyToMany for Post x Hashtags
-
-learn javascript for front end
+Implement Mappers for DTO to Entity (wip) / Entity to DTO (completed)
