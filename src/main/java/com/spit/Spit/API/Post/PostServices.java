@@ -1,7 +1,10 @@
 package com.spit.Spit.API.Post;
 
+import com.spit.Spit.API.Account.Account;
 import com.spit.Spit.API.Account.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -39,8 +42,8 @@ public class PostServices {
         return postRepository.getAllPostsDESC();
     }
 
-    public List<Post> getPostByHandleDESC(String handle) { //TODO: Create method
-        return null;
+    public List<GetPostDTO> getPostByHandleDESC(String handle) {
+        return postRepository.getPostsByHandleDESC(handle);
     }
 
     //public List<Post> getPostByHashtagDESC(Long id) { return null; }

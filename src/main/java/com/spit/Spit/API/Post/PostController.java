@@ -51,6 +51,19 @@ public class PostController {
         return exist.map(post -> new ResponseEntity<>(post, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/all/handle/{handle}")
+    public ResponseEntity<List<GetPostDTO>> getPostByHandle(@PathVariable String handle) {
+        Optional<Account> exist = accountServices.getAccountByHandle(handle);
+
+        if(exist.isPresent()) {
+            List<GetPostDTO> posts = postServices.getPostByHandleDESC(handle);
+
+            return new ResponseEntity<>(posts, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     @GetMapping("/all")
     public List<Post> getAllPosts() { return postServices.getAllPost(); }
 

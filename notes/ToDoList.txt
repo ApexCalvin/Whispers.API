@@ -2,9 +2,7 @@ To-Do:
 
 add @Valid to PostRequest
 
-Create GetPostDTO
-
-create custom queries in PostRepo
+move PostController bizlogic to PostServices
 
 create tests in mockito/junit (test 2 autowired/dependency injection impls)
 
