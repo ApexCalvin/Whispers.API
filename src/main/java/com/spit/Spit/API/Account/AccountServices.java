@@ -26,11 +26,7 @@ public class AccountServices {
     }
 
     public List<Account> getAllAccounts() {
-
-        Iterable<Account> all = accountRepository.findAll();
-        List<Account> accountList = new ArrayList<>();
-        all.forEach(accountList::add);
-        return accountList;
+            return accountRepository.findAll();
     }
 
     public Optional<Account> getAccountById(Long id) {

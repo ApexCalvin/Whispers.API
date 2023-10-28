@@ -63,15 +63,10 @@ public class AccountController {
 
     @PutMapping("/{id}")
     public ResponseEntity<String> fullyUpdateAccountById(@PathVariable Long id, @Valid @RequestBody CreateAccountDTO updatedAccount) {
-
         Account exist = accountServices.getExistingAccount(id);
-
         if(exist != null) {
-            //if(!(updatedAccount.getName() == null || updatedAccount.getHandle() == null)) {
                 accountServices.fullyUpdateAccountById(exist, updatedAccount);
                 return new ResponseEntity<>("Account with id " +id+ " has been fully replaced.", HttpStatus.OK);
-            //}
-            //return new ResponseEntity<>("Partial edits require a PATCH request.", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
