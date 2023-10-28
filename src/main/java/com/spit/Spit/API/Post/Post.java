@@ -22,6 +22,17 @@ import java.util.List;
         resultSetMapping = "mapToGetPostDTO"
 )
 
+@NamedNativeQuery(
+        name = "getPostsByHandleDesc-query",
+        query = """
+                SELECT a.handle, a.name, p.date, p.message FROM account a
+                JOIN post p ON a.account_id = p.account_id
+                WHERE a.handle = :handle
+                ORDER BY p.date DESC;
+                """,
+        resultSetMapping = "mapToGetPostDTO"
+)
+
 @SqlResultSetMapping(
         name = "mapToGetPostDTO",
         classes =   @ConstructorResult( targetClass = GetPostDTO.class,
