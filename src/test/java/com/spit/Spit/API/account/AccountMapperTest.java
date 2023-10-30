@@ -12,7 +12,7 @@ public class AccountMapperTest {
     void fromCreateAccountDTO_standardTranslation(){
         CreateAccountDTO expected = new CreateAccountDTO();
         expected.setName("FakeName");
-        expected.setName("FakeHandle");
+        expected.setHandle("FakeHandle");
 
         Account actual = AccountMapper.fromCreateAccountDTO(expected);
 
