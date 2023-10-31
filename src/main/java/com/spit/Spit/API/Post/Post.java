@@ -56,7 +56,7 @@ public class Post {
     private Long id;
 
     @Column(name = "date")
-    private Date date;
+    private Date date = new Date();
 
     @Column(name = "message")
     private String message;

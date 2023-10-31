@@ -14,7 +14,6 @@ import java.util.Optional;
 @Service
 public class PostServices {
 
-    @Autowired
     private final PostRepository postRepository;
 
     public PostServices(PostRepository postRepository) {
@@ -22,7 +21,7 @@ public class PostServices {
     }
 
     public String createPost(Post post) {
-        post.setDate(new Date());
+        //post.setDate(new Date());
         postRepository.save(post);
         return "Post with id " +post.getId()+ " has been saved.";
         //return "Post successfully saved.";

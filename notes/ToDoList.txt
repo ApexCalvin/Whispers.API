@@ -7,3 +7,5 @@ move PostController bizlogic to PostServices
 create tests in mockito/junit (test 2 autowired/dependency injection impls)
 
 Implement Mappers for DTO to Entity (wip) / Entity to DTO (completed)
+
+unique handle validator
