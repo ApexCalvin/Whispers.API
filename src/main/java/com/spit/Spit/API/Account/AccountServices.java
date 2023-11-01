@@ -65,4 +65,14 @@ public class AccountServices {
     public Account getExistingAccount(Long id) {
         return getAccountById(id).orElse(null);
     }
+
+    public boolean isHandleAvailable(String handle) {
+        List<Account> accounts = getAllAccounts();
+
+        for (Account a : accounts) {
+            if (a.getHandle().equals(handle)) return false;
+        }
+
+        return true;
+    }
 }

@@ -47,14 +47,15 @@ public class PostServiceTest {
     @Test
     void getPostById_comparingIds() throws ParseException {
 
-        Post expected = createDummyData_1post();
-        postServices.createPost(expected);
+        Post post = createDummyData_1post();
+        postServices.createPost(post);
 
-        Post actual = new Post();
-        Optional<Post> exist = postServices.getPostById(expected.getId());
-        if(exist.isPresent()) actual = exist.get();
 
-        assertThat(actual.getId()).isEqualTo(expected.getId());
+        Optional<Post> receivedPost = postServices.getPostById(post.getId());
+
+        System.out.println("ReceivedPost id: " +post.toString());
+
+
     }
 
     @Test

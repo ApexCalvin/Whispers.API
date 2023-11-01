@@ -24,8 +24,15 @@ public class AccountController {
 
     @PostMapping("/add")
     public ResponseEntity<String> createAccount(@Valid @RequestBody CreateAccountDTO account) {
-        String message = accountServices.createAccount(account);
-        return new ResponseEntity<>(message, HttpStatus.CREATED);
+
+        boolean isHandleAvailable = accountServices.isHandleAvailable(account.getHandle());
+
+        if(isHandleAvailable) {
+            String message = accountServices.createAccount(account);
+            return new ResponseEntity<>(message, HttpStatus.CREATED);
+        }
+
+        return new ResponseEntity<>("Handle is not available.", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/all")
