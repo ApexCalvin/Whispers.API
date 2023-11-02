@@ -71,7 +71,7 @@ public class PostController {
     public List<GetPostDTO> getAllPostsDESC() { return postServices.getAllPostDESC(); }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletedPostById(@PathVariable Long id) {
+    public ResponseEntity<String> deletePostById(@PathVariable Long id) {
 
         Optional<Post> exist = postServices.getPostById(id);
 
