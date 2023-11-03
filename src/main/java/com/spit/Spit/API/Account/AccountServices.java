@@ -1,5 +1,6 @@
 package com.spit.Spit.API.Account;
 
+import com.spit.Spit.API.Tools.DtoMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class AccountServices {
     }
 
     public String createAccount(CreateAccountDTO createAccountDTO) {
-        Account account = AccountMapper.fromCreateAccountDTO(createAccountDTO);
+        Account account = DtoMapper.fromCreateAccountDTO(createAccountDTO);
         try{
             accountRepository.save(account);
         }catch (Exception e){
@@ -67,11 +68,9 @@ public class AccountServices {
 
     public boolean isHandleAvailable2(String handle) {
         List<Account> accounts = getAllAccounts();
-
         for (Account a : accounts) {
             if (a.getHandle().equals(handle)) return false;
         }
-
         return true;
     }
 
