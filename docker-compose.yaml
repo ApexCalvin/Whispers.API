@@ -5,9 +5,11 @@ services:
     container_name: spit-db
     environment:
       MYSQL_ROOT_PASSWORD: database
-      MYSQL_DATABASE: spit-api
+      MYSQL_DATABASE: spit-db
     ports:
       - "3307:3306"
+    volumes:
+      - C:\docker\mysql-data:/var/lib/mysql
   app:
     image: openjdk:17-jdk-slim
     container_name: spit-api
@@ -15,5 +17,7 @@ services:
       - "8080:8080"
     volumes:
       - ./target:/Spit.API
+    depends_on:
+      - mysql
     working_dir: /Spit.API
-    command: [ "java", "-jar", "Spit.API-0.0.1-SNAPSHOT.jar" ]
+    command: ["java", "-jar", "Spit.API-0.0.1-SNAPSHOT.jar"]
