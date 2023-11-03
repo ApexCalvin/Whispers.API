@@ -68,13 +68,9 @@ public class AccountServices {
 
     public boolean isHandleAvailable2(String handle) {
         List<Account> accounts = getAllAccounts();
-
         for (Account a : accounts) {
             if (a.getHandle().equals(handle)) return false;
         }
-
-        System.out.println("Test Commit from Mac");
-
         return true;
     }
 

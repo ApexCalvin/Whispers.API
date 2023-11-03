@@ -32,6 +32,21 @@ public class PostControllerTest {
     AccountServices accountServices;
 
     @Test
+    void createPost_AccountNotFound(){
+        CreatePostDTO postDTO = new CreatePostDTO();
+        postDTO.setAccountId(1L);
+        postDTO.setMessage("Hello");
+
+        when(accountServices.getAccountById(postDTO.getAccountId()))
+                .thenReturn(Optional.empty());
+
+        ResponseEntity<String> re = postController.createPost(postDTO);
+
+        assertThat(re.getBody()).isEqualTo("Associated account does not exist.");
+        assertThat(re.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
     void createPost(){
         //created DTO --> Post Request
         CreatePostDTO postDTO = new CreatePostDTO();
@@ -44,17 +59,12 @@ public class PostControllerTest {
         Optional<Account> optionalAcc = Optional.of(account);
         when(accountServices.getAccountById(postDTO.getAccountId())).thenReturn(optionalAcc);
 
-        ResponseEntity<String> re = postController.createPost(postDTO);
+        ResponseEntity<String> actual = postController.createPost(postDTO);
 
         verify(postServices).createPost(any(Post.class));
-        assertThat(re.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.CREATED);
     }
 
-    void createPost_AccountNotFound(){}
-
-    void createPost_nullableField(){}
-
-    void createPost_emptyField(){}
     @Test
     void getPostById(){
         long id = 1L;
@@ -69,7 +79,15 @@ public class PostControllerTest {
         assertThat(actual.getBody()).isEqualTo(post);
     }
 
-    void getPostById_AccountNotFound(){}
+    @Test
+    void getPostById_AccountNotFound(){
+        Long id =3L ;
+        when(postServices.getPostById(id)).thenReturn(Optional.empty());
+
+        ResponseEntity<Post> actual = postController.getPostById(id);
+
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
 
     void getPostByHandle(){}
 

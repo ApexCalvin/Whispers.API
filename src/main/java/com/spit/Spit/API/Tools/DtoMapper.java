@@ -6,7 +6,6 @@ import com.spit.Spit.API.Account.AccountServices;
 import com.spit.Spit.API.Account.CreateAccountDTO;
 import com.spit.Spit.API.Post.CreatePostDTO;
 import com.spit.Spit.API.Post.Post;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class DtoMapper {
 

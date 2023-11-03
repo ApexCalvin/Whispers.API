@@ -26,11 +26,6 @@ public class PostController {
     @PostMapping("/add")
     public ResponseEntity<String> createPost(@Valid @RequestBody CreatePostDTO postDTO) {
 
-        if (postDTO.getAccountId() == null) {
-            String message = "Account id cannot be null. Please enter associated account id.";
-            return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
-        }
-
         Optional<Account> exist = accountServices.getAccountById(postDTO.getAccountId());
 
         if(exist.isEmpty()) {
