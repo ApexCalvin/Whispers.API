@@ -117,7 +117,7 @@ public class PostServiceTest {
             e.printStackTrace();
         }
 
-        return new Post(1L, date, message, account);
+        return new Post(1L, date, message, account,null);
     }
 
     void createDummyData_3posts_andSaves() throws ParseException {

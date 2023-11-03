@@ -1,16 +1,13 @@
 package com.spit.Spit.API.Post;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.spit.Spit.API.Account.Account;
-import com.spit.Spit.API.Comment.Comment;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.List;
 
 @NamedNativeQuery(
         name = "getAllPostsDesc-query",
@@ -66,9 +63,18 @@ public class Post {
     @JsonBackReference
     private Account account;
 
+    @Transient
+    private String accountHandle;
+
     public Post(Date date, String message, Account account) {
         this.date = date;
         this.message = message;
         this.account = account;
+    }
+    public String getAccountHandle() {
+        if (account != null) {
+            accountHandle = account.getHandle();
+        }
+        return accountHandle;
     }
 }
