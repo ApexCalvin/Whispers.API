@@ -72,6 +72,8 @@ public class AccountServices {
             if (a.getHandle().equals(handle)) return false;
         }
 
+        System.out.println("Test Commit from Mac");
+
         return true;
     }
 
