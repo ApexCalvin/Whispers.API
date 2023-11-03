@@ -2,7 +2,6 @@ package com.spit.Spit.API.Account;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,7 +65,7 @@ public class AccountServices {
         return getAccountById(id).orElse(null);
     }
 
-    public boolean isHandleAvailable(String handle) {
+    public boolean isHandleAvailable2(String handle) {
         List<Account> accounts = getAllAccounts();
 
         for (Account a : accounts) {
@@ -75,4 +74,9 @@ public class AccountServices {
 
         return true;
     }
+
+    public boolean isHandleAvailable(String handle) {
+        return getAccountByHandle(handle).isEmpty();
+    }
+
 }

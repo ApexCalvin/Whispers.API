@@ -18,8 +18,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class PostServiceTest {
@@ -126,6 +124,8 @@ public class PostServiceTest {
 
         Post post = createDummyData_1post();
         postRepository.save(post);
+
+
 
         Account account = new Account("John Wick", "BabaYaga");
 
