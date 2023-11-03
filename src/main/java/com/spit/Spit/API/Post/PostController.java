@@ -2,6 +2,7 @@ package com.spit.Spit.API.Post;
 
 import com.spit.Spit.API.Account.Account;
 import com.spit.Spit.API.Account.AccountServices;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class PostController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> createPost(@RequestBody CreatePostDTO postDTO) {
+    public ResponseEntity<String> createPost(@Valid @RequestBody CreatePostDTO postDTO) {
 
         if (postDTO.getAccountId() == null) {
             String message = "Account id cannot be null. Please enter associated account id.";
