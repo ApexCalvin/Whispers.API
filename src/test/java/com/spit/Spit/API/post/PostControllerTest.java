@@ -2,10 +2,7 @@ package com.spit.Spit.API.post;
 
 import com.spit.Spit.API.Account.Account;
 import com.spit.Spit.API.Account.AccountServices;
-import com.spit.Spit.API.Post.CreatePostDTO;
-import com.spit.Spit.API.Post.Post;
-import com.spit.Spit.API.Post.PostController;
-import com.spit.Spit.API.Post.PostServices;
+import com.spit.Spit.API.Post.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,6 +11,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -89,9 +88,33 @@ public class PostControllerTest {
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
-    void getPostByHandle(){}
+    @Test
+    void getPostByHandle(){
+        String handle = "Starlight";
+        Account account = new Account("Her", "Starlight");
+        Optional<Account> optionalAcc = Optional.of(account);
+        when(accountServices.getAccountByHandle(handle)).thenReturn(optionalAcc);
 
-    void getPostByHandle_AccountNotFound(){}
+        List<GetPostDTO> posts = new ArrayList<>();
+        posts.add(new GetPostDTO());
+        posts.add(new GetPostDTO());
+        when(postServices.getPostByHandleDESC(handle)).thenReturn(posts);
+
+        ResponseEntity<List<GetPostDTO>> actual = postController.getPostsByHandle(handle);
+
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(actual.getBody()).isEqualTo(posts);
+    }
+
+    @Test
+    void getPostByHandle_AccountNotFound(){
+        String handle = "Translucent";
+        when(accountServices.getAccountByHandle(handle)).thenReturn(Optional.empty());
+
+        ResponseEntity<List<GetPostDTO>> actual = postController.getPostsByHandle(handle);
+
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
 
     void getAllPost(){}
 
