@@ -117,14 +117,47 @@ public class PostControllerTest {
 
         ResponseEntity<List<GetPostDTO>> actual = postController.getPostsByHandle(handle);
 
+        verify(accountServices).getAccountByHandle(any(String.class));
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
-    void getAllPost(){}
+    @Test
+    void getAllPost(){
+        ResponseEntity<List<Post>> actual = postController.getAllPosts();
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
 
-    void getAllPostDesc(){}
+    @Test
+    void getAllPostDesc(){
+        ResponseEntity<List<GetPostDTO>> actual = postController.getAllPostsDESC();
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
 
-    void deletedPostById(){}
+    @Test
+    void deleteByPostId_AccountNotFound() {
+        long id = 1L;
 
-    void deleteByPostId_AccountNotFound() {}
+        ResponseEntity<String> actual = postController.deletePostById(id);
+
+        verify(postServices).getPostById(any(Long.class));
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void deletedPostById(){
+        long id = 1L;
+        Post post = new Post();
+        post.setId(id);
+        Optional<Post> optionalPost = Optional.of(post);
+        when(postServices.getPostById(id)).thenReturn(optionalPost);
+
+        ResponseEntity<String> actual = postController.deletePostById(id);
+
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    void editPostById_usingPut(){}
+
+    void editPostById_usingPatch(){}
+
 }

@@ -61,10 +61,13 @@ public class PostController {
     }
 
     @GetMapping("/all")
-    public List<Post> getAllPosts() { return postServices.getAllPost(); }
+    public ResponseEntity<List<Post>> getAllPosts() {
+        return new ResponseEntity<>(postServices.getAllPost(), HttpStatus.OK);
+    }
 
     @GetMapping("/desc/all")
-    public List<GetPostDTO> getAllPostsDESC() { return postServices.getAllPostDESC(); }
+    public ResponseEntity<List<GetPostDTO>> getAllPostsDESC() {
+        return new ResponseEntity<>(postServices.getAllPostDESC(), HttpStatus.OK); }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletePostById(@PathVariable Long id) {
