@@ -2,7 +2,11 @@ package com.spit.Spit.API.post;
 
 import com.spit.Spit.API.Account.Account;
 import com.spit.Spit.API.Account.AccountServices;
-import com.spit.Spit.API.Post.*;
+import com.spit.Spit.API.Post.CreatePostDTO;
+import com.spit.Spit.API.Post.Post;
+import com.spit.Spit.API.Post.PostController;
+import com.spit.Spit.API.Post.PostServices;
+import com.spit.Spit.API.Post.GetPostDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
