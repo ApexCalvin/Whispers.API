@@ -4,7 +4,8 @@
         crossorigin="anonymous">
 </script>
 
-<script src="./service.js"></script>
+<script src="CrudDemoService.js"></script>
+<script src="service.js"></script>
 
 <form>
     <input id="account-id" placeholder="Id">
@@ -21,6 +22,12 @@
     <button onClick="readAll(event)">Read All</button>
     <button onClick="update(event)">Update</button>
     <button onClick="deleteById(event)">Delete</button>
+    <br>
+    <br>
+    <button onClick="getPostsDesc(event)">Home</button>
+    <button onClick="getPostsByHandleDesc(event)">Your Posts</button>
+    <button onClick="getPost(event)">Read Post</button>
+    <button onClick="createPost(event)">Create Post</button>
 </form>
 
 <div id="account-output"></div>

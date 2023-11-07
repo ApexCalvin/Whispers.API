@@ -1,64 +1,86 @@
-    function readById(event) {
-        event.preventDefault(); //prevents the form from submitting?
+function getPostsDesc(event) {
+        event.preventDefault();
 
-        // gets value from html element named "account-id"
-        const accountIdValue = document.getElementById("account-id").value;
-
-        console.log("Account Id: " +accountIdValue)
-
-        ajaxRequest(accountIdValue);
-//        fetchRequest(accountIdValue);
-//        axiosRequest(accountIdValue);
-    }
-
-    const updateDisplay = (response) => document.getElementById("account-output").innerText = JSON.stringify(response);
-
-    function axiosRequest(accountIdValue) {
-    /*
-        axios.get('https://api.example.com/data')
-          .then(response => {
-            console.log(response.data);
-          })
-          .catch(error => {
-            console.error('Axios error:', error);
-          });
-    */
-    }
-
-    function fetchRequest(accountIdValue) {
-        fetch('/account/' + accountIdValue, {
-            method: 'GET',
-        })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
+        $.ajax({
+            type: "GET",
+            crossDomain: true,
+            headers: {
+                'Accept':'application/json',
+                'Content-Type':'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            url: "/account/all",
+            dataType: "JSON",
+            success: function(response) {
+                updateDisplay(response);
+            },
+            error: function(error) {
+                updateDisplay(error);
             }
-            return response.json(); // Parse the response as JSON
-          })
-          .then(data => {
-            updateDisplay(data);
-          })
-          .catch(error => {
-            updateDisplay(error);
-          });
-    }
+        });
+}
 
-    function ajaxRequest(accountIdValue) {
-         $.ajax({
-                    type: "GET",
-//                    crossDomain: true,
-//                    headers: {
-//                        'Accept':'application/json',
-//                        'Content-Type':'application/json',
-//                        'Access-Control-Allow-Origin': '*'
-//                    },
-                    url: "/account/" + accountIdValue,
-                    dataType: "JSON",
-                    success: function(response) {
-                        updateDisplay(response);
-                    },
-                    error: function(error) {
-                        updateDisplay(error);
-                    }
-                });
-    }
+function getPostsByHandleDesc(event) {
+}
+
+function getPost(event) {
+        event.preventDefault();
+
+        const postId = document.getElementById("account-id").value;
+
+        $.ajax({
+            type: "GET",
+//            crossDomain: true,
+//            headers: {
+//                'Accept':'application/json',
+//                'Content-Type':'application/json',
+//                'Access-Control-Allow-Origin': '*'
+//            },
+            url: "/post/" + postId,
+            dataType: "JSON",
+            success: function(response) {
+                updateDisplay(response);
+            },
+            error: function(error) {
+                updateDisplay(error);
+            }
+        });
+}
+
+function createPost(event) {
+    event.preventDefault();
+
+    const accountId = document.getElementById("account-id").value;
+    const message = document.getElementById("").value;
+
+    const person = new Person(personIdValue, firstNameValue, lastNameValue);
+    const personData = JSON.stringify(person);
+
+    $.ajax({
+        type: "POST",
+        crossDomain: true,
+        headers: {
+            'Accept':'application/json',
+            'Content-Type':'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
+        url: "/create",
+        data: personData,
+        dataType: "JSON",
+        success: function(response) {
+            updateDisplay(response);
+        },
+        error: function(error) {
+            updateDisplay(error)
+        }
+    });
+}
+
+function getAccount(event) {
+}
+
+function getAllAccounts(event) {
+}
+
+function createAccount(event) {
+}
