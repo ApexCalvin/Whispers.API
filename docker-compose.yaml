@@ -12,6 +12,9 @@ services:
       - C:\docker\mysql-data:/var/lib/mysql
   app:
     image: openjdk:17-jdk-slim
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: spit-api
     ports:
       - "8080:8080"
