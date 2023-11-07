@@ -9,9 +9,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.text.ParseException;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class PostServiceTest {
@@ -22,15 +25,47 @@ public class PostServiceTest {
     @Mock
     PostRepository postRepository;
 
-    void createPost() {}
+    @Test
+    void createPost() {
+        Long id = 1L;
+        Post post = new Post();
+        post.setId(id);
 
-    void getPostById() {}
+        String expected = "Post with id 1 has been saved.";
+        String actual = postServices.createPost(post);
 
-    void getAllPost() {}
+        verify(postRepository).save(any(Post.class));
+        assertThat(actual).isEqualTo(expected);
+    }
 
-    void deletePostById() {}
+    @Test
+    void getPostById() {
+        Long id = 1L;
+        Post post = new Post();
+        post.setId(id);
+        Optional<Post> expected = Optional.of(post);
+        when(postRepository.findById(id)).thenReturn(expected);
 
-    void getAllPostDESC() {}
+        Optional<Post> actual = postServices.getPostById(id);
 
-    void getPostByHandleDESC() {}
+        assertThat(actual.get().getId()).isEqualTo(expected.get().getId());
+    }
+
+    void getAllPost() {
+        //when(postServices.getPostById(id)).thenReturn(optionalPost);
+    }
+
+    @Test
+    void deletePostById() {
+        postServices.deletePostById(1L);
+        verify(postRepository).deleteById(any(Long.class));
+    }
+
+    void getAllPostDESC() {
+        //when(postServices.getPostById(id)).thenReturn(optionalPost);
+    }
+
+    void getPostByHandleDESC() {
+        //when(postServices.getPostById(id)).thenReturn(optionalPost);
+    }
 }
