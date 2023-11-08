@@ -21,11 +21,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 //adding notes for calvin feel to remove
-@ExtendWith(MockitoExtension.class) // allows mockito functionality
+@ExtendWith(MockitoExtension.class)
 public class AccountServiceTest {
 
-    @InjectMocks //dependency injection for the mock beans
-    AccountServices subject; //convention to the name the test object "subject"
+    @InjectMocks
+    AccountServices subject;
 
     @Mock
     AccountRepository accountRepository;
@@ -36,8 +36,8 @@ public class AccountServiceTest {
 
         String actual = subject.createAccount(createAccountDTO);
 
-        verify(accountRepository).save(any(Account.class)); //verify method was called
-        assertThat(actual).isEqualTo("Account successfully saved"); //good naming convention for asserts
+        verify(accountRepository).save(any(Account.class));
+        assertThat(actual).isEqualTo("Account successfully saved");
     }
 
     @Test
@@ -59,5 +59,19 @@ public class AccountServiceTest {
         List<Account> actual = subject.getAllAccounts();
 
         assertThat(actual.size()).isEqualTo(2);
+    }
+
+    @Test
+    void fullyUpdateAccountById(){
+        CreateAccountDTO expected = new CreateAccountDTO();
+        expected.setName("Reggie");
+        expected.setHandle("A-train");
+        Account actual = new Account();
+
+        subject.fullyUpdateAccountById(actual, expected);
+
+        verify(accountRepository).save(actual);
+        assertThat(actual.getHandle()).isEqualTo(expected.getHandle());
+        assertThat(actual.getName()).isEqualTo(expected.getName());
     }
 }
