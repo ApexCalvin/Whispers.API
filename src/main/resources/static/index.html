@@ -1,33 +1,148 @@
-<script
-        src="https://code.jquery.com/jquery-3.4.1.js"
-        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-        crossorigin="anonymous">
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <title>Spit!</title>
+</head>
+<body>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous">
+    </script>
 
-<script src="CrudDemoService.js"></script>
-<script src="service.js"></script>
+    <script src="CrudDemoService.js"></script>
+    <script src="service.js"></script>
 
-<form>
-    <input id="account-id" placeholder="Id">
-    <br>
-    <br>
-    <input id="account-name" placeholder="Name">
-    <br>
-    <br>
-    <input id="account-handle" placeholder="Handle">
-    <br>
-    <br>
-    <button onClick="create(event)">Create</button>
-    <button onClick="readById(event)">Read</button>
-    <button onClick="readAll(event)">Read All</button>
-    <button onClick="update(event)">Update</button>
-    <button onClick="deleteById(event)">Delete</button>
-    <br>
-    <br>
-    <button onClick="getPostsDesc(event)">Home</button>
-    <button onClick="getPostsByHandleDesc(event)">Your Posts</button>
-    <button onClick="getPost(event)">Read Post</button>
-    <button onClick="createPost(event)">Create Post</button>
-</form>
+    <h1>Welcome to Spit!</h1>
 
-<div id="account-output"></div>
+    <ul class="navbar">
+        <li class="nav-item"><a class="nav-link" href="#">Home Feed</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Search Handle</a></li>
+<!--        <li class="nav-item"><a class="nav-link" href="#">Search Hashtag</a></li>-->
+        <li class="nav-item"><a class="nav-link" href="#">Switch Account</a></li>
+    </ul>
+
+<!--    <form>-->
+<!--        <input id="account-id" placeholder="Id">-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <input id="account-name" placeholder="Name">-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <input id="account-handle" placeholder="Handle">-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <button onClick="create(event)">Create</button>-->
+<!--        <button onClick="readById(event)">Read</button>-->
+<!--        <button onClick="readAll(event)">Read All</button>-->
+<!--        <button onClick="update(event)">Update</button>-->
+<!--        <button onClick="deleteById(event)">Delete</button>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <button onClick="getPostsDesc(event)">Home</button>-->
+<!--        <button onClick="getPostsByHandleDesc(event)">Your Posts</button>-->
+<!--        <button onClick="getPost(event)">Read Post</button>-->
+<!--        <button onClick="createPost(event)">Create Post</button>-->
+<!--    </form>-->
+
+
+    <!-- Create a container for the columns -->
+    <div class="container">
+        <!-- Column 1 -->
+        <div class="column">
+            <h2>Column 1</h2>
+            <p>(shows profile of current account).</p>
+
+            <div class="column profile">
+                <p>- display profile photo</p>
+                <h2>Name</h2>
+                <p>@handle</p>
+            </div>
+
+            <button onClick="createPost(event)">Create Post w Current User</button>
+
+        </div>
+
+        <!-- Column 2 -->
+        <div class="column">
+            <h2>Column 2</h2>
+            <p>(Shows all posts (without comments) in Desc order)</p>
+
+            <div class="tweet">
+                <p>Show date</p>
+                <p>Show name</p>
+                <p>Show handle</p>
+                <p>Show message</p>
+            </div>
+
+            <div class="tweet">
+                <p>Show date</p>
+                <p>Show name</p>
+                <p>Show handle</p>
+                <p>Show message</p>
+            </div>
+
+            <div class="tweet">
+                <p>Show date</p>
+                <p>Show name</p>
+                <p>Show handle</p>
+                <p>Show message</p>
+            </div>
+
+            <div class="tweet">
+                <p>Show date</p>
+                <p>Show name</p>
+                <p>Show handle</p>
+                <p>Show message</p>
+            </div>
+
+            <div class="tweet">
+                <p>Show date</p>
+                <p>Show name</p>
+                <p>Show handle</p>
+                <p>Show message</p>
+            </div>
+        </div>
+
+        <!-- Column 3 -->
+        <div class="column">
+            <h2>Column 3</h2>
+            <p>(when a post is clicked on, it displays here with comments)</p>
+
+            <div class="post-content">
+                <p>Show date</p>
+                <p>Show name</p>
+                <p>Show handle</p>
+                <p>Show Post message</p>
+            </div>
+
+            <div class="comments">
+                <div class="comment">
+                    <p>Show date</p>
+                    <p>Show name</p>
+                    <p>Show handle</p>
+                    <p>Show comment message</p>
+                </div>
+
+                <div class="comment">
+                    <p>Show date</p>
+                    <p>Show name</p>
+                    <p>Show handle</p>
+                    <p>Show comment message</p>
+                </div>
+
+                <div class="comment">
+                    <p>Show date</p>
+                    <p>Show name</p>
+                    <p>Show handle</p>
+                    <p>Show comment message</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="account-output"></div>
+</body>
+</html>

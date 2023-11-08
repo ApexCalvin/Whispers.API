@@ -102,7 +102,7 @@ public class PostControllerTest {
         List<GetPostDTO> posts = new ArrayList<>();
         posts.add(new GetPostDTO());
         posts.add(new GetPostDTO());
-        when(postServices.getPostByHandleDESC(handle)).thenReturn(posts);
+        when(postServices.getPostsByHandleDESC(handle)).thenReturn(posts);
 
         ResponseEntity<List<GetPostDTO>> actual = postController.getPostsByHandle(handle);
 

@@ -1,5 +1,6 @@
 package com.spit.Spit.API.post;
 
+import com.spit.Spit.API.Post.GetPostDTO;
 import com.spit.Spit.API.Post.Post;
 import com.spit.Spit.API.Post.PostRepository;
 import com.spit.Spit.API.Post.PostServices;
@@ -9,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -51,8 +54,16 @@ public class PostServiceTest {
         assertThat(actual.get().getId()).isEqualTo(expected.get().getId());
     }
 
+    @Test
     void getAllPost() {
-        //when(postServices.getPostById(id)).thenReturn(optionalPost);
+        Post post = new Post();
+        List<Post> posts = new ArrayList<>();
+        posts.add(post);
+        when(postRepository.findAll()).thenReturn(posts);
+
+        List<Post> actual = postServices.getAllPost();
+
+        assertThat(actual).isEqualTo(posts);
     }
 
     @Test
@@ -61,11 +72,29 @@ public class PostServiceTest {
         verify(postRepository).deleteById(any(Long.class));
     }
 
+    @Test
     void getAllPostDESC() {
-        //when(postServices.getPostById(id)).thenReturn(optionalPost);
+        GetPostDTO post = new GetPostDTO();
+        List<GetPostDTO> posts = new ArrayList<>();
+        posts.add(post);
+        when(postRepository.getAllPostsDESC()).thenReturn(posts);
+
+        List<GetPostDTO> actual = postServices.getAllPostDESC();
+
+        assertThat(actual).isEqualTo(posts);
     }
 
+    @Test
     void getPostByHandleDESC() {
-        //when(postServices.getPostById(id)).thenReturn(optionalPost);
+        String handle = "SoldierBoy";
+        GetPostDTO post = new GetPostDTO();
+        post.setHandle(handle);
+        List<GetPostDTO> posts = new ArrayList<>();
+        posts.add(post);
+        when(postRepository.getPostsByHandleDESC(handle)).thenReturn(posts);
+
+        List<GetPostDTO> actual = postServices.getPostsByHandleDESC(handle);
+
+        assertThat(actual).isEqualTo(posts);
     }
 }

@@ -37,7 +37,7 @@ public class PostServices {
         return postRepository.getAllPostsDESC();
     }
 
-    public List<GetPostDTO> getPostByHandleDESC(String handle) {
+    public List<GetPostDTO> getPostsByHandleDESC(String handle) {
         return postRepository.getPostsByHandleDESC(handle);
     }
 

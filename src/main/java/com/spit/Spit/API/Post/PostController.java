@@ -3,7 +3,6 @@ package com.spit.Spit.API.Post;
 import com.spit.Spit.API.Account.Account;
 import com.spit.Spit.API.Account.AccountServices;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,7 +51,7 @@ public class PostController {
         Optional<Account> exist = accountServices.getAccountByHandle(handle);
 
         if(exist.isPresent()) {
-            List<GetPostDTO> posts = postServices.getPostByHandleDESC(handle);
+            List<GetPostDTO> posts = postServices.getPostsByHandleDESC(handle);
 
             return new ResponseEntity<>(posts, HttpStatus.OK);
         }
