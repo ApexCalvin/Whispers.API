@@ -1,0 +1,42 @@
+ul.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+    text-align: center;
+}
+
+li.nav-item {
+    display: inline;
+    margin-right: 80px;
+}
+
+a.nav-link {
+    text-decoration: none;
+    color: white;
+}
+
+h1 {
+    text-align: center;
+}
+
+div {
+    border: 2px solid black;
+}
+
+.container {
+    display: flex;
+}
+
+.column {
+    flex: 1; /* Make each column take an equal amount of space */
+    padding: 20px; /* Add padding for spacing */
+    text-align: center; /* Center-align the content */
+}
+
+/* Specify different background colors for each column */
+.column:nth-child(1) {}
+
+.column:nth-child(2) {}
+
+.column:nth-child(3) {}

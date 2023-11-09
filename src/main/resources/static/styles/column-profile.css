@@ -1,0 +1,14 @@
+.profile {
+    text-align: left;
+    padding: 20px;
+    background-color: #33ffeb;
+    border-radius: 20px;
+}
+
+.profile h2 {
+    font-size: 24px;
+}
+
+.profile p {
+    font-size: 16px;
+}

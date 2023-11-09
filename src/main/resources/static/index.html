@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/column-profile.css">
+    <link rel="stylesheet" type="text/css" href="styles/column-feed.css">
+    <link rel="stylesheet" type="text/css" href="styles/column-selectedPost.css">
     <meta charset="UTF-8">
     <title>Spit!</title>
 </head>
@@ -13,7 +16,10 @@
     </script>
 
     <script src="CrudDemoService.js"></script>
-    <script src="service.js"></script>
+    <script src="services/service.js"></script>
+    <script src="services/column-profile.js"></script>
+    <script src="services/column-feed.js"></script>
+    <script src="services/column-selectedPost.js"></script>
 
     <h1>Welcome to Spit!</h1>
 
@@ -54,19 +60,16 @@
         <div class="column">
             <h2>Column 1</h2>
             <p>(shows profile of current account).</p>
-
             <div class="column profile">
                 <p>- display profile photo</p>
                 <h2>Name</h2>
                 <p>@handle</p>
             </div>
-
             <button onClick="createPost(event)">Create Post w Current User</button>
-
         </div>
 
         <!-- Column 2 -->
-        <div class="column">
+        <div class="column" onload="pageLoaded()">
             <h2>Column 2</h2>
             <p>(Shows all posts (without comments) in Desc order)</p>
 
@@ -144,5 +147,14 @@
     </div>
 
     <div id="account-output"></div>
+
+    <script>
+        function pageLoaded() {
+    alert('Page is loaded.');
+}
+    console.log('hello man')
+    window.onload = pageLoaded;
+    </script>
+
 </body>
 </html>

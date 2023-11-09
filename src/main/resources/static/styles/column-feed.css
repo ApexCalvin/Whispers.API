@@ -1,0 +1,10 @@
+.tweet {
+    border: 2px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 20px;
+}
+
+.tweet p {
+    font-size: 18px;
+}

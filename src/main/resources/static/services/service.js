@@ -1,3 +1,5 @@
+var activeUser = "selected";
+
 function getPostsDesc(event) {
         event.preventDefault();
 
@@ -83,4 +85,28 @@ function getAllAccounts(event) {
 }
 
 function createAccount(event) {
+}
+
+function pageLoaded() {
+    alert('Page is loaded.');
+}
+
+// window.onload = pageLoaded;
+
+function getFeed() {
+            fetch('/post/desc/all', {
+                method: 'GET',
+            })
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.json(); // Parse the response as JSON
+              })
+              .then(data => {
+                updateDisplay(data);
+              })
+              .catch(error => {
+                updateDisplay(error);
+              });
 }
