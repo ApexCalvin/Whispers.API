@@ -17,18 +17,6 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    public ResponseEntity<String> createAccount2(CreateAccountDTO newAccount) {
-        boolean isHandleAvailable = isHandleAvailable(newAccount.getHandle());
-
-        if(isHandleAvailable) {
-            Account account = DtoMapper.fromCreateAccountDTO(newAccount);
-            accountRepository.save(account);
-            return new ResponseEntity<>("Account with id " +account.getAccount_id()+ " has been saved.", HttpStatus.CREATED);
-        }
-
-        return new ResponseEntity<>("Handle is not available.", HttpStatus.BAD_REQUEST);
-    }
-
     public String createAccount(CreateAccountDTO createAccountDTO) {
         Account account = DtoMapper.fromCreateAccountDTO(createAccountDTO);
         try{
