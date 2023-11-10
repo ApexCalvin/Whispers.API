@@ -1,18 +1,32 @@
 package com.spit.Spit.API.Account;
 
 import com.spit.Spit.API.Tools.DtoMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AccountServices {
+public class AccountService {
 
     private final AccountRepository accountRepository;
 
-    public AccountServices(AccountRepository accountRepository) {
+    public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
+    }
+
+    public ResponseEntity<String> createAccount2(CreateAccountDTO newAccount) {
+        boolean isHandleAvailable = isHandleAvailable(newAccount.getHandle());
+
+        if(isHandleAvailable) {
+            Account account = DtoMapper.fromCreateAccountDTO(newAccount);
+            accountRepository.save(account);
+            return new ResponseEntity<>("Account with id " +account.getAccount_id()+ " has been saved.", HttpStatus.CREATED);
+        }
+
+        return new ResponseEntity<>("Handle is not available.", HttpStatus.BAD_REQUEST);
     }
 
     public String createAccount(CreateAccountDTO createAccountDTO) {

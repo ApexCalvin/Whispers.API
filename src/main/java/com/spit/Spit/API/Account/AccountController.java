@@ -16,50 +16,50 @@ import java.util.Optional;
 @RequestMapping("/account")
 public class AccountController {
 
-    private final AccountServices accountServices;
+    private final AccountService accountService;
 
-    public AccountController(AccountServices accountServices) {
-        this.accountServices = accountServices;
+    public AccountController(AccountService accountServices) {
+        this.accountService = accountServices;
     }
 
     @PostMapping("/add")
     public ResponseEntity<String> createAccount(@Valid @RequestBody CreateAccountDTO account) {
-
-        boolean isHandleAvailable = accountServices.isHandleAvailable(account.getHandle());
-
-        if(isHandleAvailable) {
-            String message = accountServices.createAccount(account);
-            return new ResponseEntity<>(message, HttpStatus.CREATED);
-        }
-
-        return new ResponseEntity<>("Handle is not available.", HttpStatus.BAD_REQUEST);
+        return accountService.createAccount2(account);
+//        boolean isHandleAvailable = accountService.isHandleAvailable(account.getHandle());
+//
+//        if(isHandleAvailable) {
+//            String message = accountService.createAccount(account);
+//            return new ResponseEntity<>(message, HttpStatus.CREATED);
+//        }
+//
+//        return new ResponseEntity<>("Handle is not available.", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<Account>> getAllAccounts() {
-        List<Account> accounts = accountServices.getAllAccounts();
+        List<Account> accounts = accountService.getAllAccounts();
         return ResponseEntity.ok(accounts);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Account> getAccountById(@PathVariable Long id) {
-        Optional<Account> exist = accountServices.getAccountById(id);
+        Optional<Account> exist = accountService.getAccountById(id);
         return exist.map(account -> new ResponseEntity<>(account, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/handle/{handle}")
     public ResponseEntity<Account> getAccountByHandle(@PathVariable String handle) {
-        Optional<Account> exist = accountServices.getAccountByHandle(handle);
+        Optional<Account> exist = accountService.getAccountByHandle(handle);
         return exist.map(account -> new ResponseEntity<>(account, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletedAccountById(@PathVariable Long id) {
 
-        Optional<Account> exist = accountServices.getAccountById(id);
+        Optional<Account> exist = accountService.getAccountById(id);
 
         if(exist.isPresent()) {
-            accountServices.deleteAccountById(id);
+            accountService.deleteAccountById(id);
             String message = "Account with id " +id+ " has been deleted.";
 
             return new ResponseEntity<>(message, HttpStatus.OK);
@@ -70,9 +70,9 @@ public class AccountController {
 
     @PutMapping("/{id}")
     public ResponseEntity<String> fullyUpdateAccountById(@PathVariable Long id, @Valid @RequestBody CreateAccountDTO updatedAccount) {
-        Account exist = accountServices.getExistingAccount(id);
+        Account exist = accountService.getExistingAccount(id);
         if(exist != null) {
-                accountServices.fullyUpdateAccountById(exist, updatedAccount);
+                accountService.fullyUpdateAccountById(exist, updatedAccount);
                 return new ResponseEntity<>("Account with id " +id+ " has been fully replaced.", HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -81,11 +81,11 @@ public class AccountController {
     @PatchMapping("/{id}")
     public ResponseEntity<String> partiallyEditAccountById(@PathVariable Long id, @RequestBody EditAccountDTO patchedAccount) {
 
-        Account exist = accountServices.getExistingAccount(id);
+        Account exist = accountService.getExistingAccount(id);
 
         if(exist != null) {
             if(!(patchedAccount.getName() != null && patchedAccount.getHandle() != null)) {
-                accountServices.partiallyEditAccountById(exist, patchedAccount);
+                accountService.partiallyEditAccountById(exist, patchedAccount);
                 return new ResponseEntity<>("Account with id " +id+ " has been partially edited.", HttpStatus.OK);
             }
             return new ResponseEntity<>("An all-fields value change requires a PUT request.", HttpStatus.BAD_REQUEST);

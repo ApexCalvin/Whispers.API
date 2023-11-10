@@ -1,7 +1,7 @@
 package com.spit.Spit.API.post;
 
 import com.spit.Spit.API.Account.Account;
-import com.spit.Spit.API.Account.AccountServices;
+import com.spit.Spit.API.Account.AccountService;
 import com.spit.Spit.API.Post.CreatePostDTO;
 import com.spit.Spit.API.Post.Post;
 import com.spit.Spit.API.Post.PostController;
@@ -32,7 +32,7 @@ public class PostControllerTest {
     PostServices postServices;
 
     @Mock
-    AccountServices accountServices;
+    AccountService accountServices;
 
     @Test
     void createPost_AccountNotFound(){

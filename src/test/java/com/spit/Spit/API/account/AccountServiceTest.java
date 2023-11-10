@@ -2,7 +2,7 @@ package com.spit.Spit.API.account;
 
 import com.spit.Spit.API.Account.Account;
 import com.spit.Spit.API.Account.AccountRepository;
-import com.spit.Spit.API.Account.AccountServices;
+import com.spit.Spit.API.Account.AccountService;
 import com.spit.Spit.API.Account.CreateAccountDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 public class AccountServiceTest {
 
     @InjectMocks
-    AccountServices subject;
+    AccountService subject;
 
     @Mock
     AccountRepository accountRepository;

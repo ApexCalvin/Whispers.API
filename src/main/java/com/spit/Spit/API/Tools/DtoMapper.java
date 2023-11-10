@@ -2,14 +2,14 @@ package com.spit.Spit.API.Tools;
 
 
 import com.spit.Spit.API.Account.Account;
-import com.spit.Spit.API.Account.AccountServices;
+import com.spit.Spit.API.Account.AccountService;
 import com.spit.Spit.API.Account.CreateAccountDTO;
 import com.spit.Spit.API.Post.CreatePostDTO;
 import com.spit.Spit.API.Post.Post;
 
 public class DtoMapper {
 
-    static AccountServices accountServices;
+    static AccountService accountServices;
 
     private DtoMapper(){}
 

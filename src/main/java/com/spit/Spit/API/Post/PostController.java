@@ -1,7 +1,7 @@
 package com.spit.Spit.API.Post;
 
 import com.spit.Spit.API.Account.Account;
-import com.spit.Spit.API.Account.AccountServices;
+import com.spit.Spit.API.Account.AccountService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +15,9 @@ import java.util.Optional;
 public class PostController {
 
     private final PostServices postServices;
-    private final AccountServices accountServices;
+    private final AccountService accountServices;
 
-    public PostController(PostServices postServices, AccountServices accountServices) {
+    public PostController(PostServices postServices, AccountService accountServices) {
         this.postServices = postServices;
         this.accountServices = accountServices;
     }

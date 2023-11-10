@@ -26,7 +26,7 @@ public class Account {
     private String handle;
 
     @OneToMany( mappedBy = "account",
-                cascade = CascadeType.ALL) //deleting the account also deletes children (posts)
+                cascade = CascadeType.ALL) //deleting the account also deletes children (posts, comments)
     @JsonManagedReference
     private List<Post> posts;
 
