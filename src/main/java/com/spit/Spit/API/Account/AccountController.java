@@ -81,7 +81,7 @@ public class AccountController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<String> patchAccountById(@PathVariable Long id, @RequestBody EditAccountDTO updatedAccount) {
+    public ResponseEntity<String> patchAccountById(@PathVariable Long id, @RequestBody UpdateAccountDTO updatedAccount) {
         Account account = accountService.getAccountById(id);
 
         if(hasValue(account)) {
@@ -95,7 +95,7 @@ public class AccountController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    public boolean hasValue(Account account) {
+    public static boolean hasValue(Account account) {
         return account != null;
     }
 

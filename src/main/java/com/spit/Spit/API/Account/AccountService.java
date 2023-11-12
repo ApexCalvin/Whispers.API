@@ -50,7 +50,7 @@ public class AccountService {
         accountRepository.save(currentAccount); //replaces account if id is provided, else creates new account
     }
 
-    public void patchAccountById(Account currentAccount, EditAccountDTO updatedAccount) {
+    public void patchAccountById(Account currentAccount, UpdateAccountDTO updatedAccount) {
         if(updatedAccount.getName() != null) currentAccount.setName(updatedAccount.getName());
         if(updatedAccount.getHandle() != null) currentAccount.setHandle(updatedAccount.getHandle());
         accountRepository.save(currentAccount);

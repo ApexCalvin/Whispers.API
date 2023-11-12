@@ -1,4 +1,4 @@
-package com.spit.Spit.API.account;
+package com.spit.Spit.API.tool;
 
 import com.spit.Spit.API.Account.Account;
 import com.spit.Spit.API.Account.AccountService;
@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class AccountMapperTest {
+public class DtoMapperTest {
     @Mock
     private AccountService accountServices;
 
