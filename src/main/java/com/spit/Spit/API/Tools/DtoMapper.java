@@ -22,7 +22,7 @@ public class DtoMapper {
 
     public static Post fromCreatePostDTO(CreatePostDTO createPostDTO){
         Post post = new Post();
-        post.setAccount(accountServices.getExistingAccount(createPostDTO.getAccountId()));
+        post.setAccount(accountServices.getAccountById(createPostDTO.getAccountId()));
         post.setMessage(createPostDTO.getMessage());
         return post;
     }

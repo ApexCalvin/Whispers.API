@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
-public class EditAccountDTO {
+public class UpdateAccountDTO {
 
     private String name;
     private String handle;

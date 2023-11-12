@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -17,67 +16,60 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    public String createAccount(CreateAccountDTO createAccountDTO) {
-        Account account = DtoMapper.fromCreateAccountDTO(createAccountDTO);
+    public ResponseEntity<String> createAccount(CreateAccountDTO newAccount) {
+        Account account = DtoMapper.fromCreateAccountDTO(newAccount);
+
         try{
             accountRepository.save(account);
         }catch (Exception e){
-            return "Account failed to save";
+            return new ResponseEntity<>("Account failed to save.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return "Account successfully saved";
+        return new ResponseEntity<>("Account has been successfully saved.", HttpStatus.CREATED);
     }
 
     public List<Account> getAllAccounts() {
             return accountRepository.findAll();
     }
 
-    public Optional<Account> getAccountById(Long id) {
-        return accountRepository.findById(id);
+    public Account getAccountById(Long id) {
+        return accountRepository.findById(id).orElse(null);
     }
 
-    public Optional<Account> getAccountByHandle(String handle) {
-        return Optional.ofNullable(accountRepository.findByHandle(handle));
+    public Account getAccountByHandle(String handle) {
+        return accountRepository.findByHandle(handle);
+        //return Optional.ofNullable(accountRepository.findByHandle(handle));
     }
 
     public void deleteAccountById(Long id) {
         accountRepository.deleteById(id);
     }
 
-    public void fullyUpdateAccountById(Account currentAccount, CreateAccountDTO updatedAccount) {
-
+    public void putAccountById(Account currentAccount, CreateAccountDTO updatedAccount) {
         currentAccount.setName(updatedAccount.getName());
         currentAccount.setHandle(updatedAccount.getHandle());
-        //keep List<Post>
+        accountRepository.save(currentAccount); //replaces account if id is provided, else creates new account
+    }
 
-        //replaces account if id is provided
+    public void patchAccountById(Account currentAccount, UpdateAccountDTO updatedAccount) {
+        if(updatedAccount.getName() != null) currentAccount.setName(updatedAccount.getName());
+        if(updatedAccount.getHandle() != null) currentAccount.setHandle(updatedAccount.getHandle());
         accountRepository.save(currentAccount);
-    }
-
-    public void partiallyEditAccountById(Account currentAccount, EditAccountDTO patchedAccount) {
-
-        if(patchedAccount.getName() != null) {
-            currentAccount.setName(patchedAccount.getName());
-        }
-        if(patchedAccount.getHandle() != null) {
-            currentAccount.setHandle(patchedAccount.getHandle());
-        }
-        accountRepository.save(currentAccount);
-    }
-
-    public Account getExistingAccount(Long id) {
-        return getAccountById(id).orElse(null);
-    }
-
-    public boolean isHandleAvailable2(String handle) {
-        List<Account> accounts = getAllAccounts();
-        for (Account a : accounts) {
-            if (a.getHandle().equals(handle)) return false;
-        }
-        return true;
     }
 
     public boolean isHandleAvailable(String handle) {
-        return getAccountByHandle(handle).isEmpty();
+        Account exist = getAccountByHandle(handle);
+        return exist != null;
     }
 
+//    public Account getExistingAccount(Long id) {
+//        return getAccountById(id).orElse(null);
+//    }
+
+//    public boolean isHandleAvailable2(String handle) {
+//        List<Account> accounts = getAllAccounts();
+//        for (Account a : accounts) {
+//            if (a.getHandle().equals(handle)) return false;
+//        }
+//        return true;
+//    }
 }

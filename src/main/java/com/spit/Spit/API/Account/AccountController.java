@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/account")
@@ -23,85 +22,92 @@ public class AccountController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> createAccount(@Valid @RequestBody CreateAccountDTO account) {
-        if(accountService.isHandleAvailable(account.getHandle())) {
-            String message = accountService.createAccount(account);
-            return new ResponseEntity<>(message, HttpStatus.CREATED);
-        }else {
-            return new ResponseEntity<>("Handle is not available.", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> createAccount(@Valid @RequestBody CreateAccountDTO newAccount) {
+        boolean handleAvailability = accountService.isHandleAvailable(newAccount.getHandle());
+
+        if(handleAvailability) {
+            accountService.createAccount(newAccount);
         }
+        return new ResponseEntity<>("Handle is not available.", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<Account>> getAllAccounts() {
-        return ResponseEntity.ok(accountService.getAllAccounts());
+        List<Account> accounts = accountService.getAllAccounts();
+        return ResponseEntity.ok(accounts);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Account> getAccountById(@PathVariable Long id) {
-        Optional<Account> exist = accountService.getAccountById(id);
-        return exist.map(account -> new ResponseEntity<>(account, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Account account = accountService.getAccountById(id);
+
+        if(hasValue(account)) {
+            return new ResponseEntity<>(account, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/handle/{handle}")
     public ResponseEntity<Account> getAccountByHandle(@PathVariable String handle) {
-        Optional<Account> exist = accountService.getAccountByHandle(handle);
-        return exist.map(account -> new ResponseEntity<>(account, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Account account = accountService.getAccountByHandle(handle);
+
+        if(hasValue(account)) {
+            return new ResponseEntity<>(account, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        //return exist.map(account -> new ResponseEntity<>(account, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletedAccountById(@PathVariable Long id) {
+    public ResponseEntity<String> deleteAccountById(@PathVariable Long id) {
+        Account account = accountService.getAccountById(id);
 
-        Optional<Account> exist = accountService.getAccountById(id);
-
-        if(exist.isPresent()) {
+        if(hasValue(account)) {
             accountService.deleteAccountById(id);
-            String message = "Account with id " +id+ " has been deleted.";
-
-            return new ResponseEntity<>(message, HttpStatus.OK);
+            return new ResponseEntity<>("Account has been successfully deleted.", HttpStatus.OK);
         }
-
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> fullyUpdateAccountById(@PathVariable Long id, @Valid @RequestBody CreateAccountDTO updatedAccount) {
-        Account exist = accountService.getExistingAccount(id);
-        if(exist != null) {
-                accountService.fullyUpdateAccountById(exist, updatedAccount);
-                return new ResponseEntity<>("Account with id " +id+ " has been fully replaced.", HttpStatus.OK);
+    public ResponseEntity<String> putAccountById(@PathVariable Long id, @Valid @RequestBody CreateAccountDTO updatedAccount) {
+        Account account = accountService.getAccountById(id);
+
+        if(hasValue(account)) {
+            accountService.putAccountById(account, updatedAccount);
+            return new ResponseEntity<>("Account has been fully updated.", HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<String> partiallyEditAccountById(@PathVariable Long id, @RequestBody EditAccountDTO patchedAccount) {
+    public ResponseEntity<String> patchAccountById(@PathVariable Long id, @RequestBody UpdateAccountDTO updatedAccount) {
+        Account account = accountService.getAccountById(id);
 
-        Account exist = accountService.getExistingAccount(id);
-
-        if(exist != null) {
-            if(!(patchedAccount.getName() != null && patchedAccount.getHandle() != null)) {
-                accountService.partiallyEditAccountById(exist, patchedAccount);
-                return new ResponseEntity<>("Account with id " +id+ " has been partially edited.", HttpStatus.OK);
+        if(hasValue(account)) {
+            //if only one field has a value
+            if(!(updatedAccount.getName() != null && updatedAccount.getHandle() != null)) {
+                accountService.patchAccountById(account, updatedAccount);
+                return new ResponseEntity<>("Account has been partially updated.", HttpStatus.OK);
             }
-            return new ResponseEntity<>("An all-fields value change requires a PUT request.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Updating every field is a PUT request.", HttpStatus.BAD_REQUEST);
         }
-
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    public static boolean hasValue(Account account) {
+        return account != null;
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
-
         Map<String, String> errors = new HashMap<>();
-
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
-
         return errors;
     }
 
