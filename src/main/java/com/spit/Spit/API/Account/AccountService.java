@@ -1,8 +1,6 @@
 package com.spit.Spit.API.Account;
 
 import com.spit.Spit.API.Tools.DtoMapper;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,21 +8,22 @@ import java.util.List;
 @Service
 public class AccountService {
 
+    public static final String ACCOUNT_SAVED = "Account has been successfully saved.";
     private final AccountRepository accountRepository;
 
     public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
 
-    public ResponseEntity<String> createAccount(CreateAccountDTO newAccount) {
+    public String createAccount(CreateAccountDTO newAccount) {
         Account account = DtoMapper.fromCreateAccountDTO(newAccount);
 
         try{
             accountRepository.save(account);
         }catch (Exception e){
-            return new ResponseEntity<>("Account failed to save.", HttpStatus.INTERNAL_SERVER_ERROR);
+            return "Account failed to save.";
         }
-        return new ResponseEntity<>("Account has been successfully saved.", HttpStatus.CREATED);
+        return ACCOUNT_SAVED;
     }
 
     public List<Account> getAllAccounts() {

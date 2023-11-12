@@ -41,7 +41,7 @@ public class DtoMapperTest {
 //        AccountServices accountServices = mock(AccountServices.class);
         Account account = new Account();
 
-        when(accountServices.getExistingAccount(expected.getAccountId())).thenReturn(account);
+        when(accountServices.getAccountById(expected.getAccountId())).thenReturn(account);
         Post actual = DtoMapper.fromCreatePostDTO(expected);
 
         assertThat(actual.getAccount()).isEqualTo(account);

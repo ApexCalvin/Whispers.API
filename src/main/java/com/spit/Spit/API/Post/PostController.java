@@ -25,11 +25,11 @@ public class PostController {
     @PostMapping("/add")
     public ResponseEntity<String> createPost(@Valid @RequestBody CreatePostDTO postDTO) {
 
-        Optional<Account> exist = accountServices.getAccountById(postDTO.getAccountId());
+        Optional<Account> exist = Optional.ofNullable(accountServices.getAccountById(postDTO.getAccountId()));
 
         if(exist.isEmpty()) {
             String message = "Associated account does not exist.";
-            return new ResponseEntity<String>(message, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
 
         Post post = new Post();
@@ -48,7 +48,7 @@ public class PostController {
 
     @GetMapping("/handle/{handle}")
     public ResponseEntity<List<GetPostDTO>> getPostsByHandle(@PathVariable String handle) {
-        Optional<Account> exist = accountServices.getAccountByHandle(handle);
+        Optional<Account> exist = Optional.ofNullable(accountServices.getAccountByHandle(handle));
 
         if(exist.isPresent()) {
             List<GetPostDTO> posts = postServices.getPostsByHandleDESC(handle);

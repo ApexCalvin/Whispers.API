@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.spit.Spit.API.Account.AccountService.ACCOUNT_SAVED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -37,7 +38,7 @@ public class AccountServiceTest {
         String actual = subject.createAccount(createAccountDTO);
 
         verify(accountRepository).save(any(Account.class));
-        assertThat(actual).isEqualTo("Account successfully saved");
+        assertThat(actual).isEqualTo(ACCOUNT_SAVED);
     }
 
     @Test
@@ -48,7 +49,7 @@ public class AccountServiceTest {
 
         String actual = subject.createAccount(createAccountDTO);
 
-        assertThat(actual).isEqualTo("Account failed to save");
+        assertThat(actual).isEqualTo("Account failed to save.");
     }
 
     @Test
@@ -68,7 +69,7 @@ public class AccountServiceTest {
         expected.setHandle("A-train");
         Account actual = new Account();
 
-        subject.fullyUpdateAccountById(actual, expected);
+        subject.putAccountById(actual, expected);
 
         verify(accountRepository).save(actual);
         assertThat(actual.getHandle()).isEqualTo(expected.getHandle());

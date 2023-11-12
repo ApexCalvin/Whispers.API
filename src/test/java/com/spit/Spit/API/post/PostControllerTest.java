@@ -41,7 +41,7 @@ public class PostControllerTest {
         postDTO.setMessage("Hello");
 
         when(accountServices.getAccountById(postDTO.getAccountId()))
-                .thenReturn(Optional.empty());
+                .thenReturn(null);
 
         ResponseEntity<String> re = postController.createPost(postDTO);
 
@@ -60,7 +60,7 @@ public class PostControllerTest {
         Account account = new Account("John", "Doe");
         account.setAccount_id(1L);
         Optional<Account> optionalAcc = Optional.of(account);
-        when(accountServices.getAccountById(postDTO.getAccountId())).thenReturn(optionalAcc);
+        when(accountServices.getAccountById(postDTO.getAccountId())).thenReturn(account);
 
         ResponseEntity<String> actual = postController.createPost(postDTO);
 
@@ -97,7 +97,7 @@ public class PostControllerTest {
         String handle = "Starlight";
         Account account = new Account("Her", "Starlight");
         Optional<Account> optionalAcc = Optional.of(account);
-        when(accountServices.getAccountByHandle(handle)).thenReturn(optionalAcc);
+        when(accountServices.getAccountByHandle(handle)).thenReturn(account);
 
         List<GetPostDTO> posts = new ArrayList<>();
         posts.add(new GetPostDTO());
@@ -113,7 +113,7 @@ public class PostControllerTest {
     @Test
     void getPostByHandle_AccountNotFound(){
         String handle = "Translucent";
-        when(accountServices.getAccountByHandle(handle)).thenReturn(Optional.empty());
+        when(accountServices.getAccountByHandle(handle)).thenReturn(null);
 
         ResponseEntity<List<GetPostDTO>> actual = postController.getPostsByHandle(handle);
 

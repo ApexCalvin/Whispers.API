@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.spit.Spit.API.Account.AccountService.ACCOUNT_SAVED;
+
 @RestController
 @RequestMapping("/account")
 public class AccountController {
@@ -26,7 +28,12 @@ public class AccountController {
         boolean handleAvailability = accountService.isHandleAvailable(newAccount.getHandle());
 
         if(handleAvailability) {
-            accountService.createAccount(newAccount);
+            String message = accountService.createAccount(newAccount);
+            if(message.equals(ACCOUNT_SAVED)){
+                return new ResponseEntity<>(message, HttpStatus.CREATED);
+            }else {
+                return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
         return new ResponseEntity<>("Handle is not available.", HttpStatus.BAD_REQUEST);
     }
