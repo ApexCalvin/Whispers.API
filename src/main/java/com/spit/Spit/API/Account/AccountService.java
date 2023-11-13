@@ -34,7 +34,7 @@ public class AccountService {
         return accountRepository.findById(id).orElse(null);
     }
 
-    public Account getAccountByHandle(String handle) {
+    public Account getAccountByHandle(String handle) { //TODO: test "null response" on postman
         return accountRepository.findByHandle(handle);
         //return Optional.ofNullable(accountRepository.findByHandle(handle));
     }
@@ -59,16 +59,4 @@ public class AccountService {
         Account exist = getAccountByHandle(handle);
         return exist != null;
     }
-
-//    public Account getExistingAccount(Long id) {
-//        return getAccountById(id).orElse(null);
-//    }
-
-//    public boolean isHandleAvailable2(String handle) {
-//        List<Account> accounts = getAllAccounts();
-//        for (Account a : accounts) {
-//            if (a.getHandle().equals(handle)) return false;
-//        }
-//        return true;
-//    }
 }
