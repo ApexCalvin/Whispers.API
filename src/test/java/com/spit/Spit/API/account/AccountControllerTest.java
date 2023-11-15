@@ -1,9 +1,9 @@
 package com.spit.Spit.API.account;
 
-import com.spit.Spit.API.Account.Account;
 import com.spit.Spit.API.Account.AccountController;
 import com.spit.Spit.API.Account.AccountService;
 import com.spit.Spit.API.Account.CreateAccountDTO;
+import com.spit.Spit.API.Account.Account;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -15,6 +15,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class AccountControllerTest {
@@ -118,25 +119,78 @@ public class AccountControllerTest {
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
-    void deleteAccountById() {}
+    @Test
+    void deleteAccountById() {
+        Long id = 2L;
+        Account account = new Account();
+        account.setAccount_id(id);
+        when(accountService.getAccountById(any(Long.class))).thenReturn(account);
 
-    void deleteAccountById_notFound() {}
+        ResponseEntity<String> actual = subject.deleteAccountById(id);
+
+        verify(accountService).deleteAccountById(any(Long.class));
+        assertThat(actual.getBody()).isEqualTo("Account has been successfully deleted.");
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    @Test
+    void deleteAccountById_notFound() {
+        when(accountService.getAccountById(any(Long.class))).thenReturn(null);
+
+        ResponseEntity<String> actual = subject.deleteAccountById(2L);
+
+        assertThat(actual.getBody()).isEqualTo(null);
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
 
     void deleteAccountById_deleteError() {} //TODO
 
-    void putAccountById() {}
+    @Test
+    void putAccountById() {
+        CreateAccountDTO account = new CreateAccountDTO();
+        account.setHandle("A-train");
+        account.setName("Reggie");
+        when(accountService.getAccountById(any(Long.class))).thenReturn(new Account());
 
-    void putAccountById_notFound() {}
+        ResponseEntity<String> actual = subject.putAccountById(2L, account);
 
-    void patchAccountById() {}
+        verify(accountService).putAccountById(any(Account.class), any(CreateAccountDTO.class));
+        assertThat(actual.getBody()).isEqualTo("Account has been fully updated.");
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    @Test
+    void putAccountById_notFound() {
+        when(accountService.getAccountById(any(Long.class))).thenReturn(null);
+
+        ResponseEntity<String> actual = subject.putAccountById(2L, new CreateAccountDTO());
+
+        assertThat(actual.getBody()).isEqualTo(null);
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    void patchAccountById_patchHandle() {
+    }
+
+    void patchAccountById_patchName() {}
 
     void patchAccountById_Error_putRequest() {}
 
     void patchAccountById_notFound() {}
 
-    void hasValue_true() {}
+    @Test
+    void hasValue_true() {
+        Account account = new Account();
+        boolean actual = subject.hasValue(account);
 
-    void hasValue_false() {}
+        assertThat(actual).isTrue();
+    }
+
+    @Test
+    void hasValue_false() {
+        boolean actual = subject.hasValue(null);
+        assertThat(actual).isFalse();
+    }
 
     void handleValidationExceptions() {}
 }
