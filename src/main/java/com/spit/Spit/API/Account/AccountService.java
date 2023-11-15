@@ -15,15 +15,10 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    public String createAccount(CreateAccountDTO newAccount) {
+    public Account createAccount(CreateAccountDTO newAccount) {
         Account account = DtoMapper.fromCreateAccountDTO(newAccount);
-
-        try{
-            accountRepository.save(account);
-        }catch (Exception e){
-            return "Account failed to save.";
-        }
-        return ACCOUNT_SAVED;
+        accountRepository.save(account);
+        return account;
     }
 
     public List<Account> getAllAccounts() {

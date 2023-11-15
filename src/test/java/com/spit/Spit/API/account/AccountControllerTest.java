@@ -1,9 +1,10 @@
 package com.spit.Spit.API.account;
 
+import com.spit.Spit.API.Account.UpdateAccountDTO;
+import com.spit.Spit.API.Account.Account;
 import com.spit.Spit.API.Account.AccountController;
 import com.spit.Spit.API.Account.AccountService;
 import com.spit.Spit.API.Account.CreateAccountDTO;
-import com.spit.Spit.API.Account.Account;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,7 +18,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -30,33 +30,18 @@ public class AccountControllerTest {
     @Mock
     AccountService accountService;
 
-    //change static on hasValue
-    @Test //TODO
+    @Test
     void createAccount() {
         CreateAccountDTO account = new CreateAccountDTO();
         account.setHandle("Test");
         //when(accountService.isHandleAvailable(nullable(String.class))).thenReturn(true);
         when(accountService.isHandleAvailable(any(String.class))).thenReturn(true);
-        String s = "Account has been successfully saved.";
-        when(accountService.createAccount(any(CreateAccountDTO.class))).thenReturn(s);
+        when(accountService.createAccount(any(CreateAccountDTO.class))).thenReturn(new Account());
 
-        ResponseEntity<String> actual = subject.createAccount(account);
+        ResponseEntity<Account> actual = subject.createAccount(account);
 
-        assertThat(actual.getBody()).isEqualTo(s);
+        assertThat(actual.getBody()).isInstanceOf(Account.class);
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-    }
-
-    @Test
-    void createAccount_saveError() {
-        CreateAccountDTO account = new CreateAccountDTO();
-        account.setHandle("Test");
-        when(accountService.isHandleAvailable(any(String.class))).thenReturn(true);
-        when(accountService.createAccount(account)).thenReturn("else");
-
-        ResponseEntity<String> actual = subject.createAccount(account);
-
-        assertThat(actual.getBody()).isEqualTo("Account has been successfully saved.");
-        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Test
@@ -65,9 +50,9 @@ public class AccountControllerTest {
         account.setHandle("Test");
         when(accountService.isHandleAvailable(any(String.class))).thenReturn(false);
 
-        ResponseEntity<String> actual = subject.createAccount(account);
+        ResponseEntity<Account> actual = subject.createAccount(account);
 
-        assertThat(actual.getBody()).isEqualTo("Handle is not available.");
+        assertThat(actual.getBody()).isNull();
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
@@ -152,8 +137,6 @@ public class AccountControllerTest {
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
-    void deleteAccountById_deleteError() {} //TODO
-
     @Test
     void putAccountById() {
         CreateAccountDTO account = new CreateAccountDTO();
@@ -177,28 +160,52 @@ public class AccountControllerTest {
         assertThat(actual.getBody()).isEqualTo(null);
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
-
+    @Test
     void patchAccountById_patchHandle() {
-    }
-
-    void patchAccountById_patchName() {}
-
-    void patchAccountById_Error_putRequest() {}
-
-    void patchAccountById_notFound() {}
-
-    @Test
-    void hasValue_true() {
+        UpdateAccountDTO updateAccountDTO = new UpdateAccountDTO();
+        updateAccountDTO.setHandle("Homelander");
         Account account = new Account();
-        boolean actual = subject.hasValue(account);
+        when(accountService.getAccountById(1L)).thenReturn(account);
 
-        assertThat(actual).isTrue();
+        ResponseEntity<String> actual = subject.patchAccountById(1L, updateAccountDTO);
+
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(actual.getBody()).isEqualTo("Account has been partially updated.");
+    }
+    @Test
+    void patchAccountById_patchName() {
+        UpdateAccountDTO updateAccountDTO = new UpdateAccountDTO();
+        updateAccountDTO.setName("Billy");
+        Account account = new Account();
+        when(accountService.getAccountById(1L)).thenReturn(account);
+
+        ResponseEntity<String> actual = subject.patchAccountById(1L, updateAccountDTO);
+
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(actual.getBody()).isEqualTo("Account has been partially updated.");
     }
 
     @Test
-    void hasValue_false() {
-        boolean actual = subject.hasValue(null);
-        assertThat(actual).isFalse();
+    void patchAccountById_notFound() {
+        UpdateAccountDTO updateAccountDTO = new UpdateAccountDTO();
+
+        ResponseEntity<String> actual = subject.patchAccountById(1L, updateAccountDTO);
+
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void patchAccountById_completeUpdate_failsToPatch() {
+        UpdateAccountDTO updateAccountDTO = new UpdateAccountDTO();
+        updateAccountDTO.setName("Billy");
+        updateAccountDTO.setHandle("Butcher");
+        Account account = new Account();
+        when(accountService.getAccountById(1L)).thenReturn(account);
+
+        ResponseEntity<String> actual = subject.patchAccountById(1L, updateAccountDTO);
+
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(actual.getBody()).isEqualTo("Updating every field is a PUT request.");
     }
 
     void handleValidationExceptions() {}

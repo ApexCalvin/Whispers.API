@@ -34,22 +34,15 @@ public class AccountServiceTest {
 
     @Test
     void createAccount_whenAccountIsSaved_returnSuccessMessage() {
-        CreateAccountDTO createAccountDTO = new CreateAccountDTO();
+        CreateAccountDTO expected = new CreateAccountDTO();
+        expected.setHandle("SuperHero");
+        expected.setHandle("Joe");
 
-        String actual = subject.createAccount(createAccountDTO);
+        Account actual = subject.createAccount(expected);
 
         verify(accountRepository).save(any(Account.class));
-        assertThat(actual).isEqualTo(ACCOUNT_SAVED);
-    }
-
-    @Test
-    void createAccount_whenAccountFailsToSave_returnFailureMessage() {
-        CreateAccountDTO createAccountDTO = new CreateAccountDTO();
-        when(accountRepository.save(any(Account.class))).thenThrow(DataIntegrityViolationException.class);
-
-        String actual = subject.createAccount(createAccountDTO);
-
-        assertThat(actual).isEqualTo("Account failed to save.");
+        assertThat(actual.getName()).isEqualTo(expected.getName());
+        assertThat(actual.getHandle()).isEqualTo(expected.getHandle());
     }
 
     @Test

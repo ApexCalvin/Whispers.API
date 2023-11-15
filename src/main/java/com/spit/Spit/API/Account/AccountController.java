@@ -11,8 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.spit.Spit.API.Account.AccountService.ACCOUNT_SAVED;
-
 @RestController
 @RequestMapping("/account")
 public class AccountController {
@@ -24,18 +22,15 @@ public class AccountController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> createAccount(@Valid @RequestBody CreateAccountDTO newAccount) {
+    public ResponseEntity<Account> createAccount(@Valid @RequestBody CreateAccountDTO newAccount) {
         boolean handleAvailability = accountService.isHandleAvailable(newAccount.getHandle());
 
         if(handleAvailability) {
-            String message = accountService.createAccount(newAccount);
-            if(message.equals(ACCOUNT_SAVED)){
-                return new ResponseEntity<>(message, HttpStatus.CREATED);
-            }else {
-                return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            Account account = accountService.createAccount(newAccount);
+                return new ResponseEntity<>(account, HttpStatus.CREATED);
+
         }
-        return new ResponseEntity<>("Handle is not available.", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/all")
@@ -48,7 +43,7 @@ public class AccountController {
     public ResponseEntity<Account> getAccountById(@PathVariable Long id) {
         Account account = accountService.getAccountById(id);
 
-        if(hasValue(account)) {
+        if(account != null) {
             return new ResponseEntity<>(account, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -58,7 +53,7 @@ public class AccountController {
     public ResponseEntity<Account> getAccountByHandle(@PathVariable String handle) {
         Account account = accountService.getAccountByHandle(handle);
 
-        if(hasValue(account)) {
+        if(account != null) {
             return new ResponseEntity<>(account, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -69,7 +64,7 @@ public class AccountController {
     public ResponseEntity<String> deleteAccountById(@PathVariable Long id) {
         Account account = accountService.getAccountById(id);
 
-        if(hasValue(account)) {
+        if(account != null) {
             accountService.deleteAccountById(id);
             return new ResponseEntity<>("Account has been successfully deleted.", HttpStatus.OK);
         }
@@ -80,7 +75,7 @@ public class AccountController {
     public ResponseEntity<String> putAccountById(@PathVariable Long id, @Valid @RequestBody CreateAccountDTO updatedAccount) {
         Account account = accountService.getAccountById(id);
 
-        if(hasValue(account)) {
+        if(account != null) {
             accountService.putAccountById(account, updatedAccount);
             return new ResponseEntity<>("Account has been fully updated.", HttpStatus.OK);
         }
@@ -92,8 +87,7 @@ public class AccountController {
         Account account = accountService.getAccountById(id);
 
         if(account != null) {
-            //if only one field has a value
-            if(!(updatedAccount.getName() != null && updatedAccount.getHandle() != null)) {
+            if(hasOneNullField(updatedAccount)) {
                 accountService.patchAccountById(account, updatedAccount);
                 return new ResponseEntity<>("Account has been partially updated.", HttpStatus.OK);
             }
@@ -102,8 +96,9 @@ public class AccountController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    public static Boolean hasValue(Account account) {
-        return account != null;
+    private static boolean hasOneNullField(UpdateAccountDTO updatedAccount) {
+        return (updatedAccount.getName() != null && updatedAccount.getHandle() == null) ||
+                (updatedAccount.getName() == null && updatedAccount.getHandle() != null);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
