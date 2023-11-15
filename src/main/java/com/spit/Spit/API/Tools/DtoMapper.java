@@ -9,9 +9,11 @@ import com.spit.Spit.API.Post.Post;
 
 public class DtoMapper {
 
-    static AccountService accountServices;
+    private final AccountService accountService;
 
-    private DtoMapper(){}
+    public DtoMapper(AccountService accountService) {
+        this.accountService = accountService;
+    }
 
     public static Account fromCreateAccountDTO(CreateAccountDTO createAccountDTO){
         Account account = new Account();
@@ -22,7 +24,7 @@ public class DtoMapper {
 
     public static Post fromCreatePostDTO(CreatePostDTO createPostDTO){
         Post post = new Post();
-        post.setAccount(accountServices.getAccountById(createPostDTO.getAccountId()));
+        post.setAccount(accountService.getAccountById(createPostDTO.getAccountId()));
         post.setMessage(createPostDTO.getMessage());
         return post;
     }

@@ -1,9 +1,10 @@
 package com.spit.Spit.API.post;
 
-import com.spit.Spit.API.Post.GetPostDTO;
-import com.spit.Spit.API.Post.Post;
+import com.spit.Spit.API.Post.PostService;
 import com.spit.Spit.API.Post.PostRepository;
-import com.spit.Spit.API.Post.PostServices;
+import com.spit.Spit.API.Post.CreatePostDTO;
+import com.spit.Spit.API.Post.Post;
+import com.spit.Spit.API.Post.GetPostDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,78 +24,78 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class PostServiceTest {
 
-    @InjectMocks //dependency injection for the mock beans
-    PostServices postServices; //convention to the name the test object "subject"
+    @InjectMocks
+    PostService subject;
 
     @Mock
     PostRepository postRepository;
 
     @Test
     void createPost() {
-        Long id = 1L;
-        Post post = new Post();
-        post.setId(id);
+        CreatePostDTO post = new CreatePostDTO(1L, "test");
 
-        String expected = "Post with id 1 has been saved.";
-        String actual = postServices.createPost(post);
+        subject.createPost(post);
 
         verify(postRepository).save(any(Post.class));
-        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
-    void getPostById() {
+    void getAllPosts_returnPostList() {
+        List<Post> expected = new ArrayList<>(Arrays.asList(new Post(), new Post()));
+        when(postRepository.findAll()).thenReturn(expected);
+
+        List<Post> actual = subject.getAllPosts();
+
+        assertThat(actual.size()).isEqualTo(2);
+    }
+
+    @Test
+    void getPostById_returnAccount() {
         Long id = 1L;
         Post post = new Post();
         post.setId(id);
-        Optional<Post> expected = Optional.of(post);
-        when(postRepository.findById(id)).thenReturn(expected);
+        when(postRepository.findById(id)).thenReturn(Optional.of(post));
 
-        Optional<Post> actual = postServices.getPostById(id);
+        Post actual = subject.getPostById(id);
 
-        assertThat(actual.get().getId()).isEqualTo(expected.get().getId());
+        assertThat(actual.getId()).isEqualTo(post.getId());
     }
 
     @Test
-    void getAllPost() {
+    void getPostById_returnNull() {
+        Long id = 1L;
         Post post = new Post();
-        List<Post> posts = new ArrayList<>();
-        posts.add(post);
-        when(postRepository.findAll()).thenReturn(posts);
+        post.setId(id);
+        when(postRepository.findById(id)).thenReturn(Optional.of(post));
 
-        List<Post> actual = postServices.getAllPost();
+        Post actual = subject.getPostById(id);
 
-        assertThat(actual).isEqualTo(posts);
+        assertThat(actual.getId()).isEqualTo(post.getId());
     }
 
     @Test
     void deletePostById() {
-        postServices.deletePostById(1L);
+        subject.deletePostById(1L);
         verify(postRepository).deleteById(any(Long.class));
     }
 
     @Test
-    void getAllPostDESC() {
-        GetPostDTO post = new GetPostDTO();
-        List<GetPostDTO> posts = new ArrayList<>();
-        posts.add(post);
-        when(postRepository.getAllPostsDESC()).thenReturn(posts);
+    void getAllPostDesc() {
+        List<GetPostDTO> posts = new ArrayList<>(Arrays.asList(new GetPostDTO(), new GetPostDTO()));
+        when(postRepository.getAllPostsDesc()).thenReturn(posts);
 
-        List<GetPostDTO> actual = postServices.getAllPostDESC();
+        List<GetPostDTO> actual = subject.getAllPostsDesc();
 
         assertThat(actual).isEqualTo(posts);
     }
 
     @Test
-    void getPostByHandleDESC() {
+    void getPostByHandleDesc() {
         String handle = "SoldierBoy";
-        GetPostDTO post = new GetPostDTO();
-        post.setHandle(handle);
-        List<GetPostDTO> posts = new ArrayList<>();
-        posts.add(post);
-        when(postRepository.getPostsByHandleDESC(handle)).thenReturn(posts);
+        List<GetPostDTO> posts = new ArrayList<>(Arrays.asList(new GetPostDTO(), new GetPostDTO()));
+        when(postRepository.getPostsByHandleDesc(handle)).thenReturn(posts);
 
-        List<GetPostDTO> actual = postServices.getPostsByHandleDESC(handle);
+        List<GetPostDTO> actual = subject.getPostsByHandleDesc(handle);
 
         assertThat(actual).isEqualTo(posts);
     }
