@@ -22,9 +22,7 @@ public class DtoMapperTest {
 
     @Test
     void fromCreateAccountDTO_standardTranslation(){
-        CreateAccountDTO expected = new CreateAccountDTO();
-        expected.setName("FakeName");
-        expected.setHandle("FakeHandle");
+        CreateAccountDTO expected = new CreateAccountDTO("FakeName", "FakeHandle");
 
         Account actual = DtoMapper.fromCreateAccountDTO(expected);
 

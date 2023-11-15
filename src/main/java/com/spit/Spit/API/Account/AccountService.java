@@ -7,18 +7,14 @@ import java.util.List;
 
 @Service
 public class AccountService {
-
-    public static final String ACCOUNT_SAVED = "Account has been successfully saved.";
     private final AccountRepository accountRepository;
 
     public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
 
-    public Account createAccount(CreateAccountDTO newAccount) {
-        Account account = DtoMapper.fromCreateAccountDTO(newAccount);
-        accountRepository.save(account);
-        return account;
+    public void createAccount(CreateAccountDTO newAccount) {
+        accountRepository.save(DtoMapper.fromCreateAccountDTO(newAccount));
     }
 
     public List<Account> getAllAccounts() {
@@ -29,9 +25,8 @@ public class AccountService {
         return accountRepository.findById(id).orElse(null);
     }
 
-    public Account getAccountByHandle(String handle) { //TODO: test "null response" on postman
+    public Account getAccountByHandle(String handle) {
         return accountRepository.findByHandle(handle);
-        //return Optional.ofNullable(accountRepository.findByHandle(handle));
     }
 
     public void deleteAccountById(Long id) {
@@ -51,7 +46,6 @@ public class AccountService {
     }
 
     public Boolean isHandleAvailable(String handle) {
-        Account exist = getAccountByHandle(handle);
-        return exist != null;
+        return getAccountByHandle(handle) == null;
     }
 }

@@ -32,27 +32,24 @@ public class AccountControllerTest {
 
     @Test
     void createAccount() {
-        CreateAccountDTO account = new CreateAccountDTO();
-        account.setHandle("Test");
-        //when(accountService.isHandleAvailable(nullable(String.class))).thenReturn(true);
+        CreateAccountDTO account = new CreateAccountDTO("name", "test");
         when(accountService.isHandleAvailable(any(String.class))).thenReturn(true);
-        when(accountService.createAccount(any(CreateAccountDTO.class))).thenReturn(new Account());
 
-        ResponseEntity<Account> actual = subject.createAccount(account);
+        ResponseEntity<String> actual = subject.createAccount(account);
 
-        assertThat(actual.getBody()).isInstanceOf(Account.class);
+        verify(accountService).createAccount(any(CreateAccountDTO.class));
+        assertThat(actual.getBody()).isEqualTo("Account has been successfully saved.");
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.CREATED);
     }
 
     @Test
     void createAccount_unavailableHandle() {
-        CreateAccountDTO account = new CreateAccountDTO();
-        account.setHandle("Test");
+        CreateAccountDTO account = new CreateAccountDTO(null, "handle");
         when(accountService.isHandleAvailable(any(String.class))).thenReturn(false);
 
-        ResponseEntity<Account> actual = subject.createAccount(account);
+        ResponseEntity<String> actual = subject.createAccount(account);
 
-        assertThat(actual.getBody()).isNull();
+        assertThat(actual.getBody()).isEqualTo("Handle is unavailable.");
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
@@ -139,9 +136,7 @@ public class AccountControllerTest {
 
     @Test
     void putAccountById() {
-        CreateAccountDTO account = new CreateAccountDTO();
-        account.setHandle("A-train");
-        account.setName("Reggie");
+        CreateAccountDTO account = new CreateAccountDTO("Reggie", "A-train");
         when(accountService.getAccountById(any(Long.class))).thenReturn(new Account());
 
         ResponseEntity<String> actual = subject.putAccountById(2L, account);
@@ -160,45 +155,43 @@ public class AccountControllerTest {
         assertThat(actual.getBody()).isEqualTo(null);
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
+
     @Test
     void patchAccountById_patchHandle() {
-        UpdateAccountDTO updateAccountDTO = new UpdateAccountDTO();
-        updateAccountDTO.setHandle("Homelander");
+        UpdateAccountDTO updateAccountDTO = new UpdateAccountDTO(null, "Homelander");
         Account account = new Account();
         when(accountService.getAccountById(1L)).thenReturn(account);
 
         ResponseEntity<String> actual = subject.patchAccountById(1L, updateAccountDTO);
 
+        verify(accountService).patchAccountById(any(Account.class), any(UpdateAccountDTO.class));
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(actual.getBody()).isEqualTo("Account has been partially updated.");
     }
     @Test
     void patchAccountById_patchName() {
-        UpdateAccountDTO updateAccountDTO = new UpdateAccountDTO();
-        updateAccountDTO.setName("Billy");
+        UpdateAccountDTO updateAccountDTO = new UpdateAccountDTO("Billy", null);
         Account account = new Account();
         when(accountService.getAccountById(1L)).thenReturn(account);
 
         ResponseEntity<String> actual = subject.patchAccountById(1L, updateAccountDTO);
 
+        verify(accountService).patchAccountById(any(Account.class), any(UpdateAccountDTO.class));
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(actual.getBody()).isEqualTo("Account has been partially updated.");
     }
 
     @Test
     void patchAccountById_notFound() {
-        UpdateAccountDTO updateAccountDTO = new UpdateAccountDTO();
+        ResponseEntity<String> actual = subject.patchAccountById(1L, new UpdateAccountDTO());
 
-        ResponseEntity<String> actual = subject.patchAccountById(1L, updateAccountDTO);
-
+        assertThat(actual.getBody()).isEqualTo(null);
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
     @Test
     void patchAccountById_completeUpdate_failsToPatch() {
-        UpdateAccountDTO updateAccountDTO = new UpdateAccountDTO();
-        updateAccountDTO.setName("Billy");
-        updateAccountDTO.setHandle("Butcher");
+        UpdateAccountDTO updateAccountDTO = new UpdateAccountDTO("Billy", "Butcher");
         Account account = new Account();
         when(accountService.getAccountById(1L)).thenReturn(account);
 
@@ -208,5 +201,30 @@ public class AccountControllerTest {
         assertThat(actual.getBody()).isEqualTo("Updating every field is a PUT request.");
     }
 
-    void handleValidationExceptions() {}
+    @Test
+    void hasOnlyOneNullField_onlyNameHasValue_returnTrue() {
+        UpdateAccountDTO updateAccountDTO = new UpdateAccountDTO("name", null);
+
+        boolean actual = AccountController.hasOnlyOneNullField(updateAccountDTO);
+
+        assertThat(actual).isTrue();
+    }
+
+    @Test
+    void hasOnlyOneNullField_onlyHandleHasValue_returnTrue() {
+        UpdateAccountDTO updateAccountDTO = new UpdateAccountDTO(null, "handle");
+
+        boolean actual = AccountController.hasOnlyOneNullField(updateAccountDTO);
+
+        assertThat(actual).isTrue();
+    }
+
+    @Test
+    void hasOnlyOneNullField_returnFalse() {
+        UpdateAccountDTO updateAccountDTO = new UpdateAccountDTO("name", "handle");
+
+        boolean actual = AccountController.hasOnlyOneNullField(updateAccountDTO);
+
+        assertThat(actual).isFalse();
+    }
 }

@@ -10,14 +10,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static com.spit.Spit.API.Account.AccountService.ACCOUNT_SAVED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -33,20 +31,16 @@ public class AccountServiceTest {
     AccountRepository accountRepository;
 
     @Test
-    void createAccount_whenAccountIsSaved_returnSuccessMessage() {
-        CreateAccountDTO expected = new CreateAccountDTO();
-        expected.setHandle("SuperHero");
-        expected.setHandle("Joe");
+    void createAccount() {
+        CreateAccountDTO expected = new CreateAccountDTO("Joe", "SuperHero");
 
-        Account actual = subject.createAccount(expected);
+        subject.createAccount(expected);
 
         verify(accountRepository).save(any(Account.class));
-        assertThat(actual.getName()).isEqualTo(expected.getName());
-        assertThat(actual.getHandle()).isEqualTo(expected.getHandle());
     }
 
     @Test
-    void getAllAccounts_returnListOfAccounts() {
+    void getAllAccounts_returnAccountList() {
         List<Account> expected = new ArrayList<>(Arrays.asList(new Account(), new Account()));
         when(accountRepository.findAll()).thenReturn(expected);
 
@@ -56,7 +50,7 @@ public class AccountServiceTest {
     }
 
     @Test
-    void getAccountById() {
+    void getAccountById_returnAccount() {
         Long id = 2L;
         Account account = new Account();
         account.setAccount_id(id);
@@ -64,8 +58,6 @@ public class AccountServiceTest {
 
         Account actual = subject.getAccountById(id);
 
-        //checking for nulls
-        System.out.println(actual.getAccount_id() + " " + account.getAccount_id());
         assertThat(actual.getAccount_id()).isEqualTo(account.getAccount_id());
     }
 
@@ -80,7 +72,7 @@ public class AccountServiceTest {
     }
 
     @Test
-    void getAccountByHandle() {
+    void getAccountByHandle_returnAccount() {
         String handle = "test";
         Account account = new Account();
         account.setHandle(handle);
@@ -88,8 +80,6 @@ public class AccountServiceTest {
 
         Account actual = subject.getAccountByHandle(handle);
 
-        //checking for nulls
-        System.out.println(actual.getHandle() + " " + account.getHandle());
         assertThat(actual.getHandle()).isEqualTo(account.getHandle());
     }
 
@@ -100,7 +90,6 @@ public class AccountServiceTest {
 
         Account actual = subject.getAccountByHandle(handle);
 
-        System.out.println("value: "+ actual);
         assertThat(actual).isEqualTo(null);
     }
 
@@ -110,14 +99,9 @@ public class AccountServiceTest {
         verify(accountRepository).deleteById(any(Long.class));
     }
 
-    //TODO: Fails to delete?
-    void deleteAccountById_returnFailureMessage() {}
-
     @Test
     void putAccountById() {
-        CreateAccountDTO expected = new CreateAccountDTO();
-        expected.setName("Reggie");
-        expected.setHandle("A-train");
+        CreateAccountDTO expected = new CreateAccountDTO("Reggie", "A-train");
         Account actual = new Account();
 
         subject.putAccountById(actual, expected);
@@ -129,39 +113,30 @@ public class AccountServiceTest {
 
     @Test
     void patchAccountById_patchName() {
-        String name = "test";
-        UpdateAccountDTO updatedAccount = new UpdateAccountDTO();
-        updatedAccount.setName(name);
+        UpdateAccountDTO updatedAccount = new UpdateAccountDTO("name", null);
         Account actual = new Account();
 
         subject.patchAccountById(actual, updatedAccount);
 
         verify(accountRepository).save(actual);
-        //checking for nulls
-        System.out.println(actual.getName() + " " + updatedAccount.getName());
         assertThat(actual.getName()).isEqualTo(updatedAccount.getName());
     }
 
     @Test
     void patchAccountById_patchHandle() {
-        String handle = "test";
-        UpdateAccountDTO updatedAccount = new UpdateAccountDTO();
-        updatedAccount.setHandle(handle);
+        UpdateAccountDTO updatedAccount = new UpdateAccountDTO(null, "handle");
         Account actual = new Account();
 
         subject.patchAccountById(actual, updatedAccount);
 
         verify(accountRepository).save(actual);
-        //checking for nulls
-        System.out.println(actual.getHandle() + " " + updatedAccount.getHandle());
         assertThat(actual.getHandle()).isEqualTo(updatedAccount.getHandle());
     }
 
     @Test
     void isHandleAvailable_true() {
         String handle = "Test";
-        Account account = new Account();
-        when(subject.getAccountByHandle(handle)).thenReturn(account);
+        when(subject.getAccountByHandle(handle)).thenReturn(null);
 
         boolean actual = subject.isHandleAvailable(handle);
 
@@ -171,7 +146,8 @@ public class AccountServiceTest {
     @Test
     void isHandleAvailable_false() {
         String handle = "Test";
-        when(subject.getAccountByHandle(handle)).thenReturn(null);
+        Account account = new Account();
+        when(subject.getAccountByHandle(handle)).thenReturn(account);
 
         boolean actual = subject.isHandleAvailable(handle);
 

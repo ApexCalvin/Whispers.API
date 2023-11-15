@@ -22,15 +22,14 @@ public class AccountController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Account> createAccount(@Valid @RequestBody CreateAccountDTO newAccount) {
+    public ResponseEntity<String> createAccount(@Valid @RequestBody CreateAccountDTO newAccount) {
         boolean handleAvailability = accountService.isHandleAvailable(newAccount.getHandle());
 
         if(handleAvailability) {
-            Account account = accountService.createAccount(newAccount);
-                return new ResponseEntity<>(account, HttpStatus.CREATED);
-
+            accountService.createAccount(newAccount);
+            return new ResponseEntity<>("Account has been successfully saved.", HttpStatus.CREATED);
         }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Handle is unavailable.", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/all")
@@ -57,7 +56,6 @@ public class AccountController {
             return new ResponseEntity<>(account, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        //return exist.map(account -> new ResponseEntity<>(account, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/{id}")
@@ -87,7 +85,7 @@ public class AccountController {
         Account account = accountService.getAccountById(id);
 
         if(account != null) {
-            if(hasOneNullField(updatedAccount)) {
+            if(hasOnlyOneNullField(updatedAccount)) {
                 accountService.patchAccountById(account, updatedAccount);
                 return new ResponseEntity<>("Account has been partially updated.", HttpStatus.OK);
             }
@@ -96,7 +94,7 @@ public class AccountController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    private static boolean hasOneNullField(UpdateAccountDTO updatedAccount) {
+    public static boolean hasOnlyOneNullField(UpdateAccountDTO updatedAccount) {
         return (updatedAccount.getName() != null && updatedAccount.getHandle() == null) ||
                 (updatedAccount.getName() == null && updatedAccount.getHandle() != null);
     }
