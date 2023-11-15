@@ -91,7 +91,7 @@ public class AccountController {
     public ResponseEntity<String> patchAccountById(@PathVariable Long id, @RequestBody UpdateAccountDTO updatedAccount) {
         Account account = accountService.getAccountById(id);
 
-        if(hasValue(account)) {
+        if(account != null) {
             //if only one field has a value
             if(!(updatedAccount.getName() != null && updatedAccount.getHandle() != null)) {
                 accountService.patchAccountById(account, updatedAccount);
@@ -102,7 +102,7 @@ public class AccountController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    public static boolean hasValue(Account account) {
+    public static Boolean hasValue(Account account) {
         return account != null;
     }
 

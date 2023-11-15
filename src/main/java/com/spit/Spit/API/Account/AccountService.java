@@ -55,7 +55,7 @@ public class AccountService {
         accountRepository.save(currentAccount);
     }
 
-    public boolean isHandleAvailable(String handle) {
+    public Boolean isHandleAvailable(String handle) {
         Account exist = getAccountByHandle(handle);
         return exist != null;
     }

@@ -5,8 +5,10 @@ import com.spit.Spit.API.Account.AccountService;
 import com.spit.Spit.API.Account.CreateAccountDTO;
 import com.spit.Spit.API.Account.Account;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -15,9 +17,11 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class AccountControllerTest {
 
     @InjectMocks
@@ -30,6 +34,8 @@ public class AccountControllerTest {
     @Test //TODO
     void createAccount() {
         CreateAccountDTO account = new CreateAccountDTO();
+        account.setHandle("Test");
+        //when(accountService.isHandleAvailable(nullable(String.class))).thenReturn(true);
         when(accountService.isHandleAvailable(any(String.class))).thenReturn(true);
         String s = "Account has been successfully saved.";
         when(accountService.createAccount(any(CreateAccountDTO.class))).thenReturn(s);
@@ -43,6 +49,7 @@ public class AccountControllerTest {
     @Test
     void createAccount_saveError() {
         CreateAccountDTO account = new CreateAccountDTO();
+        account.setHandle("Test");
         when(accountService.isHandleAvailable(any(String.class))).thenReturn(true);
         when(accountService.createAccount(account)).thenReturn("else");
 
@@ -55,6 +62,7 @@ public class AccountControllerTest {
     @Test
     void createAccount_unavailableHandle() {
         CreateAccountDTO account = new CreateAccountDTO();
+        account.setHandle("Test");
         when(accountService.isHandleAvailable(any(String.class))).thenReturn(false);
 
         ResponseEntity<String> actual = subject.createAccount(account);
@@ -68,6 +76,7 @@ public class AccountControllerTest {
         List<Account> accountList = new ArrayList<>();
         accountList.add(new Account());
         accountList.add(new Account());
+        when(accountService.getAllAccounts()).thenReturn(accountList);
 
         ResponseEntity<List<Account>> actual = subject.getAllAccounts();
 
