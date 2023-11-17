@@ -22,10 +22,10 @@ public class DtoMapper {
         return account;
     }
 
-    public static Post fromCreatePostDTO(CreatePostDTO createPostDTO){
-        Post post = new Post();
-        post.setAccount(accountService.getAccountById(createPostDTO.getAccountId()));
-        post.setMessage(createPostDTO.getMessage());
-        return post;
-    }
+//    public static Post fromCreatePostDTO(CreatePostDTO createPostDTO){
+//        Post post = new Post();
+//        post.setAccount(accountService.getAccountById(createPostDTO.getAccountId()));
+//        post.setMessage(createPostDTO.getMessage());
+//        return post;
+//    }
 }

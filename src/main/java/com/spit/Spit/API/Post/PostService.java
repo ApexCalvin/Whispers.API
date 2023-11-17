@@ -1,6 +1,6 @@
 package com.spit.Spit.API.Post;
 
-import com.spit.Spit.API.Tools.DtoMapper;
+import com.spit.Spit.API.Account.AccountService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,12 +10,15 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public PostService(PostRepository postRepository) {
+    private final AccountService accountService;
+
+    public PostService(PostRepository postRepository, AccountService accountService) {
         this.postRepository = postRepository;
+        this.accountService = accountService;
     }
 
     public void createPost(CreatePostDTO post) {
-        postRepository.save(DtoMapper.fromCreatePostDTO(post));
+        postRepository.save(DtoMapperfromCreatePostDTO(post));
     }
 
     public Post getPostById(Long id) {
@@ -39,4 +42,12 @@ public class PostService {
     }
 
     //public List<Post> getPostByHashtagDESC(Long id) { return null; }
+
+    public Post DtoMapperfromCreatePostDTO(CreatePostDTO createPostDTO){
+        Post post = new Post();
+        post.setAccount(accountService.getAccountById(createPostDTO.getAccountId()));
+        post.setMessage(createPostDTO.getMessage());
+        return post;
+    }
 }
+

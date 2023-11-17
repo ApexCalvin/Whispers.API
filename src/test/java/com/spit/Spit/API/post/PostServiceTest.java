@@ -1,5 +1,6 @@
 package com.spit.Spit.API.post;
 
+import com.spit.Spit.API.Account.AccountService;
 import com.spit.Spit.API.Post.PostService;
 import com.spit.Spit.API.Post.PostRepository;
 import com.spit.Spit.API.Post.CreatePostDTO;
@@ -32,9 +33,12 @@ public class PostServiceTest {
 
     @Test
     void createPost() {
-        CreatePostDTO post = new CreatePostDTO(1L, "test");
-
-        subject.createPost(post);
+        CreatePostDTO createPostDTO = new CreatePostDTO(1L, "test");
+        Post post = new Post();
+        post.setId(1L);
+        post.setMessage("test");
+        when(subject.DtoMapperfromCreatePostDTO(createPostDTO)).thenReturn(post);
+        subject.createPost(createPostDTO);
 
         verify(postRepository).save(any(Post.class));
     }
