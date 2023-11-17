@@ -3,7 +3,6 @@ package com.spit.Spit.API.Account;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.spit.Spit.API.Post.Post;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
