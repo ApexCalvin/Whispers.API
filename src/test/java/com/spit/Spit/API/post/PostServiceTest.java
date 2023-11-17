@@ -1,5 +1,6 @@
 package com.spit.Spit.API.post;
 
+import com.spit.Spit.API.Account.Account;
 import com.spit.Spit.API.Account.AccountService;
 import com.spit.Spit.API.Post.PostService;
 import com.spit.Spit.API.Post.PostRepository;
@@ -31,13 +32,17 @@ public class PostServiceTest {
     @Mock
     PostRepository postRepository;
 
+    @Mock
+    AccountService accountService;
+
     @Test
     void createPost() {
         CreatePostDTO createPostDTO = new CreatePostDTO(1L, "test");
         Post post = new Post();
         post.setId(1L);
         post.setMessage("test");
-        when(subject.DtoMapperfromCreatePostDTO(createPostDTO)).thenReturn(post);
+        when(accountService.getAccountById(any(Long.class))).thenReturn(new Account());
+
         subject.createPost(createPostDTO);
 
         verify(postRepository).save(any(Post.class));
