@@ -11,38 +11,38 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/comment")
 public class CommentController {
-
-    private final CommentServices commentServices;
-
-    public CommentController(CommentServices commentServices) {
-        this.commentServices= commentServices;
-    }
-
-    @PostMapping("/add")
-    public ResponseEntity<String> createComment(@RequestBody Comment comment) {
-        if (comment.getId() != null) {
-            String message = "Remove comment id when creating.";
-            return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
-        }
-
-        String message = commentServices.createComment(comment);
-        return new ResponseEntity<>(message, HttpStatus.CREATED);
-    }
-
-    @GetMapping("/all")
-    public List<Comment> getAllComments() { return commentServices.getAllComments(); }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletedCommentById(@PathVariable Long id) {
-
-        Optional<Comment> exist = commentServices.getCommentById(id);
-
-        if(exist.isPresent()) {
-            commentServices.deleteCommentById(id);
-            String message = "Comment with id " +id+ " has been deleted.";
-            return new ResponseEntity<>(message, HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+//
+//    private final CommentServices commentServices;
+//
+//    public CommentController(CommentServices commentServices) {
+//        this.commentServices= commentServices;
+//    }
+//
+//    @PostMapping("/add")
+//    public ResponseEntity<String> createComment(@RequestBody Comment comment) {
+//        if (comment.getId() != null) {
+//            String message = "Remove comment id when creating.";
+//            return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
+//        }
+//
+//        String message = commentServices.createComment(comment);
+//        return new ResponseEntity<>(message, HttpStatus.CREATED);
+//    }
+//
+//    @GetMapping("/all")
+//    public List<Comment> getAllComments() { return commentServices.getAllComments(); }
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<String> deletedCommentById(@PathVariable Long id) {
+//
+//        Optional<Comment> exist = commentServices.getCommentById(id);
+//
+//        if(exist.isPresent()) {
+//            commentServices.deleteCommentById(id);
+//            String message = "Comment with id " +id+ " has been deleted.";
+//            return new ResponseEntity<>(message, HttpStatus.OK);
+//        }
+//
+//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    }
 }

@@ -37,7 +37,8 @@ public class PostController {
         Post post = postService.getPostById(id);
 
         if(post != null) {
-            new ResponseEntity<>(post, HttpStatus.OK);
+            System.out.println("In if: " +post);
+            return new ResponseEntity<>(post, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -58,7 +59,6 @@ public class PostController {
 
         if(exist.isPresent()) {
             List<GetPostDTO> posts = postService.getPostsByHandleDesc(handle);
-
             return new ResponseEntity<>(posts, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

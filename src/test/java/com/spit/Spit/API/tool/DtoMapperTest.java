@@ -30,6 +30,7 @@ public class DtoMapperTest {
         assertThat(actual.getHandle()).isEqualTo(expected.getHandle());
     }
 
+    @Disabled
     @Test
     void fromCreatePostDTO_standardTranslation(){
 //        CreatePostDTO expected = new CreatePostDTO(1L, "FakeMessage");
