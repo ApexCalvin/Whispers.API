@@ -1,14 +1,22 @@
 package com.spit.Spit.API.post;
 
+import com.spit.Spit.API.Account.Account;
 import com.spit.Spit.API.Account.AccountService;
+import com.spit.Spit.API.Post.CreatePostDTO;
 import com.spit.Spit.API.Post.PostController;
 import com.spit.Spit.API.Post.PostService;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class PostControllerTest {
@@ -143,9 +151,9 @@ public class PostControllerTest {
 //
 //        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
 //    }
-
-    void editPostById_usingPut(){}
-
-    void editPostById_usingPatch(){}
+//
+//    void editPostById_usingPut(){}
+//
+//    void editPostById_usingPatch(){}
 
 }

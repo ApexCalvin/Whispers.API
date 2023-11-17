@@ -25,8 +25,15 @@ public class AppConfig {
     public void setup(){
 
         Account homelander = new Account("John", "Homelander");
+        Account theDeep = new Account("Kevin", "The Deep");
+        Account aTrain = new Account("Reggie", "A-Train");
+        Account stormFront = new Account("Klara", "Stormfront");
         Account mothersmilk = new Account("Marvin", "Mother's Milk");
-        accountRepository.saveAll(Arrays.asList(homelander, mothersmilk));
+        accountRepository.saveAll(Arrays.asList(    homelander,
+                                                    theDeep,
+                                                    aTrain,
+                                                    stormFront,
+                                                    mothersmilk));
 
         Date date1 = new Date();
         date1.setTime(1234030615354L); // 02/07/2009 12:16:55

@@ -1,7 +1,14 @@
 package com.spit.Spit.API.Post;
 
+import com.spit.Spit.API.Account.Account;
 import com.spit.Spit.API.Account.AccountService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/post")
@@ -15,64 +22,64 @@ public class PostController {
         this.accountService = accountService;
     }
 
-//    @PostMapping("/add")
-//    public ResponseEntity<String> createPost(@Valid @RequestBody CreatePostDTO postDTO) {
-//
-//        Optional<Account> exist = Optional.ofNullable(accountServices.getAccountById(postDTO.getAccountId()));
-//
-//        if(exist.isEmpty()) {
-//            String message = "Associated account does not exist.";
-//            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
-//        }
-//
-//        Post post = new Post();
-//        post.setAccount(exist.get());
-//        post.setMessage(postDTO.getMessage());
-//
-//        String message = postServices.createPost(post);
-//        return new ResponseEntity<>(message, HttpStatus.CREATED);
-//    }
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Post> getPostById(@PathVariable Long id) {
-//        Optional<Post> exist = postServices.getPostById(id);
-//        return exist.map(post -> new ResponseEntity<>(post, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//    }
-//
-//    @GetMapping("/handle/{handle}")
-//    public ResponseEntity<List<GetPostDTO>> getPostsByHandle(@PathVariable String handle) {
-//        Optional<Account> exist = Optional.ofNullable(accountServices.getAccountByHandle(handle));
-//
-//        if(exist.isPresent()) {
-//            List<GetPostDTO> posts = postServices.getPostsByHandleDesc(handle);
-//
-//            return new ResponseEntity<>(posts, HttpStatus.OK);
-//        }
-//
-//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }
-//
-//    @GetMapping("/all")
-//    public ResponseEntity<List<Post>> getAllPosts() {
-//        return new ResponseEntity<>(postServices.getAllPosts(), HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/desc/all")
-//    public ResponseEntity<List<GetPostDTO>> getAllPostsDESC() {
-//        return new ResponseEntity<>(postServices.getAllPostsDesc(), HttpStatus.OK); }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<String> deletePostById(@PathVariable Long id) {
-//
-//        Optional<Post> exist = postServices.getPostById(id);
-//
-//        if(exist.isPresent()) {
-//            postServices.deletePostById(id);
-//            String message = "Post with id " +id+ " has been deleted.";
-//            return new ResponseEntity<>(message, HttpStatus.OK);
-//        }
-//
-//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }
+    @PostMapping("/add")
+    public ResponseEntity<String> createPost(@Valid @RequestBody CreatePostDTO postDTO) {
+        Account account = accountService.getAccountById(postDTO.getAccountId());
 
+        if(account == null) return new ResponseEntity<>("Associated account does not exist.", HttpStatus.NOT_FOUND);
+
+        postService.createPost(postDTO);
+        return new ResponseEntity<>("Post has been successfully saved.", HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Post> getPostById(@PathVariable Long id) {
+        Post post = postService.getPostById(id);
+
+        if(post != null) {
+            new ResponseEntity<>(post, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Post>> getAllPosts() {
+        return ResponseEntity.ok(postService.getAllPosts());
+    }
+
+    @GetMapping("/desc/all")
+    public ResponseEntity<List<GetPostDTO>> getAllPostsDesc() {
+        return new ResponseEntity<>(postService.getAllPostsDesc(), HttpStatus.OK);
+    }
+
+    @GetMapping("/handle/{handle}")
+    public ResponseEntity<List<GetPostDTO>> getAllPostsByHandleDesc(@PathVariable String handle) {
+        Optional<Account> exist = Optional.ofNullable(accountService.getAccountByHandle(handle));
+
+        if(exist.isPresent()) {
+            List<GetPostDTO> posts = postService.getPostsByHandleDesc(handle);
+
+            return new ResponseEntity<>(posts, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePostById(@PathVariable Long id) {
+        Post post = postService.getPostById(id);
+
+        if(post != null) {
+            postService.deletePostById(id);
+            return new ResponseEntity<>("Account has been successfully deleted.", HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    public ResponseEntity<String> putPostById() {
+        return null;
+    }
+
+    public ResponseEntity<String> patchPostById() {
+        return null;
+    }
 }
