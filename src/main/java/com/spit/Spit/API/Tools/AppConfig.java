@@ -2,6 +2,8 @@ package com.spit.Spit.API.Tools;
 
 import com.spit.Spit.API.Account.Account;
 import com.spit.Spit.API.Account.AccountRepository;
+import com.spit.Spit.API.Comment.Comment;
+import com.spit.Spit.API.Comment.CommentRepository;
 import com.spit.Spit.API.Post.Post;
 import com.spit.Spit.API.Post.PostRepository;
 import jakarta.annotation.PostConstruct;
@@ -20,6 +22,9 @@ public class AppConfig {
 
     @Autowired
     AccountRepository accountRepository;
+
+    @Autowired
+    CommentRepository commentRepository;
 
     @PostConstruct
     public void setup(){
@@ -49,6 +54,23 @@ public class AppConfig {
         date3.setTime(1234859682534L); // 03/21/2009 16:08:02
         Post post3 = new Post(date3, "Homelander message 2", homelander);
         postRepository.save(post3);
+
+        Comment comment1 = new Comment();
+        comment1.setMessage("Comment 1, post 1");
+        //comment1.setAccount(2L);
+        //comment1.setPost(1L);
+
+        Comment comment2 = new Comment();
+        comment2.setMessage("Comment 2, post 1");
+        //comment2.setAccount(3L);
+        //comment2.setPost(1L);
+
+        Comment comment3 = new Comment();
+        comment3.setMessage("Comment 1, post 2");
+        //comment3.setAccount(4L);
+        //comment4.setPost(2L);
+
+        commentRepository.saveAll(Arrays.asList(comment1, comment2, comment3));
 
 //        try {
 //            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
