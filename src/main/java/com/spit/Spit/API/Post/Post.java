@@ -12,7 +12,7 @@ import java.util.Date;
 @NamedNativeQuery(
         name = "getAllPostsDesc-query",
         query = """
-                SELECT a.handle, a.name, p.date, p.message FROM account a
+                SELECT a.handle, a.name, p.date, p.message, p.id FROM account a
                 JOIN post p ON a.account_id = p.account_id
                 ORDER BY p.date DESC
                 """,
@@ -22,7 +22,7 @@ import java.util.Date;
 @NamedNativeQuery(
         name = "getPostsByHandleDesc-query",
         query = """
-                SELECT a.handle, a.name, p.date, p.message FROM account a
+                SELECT a.handle, a.name, p.date, p.message, p.id FROM account a
                 JOIN post p ON a.account_id = p.account_id
                 WHERE a.handle = :handle
                 ORDER BY p.date DESC;
@@ -34,6 +34,7 @@ import java.util.Date;
         name = "mapToGetPostDTO",
         classes =   @ConstructorResult( targetClass = GetPostDTO.class,
                                         columns = {
+                                            @ColumnResult(name = "id", type = Long.class),
                                             @ColumnResult(name = "name", type = String.class),
                                             @ColumnResult(name = "handle", type = String.class),
                                             @ColumnResult(name = "date", type = Date.class),

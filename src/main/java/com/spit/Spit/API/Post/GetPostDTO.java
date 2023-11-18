@@ -11,6 +11,8 @@ import java.util.Date;
 @Data
 public class GetPostDTO {
 
+    private Long id;
+
     private String name;
 
     private String handle;
