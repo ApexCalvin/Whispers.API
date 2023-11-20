@@ -43,10 +43,10 @@ public class Comment {
     private Date date = new Date();
     private String message;
 
-//    @ManyToOne
-//    @JoinColumn(name = "id")
-//    @JsonBackReference
-//    private Post post;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    @JsonBackReference
+    private Post post;
 //
 //    @ManyToOne
 //    @JoinColumn(name = "account_id")

@@ -21,13 +21,20 @@ public class CommentController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> createComment(@Valid @RequestBody CreateCommentDTO createCommentDTO) {
+    public ResponseEntity<String> createComment(@RequestBody CreateCommentDTO createCommentDTO) {
+        if(createCommentDTO.getAccountId() == null
+                || createCommentDTO.getPostId() == null
+                || createCommentDTO.getMessage() == null
+        ) {
+            return new ResponseEntity<>("All fields are required.", HttpStatus.BAD_REQUEST);
+        }
+
         commentService.createComment(createCommentDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-//    @GetMapping("/all")
-//    public List<Comment> getAllComments() { return commentServices.getAllComments(); }
+//    @GetMapping("/all/desc")
+//    public ResponseEntity<List<Comment>> getAllCommentsDesc() { return ResponseEntity.ok(commentServices.getAllCommentsDesc()); }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletedCommentById(@PathVariable Long id) {

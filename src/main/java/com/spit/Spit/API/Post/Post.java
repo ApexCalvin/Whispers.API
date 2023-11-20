@@ -1,13 +1,16 @@
 package com.spit.Spit.API.Post;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.spit.Spit.API.Account.Account;
+import com.spit.Spit.API.Comment.Comment;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @NamedNativeQuery(
         name = "getAllPostsDesc-query",
@@ -66,6 +69,11 @@ public class Post {
 
     @Transient
     private String accountHandle;
+
+    @OneToMany( mappedBy = "post",
+                cascade = CascadeType.ALL) //deleting the account also deletes children (posts, comments)
+    @JsonManagedReference
+    private List<Comment> comments;
 
     public Post(Date date, String message, Account account) {
         this.date = date;
