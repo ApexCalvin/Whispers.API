@@ -32,6 +32,8 @@ public class LikeService {
         return likeRepository.save(postLike);
     }
 
+
+
     public PostLike getLikeById(Long id) {
         return likeRepository.findById(id).orElse(null);
     }
@@ -49,6 +51,9 @@ public class LikeService {
     }
 
     public PostLike getLikeByHandleAndPost(String handle, Long postId) {
-        return null;
+        return likeRepository.findByAccountHandleAndPostId(handle, postId);
+    }
+    public boolean doesUserAlreadyLikePost(CreateLikeDTO likeDTO) {
+        return getLikeByHandleAndPost(likeDTO.getAccountHandle(), likeDTO.getPostId()) != null;
     }
 }

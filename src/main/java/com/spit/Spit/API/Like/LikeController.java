@@ -16,8 +16,12 @@ public class LikeController {
 
     @PostMapping
     public ResponseEntity<PostLike> createLike(@RequestBody CreateLikeDTO likeDTO) {
-        PostLike createdPostLike = likeService.createLike(likeDTO);
-        return new ResponseEntity<>(createdPostLike, HttpStatus.CREATED);
+        if(likeService.doesUserAlreadyLikePost(likeDTO)){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }else {
+            PostLike createdPostLike = likeService.createLike(likeDTO);
+            return new ResponseEntity<>(createdPostLike, HttpStatus.CREATED);
+        }
     }
 
     @GetMapping("/{id}")
