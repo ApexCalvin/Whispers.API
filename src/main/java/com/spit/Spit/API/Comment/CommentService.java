@@ -1,7 +1,7 @@
 package com.spit.Spit.API.Comment;
 
 import com.spit.Spit.API.Account.AccountService;
-import com.spit.Spit.API.Post.Post;
+import com.spit.Spit.API.Post.GetPostDTO;
 import com.spit.Spit.API.Post.PostService;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class CommentService {
         Comment comment = new Comment();
         comment.setMessage(createCommentDTO.getMessage());
 //        comment.setAccount(accountService.getAccountById(createCommentDTO.getAccountId()));
-//        comment.setPost(postService.getPostById(createCommentDTO.getPostId()));
+        comment.setPost(postService.getPostById(createCommentDTO.getPostId()));
         commentRepository.save(comment);
     }
 
@@ -32,8 +32,8 @@ public class CommentService {
         return commentRepository.findById(id).orElse(null);
     }
 
-    public List<Post> getAllCommentsByPostDESC() { //TODO: Create method
-        return null;
+    public List<GetCommentDTO> getAllCommentsByPost(Long postId) {
+        return commentRepository.getAllCommentsByPost(postId);
     }
 
     public void deleteCommentById(Long id) {

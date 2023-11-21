@@ -11,30 +11,31 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-//@NamedNativeQuery(
-//        name = "getAllPostsDesc-query",
-//        query = """
-//                SELECT a.handle, a.name, p.date, p.message FROM account a
-//                JOIN post p ON a.account_id = p.account_id
-//                ORDER BY p.date DESC
-//                """,
-//        resultSetMapping = "mapToGetPostDTO"
-//)
+@NamedNativeQuery(
+        name = "getAllCommentsByPost-query",
+        query = """
+                SELECT c.id, c.date, c.message FROM comment c
+                WHERE c.post_id = :postId
+                """,
+        resultSetMapping = "mapToGetCommentDTO"
+)
 
-//@SqlResultSetMapping(
-//        name = "mapToGetPostDTO",
-//        classes =   @ConstructorResult( targetClass = GetPostDTO.class,
-//                columns = {
-//                        @ColumnResult(name = "name", type = String.class),
-//                        @ColumnResult(name = "handle", type = String.class),
-//                        @ColumnResult(name = "date", type = Date.class),
-//                        @ColumnResult(name = "message", type = String.class)
-//                }))
+@SqlResultSetMapping(
+        name = "mapToGetCommentDTO",
+        classes =   @ConstructorResult( targetClass = GetCommentDTO.class,
+                                        columns = {
+                                                @ColumnResult(name = "id", type = Long.class),
+                                                @ColumnResult(name = "date", type = Date.class),
+                                                @ColumnResult(name = "message", type = String.class)
+//                                                @ColumnResult(name = "accountName", type = String.class),
+//                                                @ColumnResult(name = "accountHandle", type = String.class)
+                                        }))
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
+@Table(name = "comment")
 public class Comment {
 
     @Id
@@ -47,8 +48,18 @@ public class Comment {
     @JoinColumn(name = "post_id")
     @JsonBackReference
     private Post post;
+
+    @Transient
+    private Long postId;
 //
 //    @ManyToOne
 //    @JoinColumn(name = "account_id")
 //    private Account account;
+
+    public Long getPostId() {
+        if(post != null) {
+            postId = post.getId();
+        }
+        return postId;
+    }
 }

@@ -32,7 +32,7 @@ public class Account {
     private List<Post> posts;
 
     @OneToMany( mappedBy = "account",
-            cascade = CascadeType.ALL)
+                cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<PostLike> postLikes;
 

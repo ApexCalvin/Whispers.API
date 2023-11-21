@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/comment")
 public class CommentController {
@@ -27,8 +29,10 @@ public class CommentController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-//    @GetMapping("/all/desc")
-//    public ResponseEntity<List<Comment>> getAllCommentsDesc() { return ResponseEntity.ok(commentServices.getAllCommentsDesc()); }
+    @GetMapping("/all/{postId}")
+    public ResponseEntity<List<GetCommentDTO>> getAllComments(@PathVariable Long postId) {
+        return ResponseEntity.ok(commentService.getAllCommentsByPost(postId));
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletedCommentById(@PathVariable Long id) {
