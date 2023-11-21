@@ -13,7 +13,7 @@ public class GetCommentDTO {
 
     private Long id;
 
-    private Date date = new Date();
+    private Date date;
 
     private String message;
 

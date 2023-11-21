@@ -1,4 +1,4 @@
-package Like;
+package com.spit.Spit.API.Like;
 
 import com.spit.Spit.API.Like.LikeController;
 import com.spit.Spit.API.Like.LikeService;

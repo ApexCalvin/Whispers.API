@@ -1,4 +1,4 @@
-package Like;
+package com.spit.Spit.API.Like;
 
 import com.spit.Spit.API.Account.AccountService;
 import com.spit.Spit.API.Like.LikeRepository;
