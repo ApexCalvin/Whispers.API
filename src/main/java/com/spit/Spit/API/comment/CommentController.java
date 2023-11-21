@@ -3,9 +3,13 @@ package com.spit.Spit.API.comment;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/comment")
@@ -17,22 +21,15 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<String> createComment(@RequestBody CreateCommentDTO createCommentDTO) {
-        if(createCommentDTO.getAccountId() == null
-                || createCommentDTO.getPostId() == null
-                || createCommentDTO.getMessage() == null
-        ) {
-            return new ResponseEntity<>("All fields are required.", HttpStatus.BAD_REQUEST);
-        }
-
+    @PostMapping
+    public ResponseEntity<String> createComment(@Valid @RequestBody CreateCommentDTO createCommentDTO) {
         commentService.createComment(createCommentDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>("Comment has been successfully saved.", HttpStatus.CREATED);
     }
 
-    @GetMapping("/all/{postId}")
-    public ResponseEntity<List<GetCommentDTO>> getAllComments(@PathVariable Long postId) {
-        return ResponseEntity.ok(commentService.getAllCommentsByPost(postId));
+    @GetMapping("/{postId}")
+    public ResponseEntity<List<GetCommentDTO>> getAllCommentsByPostId(@PathVariable Long postId) {
+        return ResponseEntity.ok(commentService.getAllCommentsByPostId(postId));
     }
 
     @DeleteMapping("/{id}")
@@ -44,5 +41,17 @@ public class CommentController {
             return new ResponseEntity<>("Comment has been successfully deleted.", HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
     }
 }

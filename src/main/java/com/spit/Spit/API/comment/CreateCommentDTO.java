@@ -12,11 +12,9 @@ import lombok.NoArgsConstructor;
 public class CreateCommentDTO {
 
     @NotNull(message = "Required Field.")
-    @NotBlank(message = "Cannot Be Blank.")
     private Long accountId;
 
     @NotNull(message = "Required Field.")
-    @NotBlank(message = "Cannot Be Blank.")
     private Long postId;
 
     @NotNull(message = "Required Field.")

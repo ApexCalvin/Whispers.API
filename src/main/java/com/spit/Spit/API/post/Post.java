@@ -77,7 +77,7 @@ public class Post {
     private List<Comment> comments;
 
     @OneToMany( mappedBy = "post",
-                cascade = CascadeType.ALL) //deleting the account also deletes children (posts, comments)
+                cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<_Like> likes;
 

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @NamedNativeQuery(
-        name = "getAllCommentsByPost-query",
+        name = "getAllCommentsByPostId-query",
         query = """
                 SELECT c.id, c.date, c.message FROM comment c
                 WHERE c.post_id = :postId
@@ -49,7 +49,7 @@ public class Comment {
 
     @Transient
     private Long postId;
-//
+
 //    @ManyToOne
 //    @JoinColumn(name = "account_id")
 //    private Account account;

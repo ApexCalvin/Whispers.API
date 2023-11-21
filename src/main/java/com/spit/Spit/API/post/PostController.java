@@ -26,12 +26,8 @@ public class PostController {
         this.accountService = accountService;
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<String> createPost(@Valid @RequestBody CreatePostDTO postDTO) {
-//    public ResponseEntity<String> createPost(@RequestBody CreatePostDTO postDTO) {
-
-//        if(postDTO.getAccountId() == null || postDTO.getMessage() == null) return new ResponseEntity<>("All fields are required.", HttpStatus.BAD_REQUEST);
-
         Account account = accountService.getAccountById(postDTO.getAccountId());
 
         if(account == null) return new ResponseEntity<>("Associated account does not exist.", HttpStatus.NOT_FOUND);
@@ -45,18 +41,17 @@ public class PostController {
         Post post = postService.getPostById(id);
 
         if(post != null) {
-            System.out.println("In if: " +post);
             return new ResponseEntity<>(post, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<Post>> getAllPosts() {
         return ResponseEntity.ok(postService.getAllPosts());
     }
 
-    @GetMapping("/desc/all")
+    @GetMapping("/desc")
     public ResponseEntity<List<GetPostDTO>> getAllPostsDesc() {
         return new ResponseEntity<>(postService.getAllPostsDesc(), HttpStatus.OK);
     }
@@ -78,7 +73,7 @@ public class PostController {
 
         if(post != null) {
             postService.deletePostById(id);
-            return new ResponseEntity<>("Account has been successfully deleted.", HttpStatus.OK);
+            return new ResponseEntity<>("Post has been successfully deleted.", HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

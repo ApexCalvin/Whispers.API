@@ -21,7 +21,7 @@ public class AccountController {
         this.accountService = accountServices;
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<String> createAccount(@Valid @RequestBody CreateAccountDTO newAccount) {
         boolean handleAvailability = accountService.isHandleAvailable(newAccount.getHandle());
 
@@ -32,7 +32,7 @@ public class AccountController {
         return new ResponseEntity<>("Handle is unavailable.", HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<Account>> getAllAccounts() {
         List<Account> accounts = accountService.getAllAccounts();
         return ResponseEntity.ok(accounts);

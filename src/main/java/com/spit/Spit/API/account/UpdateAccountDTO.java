@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 public class UpdateAccountDTO {
 
     private String name;
+
     private String handle;
 }

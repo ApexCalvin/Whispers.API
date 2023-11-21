@@ -31,8 +31,8 @@ public class CommentService {
         return commentRepository.findById(id).orElse(null);
     }
 
-    public List<GetCommentDTO> getAllCommentsByPost(Long postId) {
-        return commentRepository.getAllCommentsByPost(postId);
+    public List<GetCommentDTO> getAllCommentsByPostId(Long postId) {
+        return commentRepository.getAllCommentsByPostId(postId);
     }
 
     public void deleteCommentById(Long id) {
