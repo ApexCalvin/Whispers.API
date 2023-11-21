@@ -1,5 +1,9 @@
-package com.spit.Spit.API.Comment;
+package com.spit.Spit.API.comment;
 
+import com.spit.Spit.API.Comment.Comment;
+import com.spit.Spit.API.Comment.CommentController;
+import com.spit.Spit.API.Comment.CommentService;
+import com.spit.Spit.API.Comment.CreateCommentDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
