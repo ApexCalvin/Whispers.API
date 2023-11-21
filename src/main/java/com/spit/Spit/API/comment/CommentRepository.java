@@ -1,4 +1,4 @@
-package com.spit.Spit.API.Comment;
+package com.spit.Spit.API.comment;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

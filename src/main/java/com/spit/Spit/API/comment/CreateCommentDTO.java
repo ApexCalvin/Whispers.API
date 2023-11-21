@@ -1,4 +1,4 @@
-package com.spit.Spit.API.Comment;
+package com.spit.Spit.API.comment;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

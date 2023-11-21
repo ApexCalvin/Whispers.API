@@ -1,10 +1,10 @@
-package com.spit.Spit.API.Post;
+package com.spit.Spit.API.post;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.spit.Spit.API.Account.Account;
-import com.spit.Spit.API.Comment.Comment;
-import com.spit.Spit.API.Like.PostLike;
+import com.spit.Spit.API.account.Account;
+import com.spit.Spit.API.comment.Comment;
+import com.spit.Spit.API.like._Like;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -79,7 +79,7 @@ public class Post {
     @OneToMany( mappedBy = "post",
                 cascade = CascadeType.ALL) //deleting the account also deletes children (posts, comments)
     @JsonManagedReference
-    private List<PostLike> postLikes;
+    private List<_Like> likes;
 
     public Post(Date date, String message, Account account) {
         this.date = date;

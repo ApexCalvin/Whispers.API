@@ -1,4 +1,4 @@
-package com.spit.Spit.API.Post;
+package com.spit.Spit.API.like;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CreatePostDTO {
+public class CreateLikeDTO {
 
     @NotNull(message = "Required Field.")
     @NotBlank(message = "Cannot Be Blank.")
-    private Long accountId;
+    private String accountHandle;
 
     @NotNull(message = "Required Field.")
-    @NotBlank(message = "Cannot Be Blank.")
-    private String message;
+    private Long postId;
+
 }

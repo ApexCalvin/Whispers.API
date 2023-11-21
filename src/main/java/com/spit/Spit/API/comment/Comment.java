@@ -1,9 +1,7 @@
-package com.spit.Spit.API.Comment;
+package com.spit.Spit.API.comment;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.spit.Spit.API.Account.Account;
-import com.spit.Spit.API.Post.GetPostDTO;
-import com.spit.Spit.API.Post.Post;
+import com.spit.Spit.API.post.Post;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

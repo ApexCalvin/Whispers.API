@@ -1,4 +1,4 @@
-package com.spit.Spit.API.Account;
+package com.spit.Spit.API.account;
 
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

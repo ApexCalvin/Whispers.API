@@ -1,4 +1,4 @@
-package com.spit.Spit.API.Comment;
+package com.spit.Spit.API.post;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,15 +9,15 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class GetCommentDTO {
+public class GetPostDTO {
 
     private Long id;
 
-    private Date date;
+    private String name;
+
+    private String handle;
 
     private String message;
 
-    private String accountName;
-
-    private String accountHandle;
+    private Date date;
 }

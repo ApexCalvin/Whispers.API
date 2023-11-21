@@ -1,11 +1,9 @@
-package com.spit.Spit.API.Tools;
+package com.spit.Spit.API.tools;
 
 
-import com.spit.Spit.API.Account.Account;
-import com.spit.Spit.API.Account.AccountService;
-import com.spit.Spit.API.Account.CreateAccountDTO;
-import com.spit.Spit.API.Post.CreatePostDTO;
-import com.spit.Spit.API.Post.Post;
+import com.spit.Spit.API.account.Account;
+import com.spit.Spit.API.account.AccountService;
+import com.spit.Spit.API.account.CreateAccountDTO;
 
 public class DtoMapper {
 

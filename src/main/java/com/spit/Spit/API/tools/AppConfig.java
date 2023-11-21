@@ -1,16 +1,17 @@
-package com.spit.Spit.API.Tools;
+package com.spit.Spit.API.tools;
 
-import com.spit.Spit.API.Account.Account;
-import com.spit.Spit.API.Account.AccountRepository;
-import com.spit.Spit.API.Comment.Comment;
-import com.spit.Spit.API.Comment.CommentRepository;
-import com.spit.Spit.API.Post.Post;
-import com.spit.Spit.API.Post.PostRepository;
+import com.spit.Spit.API.account.Account;
+import com.spit.Spit.API.account.AccountRepository;
+import com.spit.Spit.API.comment.Comment;
+import com.spit.Spit.API.comment.CommentRepository;
+import com.spit.Spit.API.like.LikeRepository;
+import com.spit.Spit.API.like._Like;
+import com.spit.Spit.API.post.Post;
+import com.spit.Spit.API.post.PostRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -25,6 +26,9 @@ public class AppConfig {
 
     @Autowired
     CommentRepository commentRepository;
+
+    @Autowired
+    LikeRepository likeRepository;
 
     @PostConstruct
     public void setup(){
@@ -71,6 +75,26 @@ public class AppConfig {
         comment3.setPost(post2);
 
         commentRepository.saveAll(Arrays.asList(comment1, comment2, comment3));
+
+        _Like like1 = new _Like();
+        like1.setPost(post1);
+        like1.setAccount(stormFront);
+
+        _Like like2 = new _Like();
+        like2.setPost(post2);
+        like2.setAccount(stormFront);
+
+        _Like like3 = new _Like();
+        like3.setPost(post1);
+        like3.setAccount(homelander);
+
+        _Like like4 = new _Like();
+        like4.setPost(post3);
+        like4.setAccount(homelander);
+
+        likeRepository.saveAll(Arrays.asList(like1, like2, like3,
+                like4));
+
 
 //        try {
 //            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");

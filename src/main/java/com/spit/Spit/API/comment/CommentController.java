@@ -1,5 +1,6 @@
-package com.spit.Spit.API.Comment;
+package com.spit.Spit.API.comment;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

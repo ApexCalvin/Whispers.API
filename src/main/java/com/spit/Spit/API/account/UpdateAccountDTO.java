@@ -1,23 +1,14 @@
-package com.spit.Spit.API.Post;
+package com.spit.Spit.API.account;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class GetPostDTO {
-
-    private Long id;
+public class UpdateAccountDTO {
 
     private String name;
-
     private String handle;
-
-    private String message;
-
-    private Date date;
 }

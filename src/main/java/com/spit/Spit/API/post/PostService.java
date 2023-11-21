@@ -1,7 +1,7 @@
-package com.spit.Spit.API.Post;
+package com.spit.Spit.API.post;
 
-import com.spit.Spit.API.Account.Account;
-import com.spit.Spit.API.Account.AccountService;
+import com.spit.Spit.API.account.Account;
+import com.spit.Spit.API.account.AccountService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

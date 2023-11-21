@@ -1,6 +1,6 @@
-package com.spit.Spit.API.Account;
+package com.spit.Spit.API.account;
 
-import com.spit.Spit.API.Tools.DtoMapper;
+import com.spit.Spit.API.tools.DtoMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

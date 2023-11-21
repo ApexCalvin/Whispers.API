@@ -1,9 +1,9 @@
-package com.spit.Spit.API.Like;
+package com.spit.Spit.API.like;
 
-import com.spit.Spit.API.Account.Account;
-import com.spit.Spit.API.Account.AccountService;
-import com.spit.Spit.API.Post.Post;
-import com.spit.Spit.API.Post.PostService;
+import com.spit.Spit.API.account.Account;
+import com.spit.Spit.API.account.AccountService;
+import com.spit.Spit.API.post.Post;
+import com.spit.Spit.API.post.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,23 +22,21 @@ public class LikeService {
         this.postService = postService;
         this.accountService = accountService;
     }
-    public PostLike createLike(CreateLikeDTO likeDTO) {
-        PostLike postLike = new PostLike();
+    public _Like createLike(CreateLikeDTO likeDTO) {
+        _Like like = new _Like();
         Post post = postService.getPostById(likeDTO.getPostId());
-        postLike.setPost(post);
+        like.setPost(post);
         Account account = accountService.getAccountByHandle(likeDTO.getAccountHandle());
-        postLike.setAccount(account);
+        like.setAccount(account);
 
-        return likeRepository.save(postLike);
+        return likeRepository.save(like);
     }
 
-
-
-    public PostLike getLikeById(Long id) {
+    public _Like getLikeById(Long id) {
         return likeRepository.findById(id).orElse(null);
     }
 
-    public List<PostLike> getAllLikes() {
+    public List<_Like> getAllLikes() {
         return likeRepository.findAll();
     }
 
@@ -50,7 +48,7 @@ public class LikeService {
         return false;
     }
 
-    public PostLike getLikeByHandleAndPost(String handle, Long postId) {
+    public _Like getLikeByHandleAndPost(String handle, Long postId) {
         return likeRepository.findByAccountHandleAndPostId(handle, postId);
     }
     public boolean doesUserAlreadyLikePost(CreateLikeDTO likeDTO) {

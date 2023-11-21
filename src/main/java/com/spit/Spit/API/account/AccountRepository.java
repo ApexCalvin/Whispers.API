@@ -1,4 +1,4 @@
-package com.spit.Spit.API.Account;
+package com.spit.Spit.API.account;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

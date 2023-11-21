@@ -1,4 +1,4 @@
-package com.spit.Spit.API.Like;
+package com.spit.Spit.API.like;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,39 +15,39 @@ public class LikeController {
     private LikeService likeService;
 
     @PostMapping
-    public ResponseEntity<PostLike> createLike(@RequestBody CreateLikeDTO likeDTO) {
+    public ResponseEntity<_Like> createLike(@RequestBody CreateLikeDTO likeDTO) {
         if(likeService.doesUserAlreadyLikePost(likeDTO)){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }else {
-            PostLike createdPostLike = likeService.createLike(likeDTO);
-            return new ResponseEntity<>(createdPostLike, HttpStatus.CREATED);
+            _Like createdLike = likeService.createLike(likeDTO);
+            return new ResponseEntity<>(createdLike, HttpStatus.CREATED);
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PostLike> getLikeById(@PathVariable Long id) {
-        PostLike postLike = likeService.getLikeById(id);
-        if (postLike != null) {
-            return new ResponseEntity<>(postLike, HttpStatus.OK);
+    public ResponseEntity<_Like> getLikeById(@PathVariable Long id) {
+        _Like like = likeService.getLikeById(id);
+        if (like != null) {
+            return new ResponseEntity<>(like, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping("/handle/{handle}/post/{postId}")
-    public ResponseEntity<PostLike> getLikeByHandleAndPost(@PathVariable String handle, @PathVariable Long postId) {
-        PostLike postLike = likeService.getLikeByHandleAndPost(handle, postId);
-        if (postLike != null) {
-            return new ResponseEntity<>(postLike, HttpStatus.OK);
+    public ResponseEntity<_Like> getLikeByHandleAndPost(@PathVariable String handle, @PathVariable Long postId) {
+        _Like like = likeService.getLikeByHandleAndPost(handle, postId);
+        if (like != null) {
+            return new ResponseEntity<>(like, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping
-    public ResponseEntity<List<PostLike>> getAllLikes() {
-        List<PostLike> postLikes = likeService.getAllLikes();
-        return new ResponseEntity<>(postLikes, HttpStatus.OK);
+    public ResponseEntity<List<_Like>> getAllLikes() {
+        List<_Like> likes = likeService.getAllLikes();
+        return new ResponseEntity<>(likes, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

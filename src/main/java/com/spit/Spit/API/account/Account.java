@@ -1,8 +1,8 @@
-package com.spit.Spit.API.Account;
+package com.spit.Spit.API.account;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.spit.Spit.API.Like.PostLike;
-import com.spit.Spit.API.Post.Post;
+import com.spit.Spit.API.like._Like;
+import com.spit.Spit.API.post.Post;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,10 +34,19 @@ public class Account {
     @OneToMany( mappedBy = "account",
                 cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<PostLike> postLikes;
+    private List<_Like> likes;
 
     public Account(String name, String handle) {
         this.name = name;
         this.handle = handle;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "account_id=" + account_id +
+                ", name='" + name + '\'' +
+                ", handle='" + handle + '\'' +
+                '}';
     }
 }

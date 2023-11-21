@@ -1,11 +1,9 @@
 package com.spit.Spit.API.tool;
 
-import com.spit.Spit.API.Account.Account;
-import com.spit.Spit.API.Account.AccountService;
-import com.spit.Spit.API.Account.CreateAccountDTO;
-import com.spit.Spit.API.Post.CreatePostDTO;
-import com.spit.Spit.API.Post.Post;
-import com.spit.Spit.API.Tools.DtoMapper;
+import com.spit.Spit.API.account.Account;
+import com.spit.Spit.API.account.AccountService;
+import com.spit.Spit.API.account.CreateAccountDTO;
+import com.spit.Spit.API.tools.DtoMapper;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class DtoMapperTest {

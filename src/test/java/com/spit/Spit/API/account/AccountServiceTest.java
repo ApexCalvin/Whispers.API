@@ -1,10 +1,5 @@
 package com.spit.Spit.API.account;
 
-import com.spit.Spit.API.Account.AccountService;
-import com.spit.Spit.API.Account.AccountRepository;
-import com.spit.Spit.API.Account.CreateAccountDTO;
-import com.spit.Spit.API.Account.Account;
-import com.spit.Spit.API.Account.UpdateAccountDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

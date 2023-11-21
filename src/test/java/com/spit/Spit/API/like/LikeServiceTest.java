@@ -1,9 +1,7 @@
 package com.spit.Spit.API.like;
 
-import com.spit.Spit.API.Account.AccountService;
-import com.spit.Spit.API.Like.LikeRepository;
-import com.spit.Spit.API.Like.LikeService;
-import com.spit.Spit.API.Post.PostService;
+import com.spit.Spit.API.account.AccountService;
+import com.spit.Spit.API.post.PostService;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

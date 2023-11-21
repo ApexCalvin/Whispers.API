@@ -1,8 +1,7 @@
-package com.spit.Spit.API.Comment;
+package com.spit.Spit.API.comment;
 
-import com.spit.Spit.API.Account.AccountService;
-import com.spit.Spit.API.Post.GetPostDTO;
-import com.spit.Spit.API.Post.PostService;
+import com.spit.Spit.API.account.AccountService;
+import com.spit.Spit.API.post.PostService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

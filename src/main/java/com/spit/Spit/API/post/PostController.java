@@ -1,7 +1,7 @@
-package com.spit.Spit.API.Post;
+package com.spit.Spit.API.post;
 
-import com.spit.Spit.API.Account.Account;
-import com.spit.Spit.API.Account.AccountService;
+import com.spit.Spit.API.account.Account;
+import com.spit.Spit.API.account.AccountService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,10 +27,10 @@ public class PostController {
     }
 
     @PostMapping("/add")
-    //public ResponseEntity<String> createPost(@Valid @RequestBody CreatePostDTO postDTO) {
-    public ResponseEntity<String> createPost(@RequestBody CreatePostDTO postDTO) {
+    public ResponseEntity<String> createPost(@Valid @RequestBody CreatePostDTO postDTO) {
+//    public ResponseEntity<String> createPost(@RequestBody CreatePostDTO postDTO) {
 
-        if(postDTO.getAccountId() == null || postDTO.getMessage() == null) return new ResponseEntity<>("All fields are required.", HttpStatus.BAD_REQUEST);
+//        if(postDTO.getAccountId() == null || postDTO.getMessage() == null) return new ResponseEntity<>("All fields are required.", HttpStatus.BAD_REQUEST);
 
         Account account = accountService.getAccountById(postDTO.getAccountId());
 
@@ -91,15 +91,15 @@ public class PostController {
         return null;
     }
 
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
-//        Map<String, String> errors = new HashMap<>();
-//        ex.getBindingResult().getAllErrors().forEach((error) -> {
-//            String fieldName = ((FieldError) error).getField();
-//            String errorMessage = error.getDefaultMessage();
-//            errors.put(fieldName, errorMessage);
-//        });
-//        return errors;
-//    }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
+    }
 }
