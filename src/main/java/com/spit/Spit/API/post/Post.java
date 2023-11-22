@@ -42,6 +42,7 @@ import java.util.List;
                 INNER JOIN post_like pl ON p.id = pl.post_id
                 INNER JOIN account a ON pl.account_id = a.account_id
                 WHERE pl.account_id = :accountId
+                ORDER BY p.date DESC;
                 """,
         resultSetMapping = "mapToGetPostDTO"
 )
