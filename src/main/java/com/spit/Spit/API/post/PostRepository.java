@@ -10,10 +10,13 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Query(name = "getAllPostsDesc-query", nativeQuery = true)
-    public List<GetPostDTO> getAllPostsDesc();
+    List<GetPostDTO> getAllPostsDesc();
 
     @Query(name = "getPostsByHandleDesc-query", nativeQuery = true)
-    public List<GetPostDTO> getPostsByHandleDesc(String handle);
+    List<GetPostDTO> getPostsByHandleDesc(String handle);
+
+    @Query(name = "getLikedPostsByAccountId", nativeQuery = true)
+    List<GetPostDTO> getLikedPostsByAccountId(Long accountId);
 
     //public List<Post> getPostsByHashtagDESC(Long id);
 }

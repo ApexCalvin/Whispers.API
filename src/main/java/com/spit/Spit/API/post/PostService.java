@@ -46,6 +46,11 @@ public class PostService {
         return postRepository.getPostsByHandleDesc(handle);
     }
 
+    public List<GetPostDTO> getLikedPostsByAccountId(Long accountId) {
+        return postRepository.getLikedPostsByAccountId(accountId);
+    }
+
+
     //public List<Post> getPostByHashtagDESC(Long id) { return null; }
 }
 

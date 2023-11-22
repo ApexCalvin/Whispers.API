@@ -1,6 +1,9 @@
 package com.spit.Spit.API.account;
 
+import com.spit.Spit.API.post.GetPostDTO;
+import com.spit.Spit.API.post.PostService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -16,9 +19,11 @@ import java.util.Map;
 public class AccountController {
 
     private final AccountService accountService;
-
-    public AccountController(AccountService accountServices) {
+    private final PostService postService;
+    @Autowired
+    public AccountController(AccountService accountServices, PostService postService) {
         this.accountService = accountServices;
+        this.postService = postService;
     }
 
     @PostMapping
@@ -56,6 +61,12 @@ public class AccountController {
             return new ResponseEntity<>(account, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/{accountId}/liked-posts")
+    public ResponseEntity<List<GetPostDTO>> getLikedPostsForAccount(@PathVariable Long accountId) {
+        List<GetPostDTO> likedPosts = postService.getLikedPostsByAccountId(accountId);
+        return ResponseEntity.ok(likedPosts);
     }
 
     @DeleteMapping("/{id}")
