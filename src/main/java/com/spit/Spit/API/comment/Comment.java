@@ -1,6 +1,7 @@
 package com.spit.Spit.API.comment;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.spit.Spit.API.account.Account;
 import com.spit.Spit.API.post.Post;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,21 +13,23 @@ import java.util.Date;
 @NamedNativeQuery(
         name = "getAllCommentsByPostId-query",
         query = """
-                SELECT c.id, c.date, c.message FROM comment c
+                SELECT c.id, c.date, c.message, a.name, a.handle FROM comment c
+                JOIN account a ON c.account_id = a.account_id
                 WHERE c.post_id = :postId
                 """,
         resultSetMapping = "mapToGetCommentDTO"
 )
 
+//order of ColumnResult matters when mapping
 @SqlResultSetMapping(
         name = "mapToGetCommentDTO",
         classes =   @ConstructorResult( targetClass = GetCommentDTO.class,
                                         columns = {
                                                 @ColumnResult(name = "id", type = Long.class),
                                                 @ColumnResult(name = "date", type = Date.class),
-                                                @ColumnResult(name = "message", type = String.class)
-//                                                @ColumnResult(name = "accountName", type = String.class),
-//                                                @ColumnResult(name = "accountHandle", type = String.class)
+                                                @ColumnResult(name = "message", type = String.class),
+                                                @ColumnResult(name = "name", type = String.class),
+                                                @ColumnResult(name = "handle", type = String.class),
                                         }))
 
 @NoArgsConstructor
@@ -50,9 +53,9 @@ public class Comment {
     @Transient
     private Long postId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "account_id")
-//    private Account account;
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     public Long getPostId() {
         if(post != null) {

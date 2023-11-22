@@ -22,7 +22,7 @@ public class CommentService {
     public void createComment(CreateCommentDTO createCommentDTO) {
         Comment comment = new Comment();
         comment.setMessage(createCommentDTO.getMessage());
-//        comment.setAccount(accountService.getAccountById(createCommentDTO.getAccountId()));
+        comment.setAccount(accountService.getAccountById(createCommentDTO.getAccountId()));
         comment.setPost(postService.getPostById(createCommentDTO.getPostId()));
         commentRepository.save(comment);
     }
