@@ -20,6 +20,16 @@ import java.util.Date;
         resultSetMapping = "mapToGetCommentDTO"
 )
 
+@NamedNativeQuery(
+        name = "getAllCommentsByAccountId-query",
+        query = """
+                SELECT c.id, c.date, c.message, a.name, a.handle FROM comment c
+                JOIN account a ON c.account_id = a.account_id
+                WHERE a.account_id = :accountId
+                """,
+        resultSetMapping = "mapToGetCommentDTO"
+)
+
 //order of ColumnResult matters when mapping
 @SqlResultSetMapping(
         name = "mapToGetCommentDTO",

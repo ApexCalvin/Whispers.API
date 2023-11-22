@@ -35,6 +35,10 @@ public class CommentService {
         return commentRepository.getAllCommentsByPostId(postId);
     }
 
+    public List<GetCommentDTO> getAllCommentsByAccountId(Long accountId) {
+        return commentRepository.getAllCommentsByAccountId(accountId);
+    }
+
     public void deleteCommentById(Long id) {
         commentRepository.deleteById(id);
     }

@@ -1,6 +1,7 @@
 package com.spit.Spit.API.account;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.spit.Spit.API.comment.Comment;
 import com.spit.Spit.API.like._Like;
 import com.spit.Spit.API.post.Post;
 import jakarta.persistence.*;
@@ -30,6 +31,11 @@ public class Account {
                 cascade = CascadeType.ALL) //deleting the account also deletes children (posts, comments)
     @JsonManagedReference
     private List<Post> posts;
+
+    @OneToMany( mappedBy = "account",
+                cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Comment> comments;
 
     @OneToMany( mappedBy = "account",
                 cascade = CascadeType.ALL)

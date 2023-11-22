@@ -71,7 +71,7 @@ public class AppConfig {
 
         Comment comment3 = new Comment();
         comment3.setMessage("Comment 1, post 2");
-        comment3.setAccount(aTrain);
+        comment3.setAccount(homelander);
         comment3.setPost(post2);
 
         commentRepository.saveAll(Arrays.asList(comment1, comment2, comment3));
