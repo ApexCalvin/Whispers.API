@@ -138,7 +138,7 @@ public class PostControllerTest {
         ResponseEntity<String> actual = subject.deletePostById(id);
 
         verify(postService).deletePostById(any(Long.class));
-        assertThat(actual.getBody()).isEqualTo("Account has been successfully deleted.");
+        assertThat(actual.getBody()).isEqualTo("Post has been successfully deleted.");
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 

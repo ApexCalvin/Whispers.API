@@ -8,6 +8,8 @@ Calvin 11/21:
 
     create tests for commentController
 
+    large refactor of account_id to id for Account class
+
     Write out a legit scenario for AppConfig
 
     add Hashtag feature
