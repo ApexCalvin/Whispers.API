@@ -5,10 +5,9 @@ function loadFeed() {
         const feed = data.map(object => {
             return `
                 <div class="postBlockFromFeed" onclick="loadSelectedPost(${object.id})">
-                    <h2 style="text-align: center;">${object.name}</h2>
-                    <h3 style="text-align: center;">@${object.handle}</h3>
+                    <h4 style="text-align: center; color: #1190E7;">${object.name} @${object.handle}</h2>
+                    <h4 style="text-align: center;">${object.message}</h3>
                     <p style="text-align: center;">${object.date}</p>
-                    <p style="text-align: center;">${object.message}</p>
                 </div>
             `;
         });
@@ -42,21 +41,18 @@ function loadSelectedPost(postId) {
     Promise.all([fetchData(post_url), fetchData(comments_url)])
     .then(([data1, data2]) => {
         const post = `
-                    <div class="postBlockFromFeed">
-                        <h2 style="text-align: center;">${data1.accountName}</h2>
-                        <h3 style="text-align: center;">@${data1.accountHandle}</h3>
+                    <div class="postBlockFromSelected">
+                        <h4 style="text-align: center; color: #1190E7;">${data1.accountName} @${data1.accountHandle}</h2>
+                        <h4 style="text-align: center;">${data1.message}</h3>
                         <p style="text-align: center;">${data1.date}</p>
-                        <p style="text-align: center;">${data1.message}</p>
                     </div>
                     `;
-
         const comments = data2.map(object => {
             return `
                 <div class="postBlockFromFeed">
-                    <h2 style="text-align: center;">${object.accountName}</h2>
-                    <h3 style="text-align: center;">@${object.accountHandle}</h3>
+                    <h4 style="text-align: center; color: #1190E7;">${object.accountName} @${object.accountHandle}</h2>
+                    <h4 style="text-align: center;">${object.message}</h3>
                     <p style="text-align: center;">${object.date}</p>
-                    <p style="text-align: center;">${object.message}</p>
                 </div>
             `;
         });
