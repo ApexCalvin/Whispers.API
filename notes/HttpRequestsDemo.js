@@ -62,3 +62,28 @@
                     }
                 });
     }
+
+/*
+    <form>
+        <input id="account-id" placeholder="Id">
+        <br>
+        <br>
+        <input id="account-name" placeholder="Name">
+        <br>
+        <br>
+        <input id="account-handle" placeholder="Handle">
+        <br>
+        <br>
+        <button onClick="create(event)">Create</button>
+        <button onClick="readById(event)">Read</button>
+        <button onClick="readAll(event)">Read All</button>
+        <button onClick="update(event)">Update</button>
+        <button onClick="deleteById(event)">Delete</button>
+        <br>
+        <br>
+        <button onClick="getPostsDesc(event)">Home</button>
+        <button onClick="getPostsByHandleDesc(event)">Your Posts</button>
+        <button onClick="getPost(event)">Read Post</button>
+        <button onClick="createPost(event)">Create Post</button>
+    </form>
+*/

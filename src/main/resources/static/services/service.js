@@ -1,112 +1,29 @@
-var activeUser = "selected";
+let feedList;
 
-function getPostsDesc(event) {
-        event.preventDefault();
-
-        $.ajax({
-            type: "GET",
-            crossDomain: true,
-            headers: {
-                'Accept':'application/json',
-                'Content-Type':'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
-            url: "/account/all",
-            dataType: "JSON",
-            success: function(response) {
-                updateDisplay(response);
-            },
-            error: function(error) {
-                updateDisplay(error);
-            }
+function getFeedTest() {
+    fetch('/post/desc')
+    .then(response => response.json()) // Parse the response as JSON
+    .then(data => {
+        console.log(data)   
+        feedList = data;
+        console.log(feedList)
+        const displayFeed = data.map(object => {
+            return `
+                <div class="postBlockFromFeed">
+                    <h2 style="text-align: center;">${object.name}</h2>
+                    <h3 style="text-align: center;">@${object.handle}</h3>
+                    <p style="text-align: center;">${object.date}</p>
+                    <p style="text-align: center;">${object.message}</p>
+                </div>
+            `;
         });
-}
 
-function getPostsByHandleDesc(event) {
-}
-
-function getPost(event) {
-        event.preventDefault();
-
-        const postId = document.getElementById("account-id").value;
-
-        $.ajax({
-            type: "GET",
-//            crossDomain: true,
-//            headers: {
-//                'Accept':'application/json',
-//                'Content-Type':'application/json',
-//                'Access-Control-Allow-Origin': '*'
-//            },
-            url: "/post/" + postId,
-            dataType: "JSON",
-            success: function(response) {
-                updateDisplay(response);
-            },
-            error: function(error) {
-                updateDisplay(error);
-            }
-        });
-}
-
-function createPost(event) {
-    event.preventDefault();
-
-    const accountId = document.getElementById("account-id").value;
-    const message = document.getElementById("").value;
-
-    const person = new Person(personIdValue, firstNameValue, lastNameValue);
-    const personData = JSON.stringify(person);
-
-    $.ajax({
-        type: "POST",
-        crossDomain: true,
-        headers: {
-            'Accept':'application/json',
-            'Content-Type':'application/json',
-            'Access-Control-Allow-Origin': '*'
-        },
-        url: "/create",
-        data: personData,
-        dataType: "JSON",
-        success: function(response) {
-            updateDisplay(response);
-        },
-        error: function(error) {
-            updateDisplay(error)
-        }
+        const feed = document.getElementById('column-feed');
+        feed.innerHTML = displayFeed.join('');
+    })
+    .catch(error => {
+        console.error('Error fetching data: ', error)
     });
 }
 
-function getAccount(event) {
-}
-
-function getAllAccounts(event) {
-}
-
-function createAccount(event) {
-}
-
-function pageLoaded() {
-    alert('Page is loaded.');
-}
-
-// window.onload = pageLoaded;
-
-function getFeed() {
-            fetch('/post/desc/all', {
-                method: 'GET',
-            })
-              .then(response => {
-                if (!response.ok) {
-                  throw new Error('Network response was not ok');
-                }
-                return response.json(); // Parse the response as JSON
-              })
-              .then(data => {
-                updateDisplay(data);
-              })
-              .catch(error => {
-                updateDisplay(error);
-              });
-}
+window.onload = getFeedTest;

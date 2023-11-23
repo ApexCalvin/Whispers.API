@@ -1,42 +1,25 @@
-ul.navbar {
-    list-style-type: none;
+body {
+    background-color: #F1F1F1;
     margin: 0;
     padding: 0;
-    background-color: #333;
-    text-align: center;
+    box-sizing: border-box;
 }
 
-li.nav-item {
-    display: inline;
-    margin-right: 80px;
-}
-
-a.nav-link {
-    text-decoration: none;
-    color: white;
-}
-
-h1 {
-    text-align: center;
-}
-
-div {
-    border: 2px solid black;
-}
-
-.container {
+.columns-container {
     display: flex;
+    justify-content: space-between;
+    padding: 20px;
 }
 
 .column {
-    flex: 1; /* Make each column take an equal amount of space */
-    padding: 20px; /* Add padding for spacing */
-    text-align: center; /* Center-align the content */
+    flex: 1;
+    background-color: #F1F1F1;
+    border: 1px solid #68E1FF;
+    padding: 15px;
+    box-sizing: border-box;
 }
 
-/* Specify different background colors for each column */
-.column:nth-child(1) {}
-
-.column:nth-child(2) {}
-
-.column:nth-child(3) {}
+.postBlockFromFeed {
+    background-color: #FFFFFF;
+    border-radius: 20px; /* Adjust the value to control the amount of curvature */
+}
