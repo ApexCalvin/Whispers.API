@@ -15,5 +15,3 @@ for Nina (maybe):
     create tests for commentService
 
     create tests for commentController
-
-    Write out a legit scenario for AppConfig that tests all API calls

@@ -96,10 +96,10 @@ public class Post {
     @JsonManagedReference
     private List<_Like> likes;
 
-    public Post(Date date, String message, Account account) {
+    public Post(Date date, Account account, String message) {
         this.date = date;
-        this.message = message;
         this.account = account;
+        this.message = message;
     }
     public String getAccountHandle() {
         if (account != null) {

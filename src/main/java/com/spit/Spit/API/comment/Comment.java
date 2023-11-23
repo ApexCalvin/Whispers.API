@@ -74,4 +74,10 @@ public class Comment {
         }
         return postId;
     }
+
+    public Comment(Post post, Account account, String message) {
+        this.post = post;
+        this.account = account;
+        this.message = message;
+    }
 }
