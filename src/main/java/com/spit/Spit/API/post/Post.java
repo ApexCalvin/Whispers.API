@@ -37,8 +37,7 @@ import java.util.List;
 @NamedNativeQuery(
         name = "getLikedPostsByAccountId",
         query = """
-                SELECT p.DATE, p.message, p.id, a.handle, a.name
-                FROM post p
+                SELECT p.DATE, p.message, p.id, a.handle, a.name FROM post p
                 INNER JOIN post_like pl ON p.id = pl.post_id
                 INNER JOIN account a ON pl.account_id = a.account_id
                 WHERE pl.account_id = :accountId

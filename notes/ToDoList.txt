@@ -2,16 +2,18 @@ To-Do:
 
 Calvin 11/21:
 
-    finish getAllCommentsByPost by connecting the account
+    large refactor of account_id to id for Account class
+
+    add Hashtag feature
+
+    create tests of Hashtag
+
+    Start frontend
+
+for Nina (maybe):
 
     create tests for commentService
 
     create tests for commentController
 
-    large refactor of account_id to id for Account class
-
-    Write out a legit scenario for AppConfig
-
-    add Hashtag feature
-
-    Start frontend
+    Write out a legit scenario for AppConfig that tests all API calls

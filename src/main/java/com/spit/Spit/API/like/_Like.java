@@ -62,6 +62,7 @@ public class _Like { //like is a reserved word for HQL
         }
         return postIdLiked;
     }
+
     @Override
     public String toString() {
         return "PostLike{" +
