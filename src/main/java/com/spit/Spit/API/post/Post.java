@@ -81,6 +81,9 @@ public class Post {
     private Account account;
 
     @Transient
+    private String accountName;
+
+    @Transient
     private String accountHandle;
 
     @OneToMany( mappedBy = "post",
@@ -104,6 +107,14 @@ public class Post {
         }
         return accountHandle;
     }
+
+    public String getAccountName() {
+        if (account != null) {
+            accountName = account.getName();
+        }
+        return accountName;
+    }
+
     @Override
     public String toString() {
         return "Post{" +

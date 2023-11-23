@@ -23,3 +23,15 @@ body {
     background-color: #FFFFFF;
     border-radius: 20px; /* Adjust the value to control the amount of curvature */
 }
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+/* Style for list items */
+li {
+    margin-right: 10px; /* Add some spacing between list items */
+}

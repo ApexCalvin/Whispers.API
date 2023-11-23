@@ -65,6 +65,7 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "account_id")
+    @JsonBackReference
     private Account account;
 
     public Long getPostId() {
