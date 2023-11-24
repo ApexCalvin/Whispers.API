@@ -30,13 +30,12 @@ public class AppConfig {
     @Autowired
     LikeRepository likeRepository;
 
-    private boolean runAppConfig = false;
-
     @PostConstruct
     public void setup(){
-        if (!runAppConfig) {
-            return; // Exit the method if setup is not enabled
-        }
+        boolean runAppConfig = false;
+
+        if (!runAppConfig) return; // Exit the method if setup is not enabled
+
 
         Account user1 = new Account("John", "Homelander");
         Account user2 = new Account("Kevin", "The Deep");

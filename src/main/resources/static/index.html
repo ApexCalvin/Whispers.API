@@ -11,9 +11,12 @@
             integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
             crossorigin="anonymous">
     </script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
+    <script src="services/column-feed.js"></script>
+    <script src="services/column-profile.js"></script>
+    <script src="services/column-post.js"></script>
     <script src="services/service.js"></script>
-    
+
     <div class="navbar-container">
         <ul class="navbar">
             <h2>Sp!t</h2>
@@ -23,7 +26,12 @@
     </div>
 
     <div class="columns-container">
-        <div class="column" id="column-profile"></div>
+        <div class="column" id="column-profile">
+            <div class="postBlockFromSelected" style="text-align: center;">
+                <img id="profile-photo" src="" alt="Image of Profile" style="border-radius: 50%;">
+                <div id="profile-info"></div>
+            </div>
+        </div>
         <div class="column" id="column-feed"></div>
         <div class="column" id="column-post"></div>
     </div>
