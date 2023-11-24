@@ -1,12 +1,9 @@
 function loadProfile() {
-    
-    console.log('load profile') 
     document.getElementById('profile-photo').src = `images/${activeUserId}.jpg`;
     
     fetch('/account/' + activeUserId)
     .then(response => response.json())
     .then(data => {
-        console.log(data)
         const profileInfo = `
                             <h2 style="text-align: center; color: #1190E7;">${data.name}</h2>
                             <h4 style="text-align: center;">@${data.handle}</h3>
@@ -23,8 +20,11 @@ function loadProfile() {
                             </div>
                             `                
 
-        const display = document.getElementById('profile-info');
-        display.innerHTML = profileInfo + postForm;
+        const displayProfile = document.getElementById('profile-info');
+        displayProfile.innerHTML = profileInfo;
+
+        const displayPostForm = document.getElementById('createPost');
+        displayPostForm.innerHTML = postForm;
     })
     .catch(error => {
         console.error('Error fetching data: ', error)

@@ -1,14 +1,12 @@
 function loadSelectedPost(postId) {
-
     const post_url = "/post/" + postId;
     const comments_url = "/comment/post/" + postId;
 
-    // Function to perform a fetch
     const fetchData = async (url) => {
         return fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
+                    //console.log(data)
                     return data;
                 })
                 .catch(error => {
@@ -26,6 +24,7 @@ function loadSelectedPost(postId) {
                         <p style="text-align: center;">${moment(data1.date).format('MMMM Do YYYY, h:mm:ss a')}</p>
                     </div>
                     `;
+
         const comments = data2.map(object => {
             return `
                 <div class="postBlockFromFeed">
@@ -36,13 +35,20 @@ function loadSelectedPost(postId) {
             `;
         });
 
+        console.log("Post id = " + data1.id)
+        console.log("Active user id = " + activeUserId)
+
         const commentForm = `
                             <div class="postBlockFromFeed">
                                 <form style="text-align: center;">
                                     <input id="new-comment-message" placeholder="Type Comment Here">
                                     <br>
                                     <br>
-                                    <button onClick="console.log('Button Clicked!');">Submit</button>
+                                    <button type="button" onClick="createCommentTest(
+                                                                                        ${data1.id}, 
+                                                                                        ${activeUserId},
+                                                                                        ${document.getElementById("new-comment-message").value}
+                                                                                    )">Submit</button>
                                 </form>
                             </div>
                             `
@@ -63,26 +69,34 @@ class Comment {
     }
 }
 
-function createComment(postId) {
-    event.preventDefault(); //??
-    console.log("createComment " + postId + activeUserId);
+function createCommentTest(postId, activeUserId, message) {
+    console.log('[in test method] Post = '+ postId + ', Active = ' + activeUserId)
+    console.log('msg = ' +message)
+}
 
-    const message = document.getElementById("new-comment-message").value;
+function createComment(postId, activeUserId) {
+
+    console.log('[create comment method] Post = '+ postId + ', Active = ' + activeUserId)
     
-    const comment = new Comment(activeUserId, postId, message);
-    const commentData = JSON.stringify(comment);
-    console.log(commentData);
+    //event.preventDefault(); //??
+    // console.log("createComment " + postId + activeUserId);
 
-    $.ajax({
-        type: "POST",
-        url: "/comment",
-        data: commentData,
-        dataType: "JSON",
-        success: function(response) {
-            console.log(response);
-        },
-        error: function(error) {
-            console.error('Error fetching data: ', error)
-        }
-    });
+    // const message = document.getElementById("new-comment-message").value;
+
+    // const comment = new Comment(activeUserId, postId, message);
+    // const commentData = JSON.stringify(comment);
+    // console.log(commentData);
+
+    // $.ajax({
+    //     type: "POST",
+    //     url: "/comment",
+    //     data: commentData,
+    //     dataType: "JSON",
+    //     success: function(response) {
+    //         console.log(response);
+    //     },
+    //     error: function(error) {
+    //         console.error('Error fetching data: ', error)
+    //     }
+    // });
 }
