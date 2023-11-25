@@ -1,6 +1,9 @@
 package com.spit.Spit.API.hashtag;
 
-public interface HashtagRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-    //if an account or post is deleted, a hashtag should not be deleted
+@Repository
+public interface HashtagRepository extends JpaRepository<Hashtag, Long> {
+
 }
