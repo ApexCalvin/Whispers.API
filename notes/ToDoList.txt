@@ -8,7 +8,19 @@ Calvin 11/21:
 
     create tests of Hashtag
 
+    decide if some things should be url or path body
+
     Start frontend
+
+        create comment
+
+        create post
+
+        switch acc
+
+        search by handle
+
+        search by hashtag
 
 for Nina (maybe):
 
