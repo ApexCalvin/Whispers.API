@@ -19,15 +19,27 @@ public class HashtagService {
         hashtagRepository.save(hashtag);
     }
 
+    public void createHashtag(List<Hashtag> hashtag) {
+        hashtagRepository.saveAll(hashtag);
+    }
+
     public Hashtag getHashtagById(Long id) {
-        hashtagRepository.findById(id).orElse(null);
+        return hashtagRepository.findById(id).orElse(null);
+    }
+
+    public Hashtag getHashtagByName(String name) {
+        return hashtagRepository.findByName(name);
+    }
+
+    public List<Hashtag> getAllHashtags() {
+        return hashtagRepository.findAll();
     }
 
     public void deleteHashtagById(Long id) {
 
         Hashtag hashtag = this.getHashtagById(id);
 
-        List<Post> posts = postRepository.getAllPostsByHashtagName(hashtag.getName());
+        List<Post> posts = postRepository.getAllPostsByHashtagNameDesc(hashtag.getName());
 
         // for each post, get hashtag list
 
@@ -38,7 +50,7 @@ public class HashtagService {
         hashtagRepository.deleteById(id);
     }
 
-    public List<Post> getAllPostsByHashtagName(String name) {
-        postRepository.getAllPostsByHashtagName(name);
+    public Boolean isHashtagAvailable(String name) {
+        return getHashtagByName(name) == null;
     }
 }

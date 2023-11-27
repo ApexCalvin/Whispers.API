@@ -14,10 +14,10 @@ public class Hashtag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    Long id;
+    private Long id;
 
     @Column(name = "name", nullable = false)
-    String name;
+    private String name;
 
-    Post post;
+    private Post post;
 }

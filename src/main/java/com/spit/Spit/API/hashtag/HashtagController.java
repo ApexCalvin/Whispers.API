@@ -1,12 +1,16 @@
 package com.spit.Spit.API.hashtag;
 
+import com.spit.Spit.API.post.Post;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/hashtag")
@@ -20,24 +24,47 @@ public class HashtagController {
 
     @PostMapping
     public ResponseEntity<String> createHashtag(@Valid @RequestBody Hashtag hashtag){
-        //did hashtag already exist?
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        boolean hashtagAvailability = hashtagService.isHashtagAvailable(hashtag.getName());
+
+        if(hashtagAvailability) {
+            Hashtag found = hashtagService.getHashtagByName(hashtag.getName());
+            hashtag.setId(found.getId());
+            hashtagService.createHashtag(hashtag); //saves
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+
+        hashtagService.createHashtag(hashtag); //creates new
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public ResponseEntity<> {
-
+    @PostMapping
+    public ResponseEntity<String> createHashtag(@RequestBody List<Hashtag> hashtags){
+        return null;
     }
 
-    public ResponseEntity<> {
-
+    @GetMapping
+    public ResponseEntity<List<Hashtag>> getAllHashtags() {
+        return ResponseEntity.ok(hashtagService.getAllHashtags());
     }
 
-    public ResponseEntity<> {
 
+    //@GetMapping
+    //public ResponseEntity<List<Post>> getAllPostsByHashtagNameDesc(String hashtag){ return null; }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteHashtagByName(String name) {
+        return null;
     }
-    //create
-    //getbyid
-    //delete
-    //getallpostsbyhashtagname
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
+    }
 }
