@@ -1,0 +1,67 @@
+For Hashtag setup
+
+@Entity
+public class Hashtag {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+
+    // Other properties and getters/setters
+}
+
+@Entity
+public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String content;
+
+    @ManyToMany
+    @JoinTable(
+        name = "post_hashtags",
+        joinColumns = @JoinColumn(name = "post_id"),
+        inverseJoinColumns = @JoinColumn(name = "hashtag_id")
+    )
+    private Set<Hashtag> hashtags = new HashSet<>();
+
+Join Table (e.g., post_hashtags):
+
+The join table is used to represent the many-to-many relationship between Hashtag and Post. It typically contains two columns, each of which is a foreign key:
+post_id (foreign key referencing the Post table)
+hashtag_id (foreign key referencing the Hashtag table)
+
+
+2 Approaches for creating post with hashtag:
+
+1. Include in json request itself
+
+{
+  "message": "This is a sample post with #Java and #Hibernate hashtags",
+  "hashtags": ["Java", "Hibernate"]
+}
+
+Pros:
+
+Explicit and clear: The client specifies the hashtags, making it easy to understand and control what hashtags are associated with the post.
+Less server-side processing: The server doesn't need to parse the post's text to extract hashtags, which can be computationally expensive.
+
+Cons:
+
+Requires client-side handling: The client must extract and send the hashtags, which can be an extra step for the client.
+
+Parse Hashtags from Post Text:
+
+In this approach, the server-side service responsible for handling posts parses hashtags from the post's text before saving it. For example:
+
+Pros:
+
+Simplicity for clients: Clients don't need to worry about formatting hashtags in a specific way when sending posts.
+Flexibility: You can implement custom logic for parsing hashtags, allowing for variations in how hashtags are formatted.
+Cons:
+
+Additional server-side processing: Parsing hashtags from text can be more complex, especially if you need to handle variations in formatting or validate hashtags.
+Potential for errors: Parsing may not always accurately capture hashtags, leading to incorrect associations.
+
+Could also Validate on both client AND backend (check that json hashtag array actually matches the text)
+Overall sending in the json response is probably easier and less complicated for a simple app.
