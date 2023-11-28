@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @NoArgsConstructor
 @Data
 @Entity
@@ -19,5 +22,7 @@ public class Hashtag {
     @Column(name = "name", nullable = false)
     private String name;
 
-    private Post post;
+    @ManyToMany(mappedBy ="hashtags",
+                fetch = FetchType.LAZY) ////load associated entities only when explicitly requested
+    private Set<Post> posts = new HashSet<>();
 }

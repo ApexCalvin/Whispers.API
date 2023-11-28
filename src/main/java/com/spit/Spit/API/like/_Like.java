@@ -14,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "post_like")
+@Table(name = "like_")
 public class _Like { //like is a reserved word for HQL
 
     @Id

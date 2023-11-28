@@ -9,7 +9,8 @@ import java.util.List;
 @Service
 public class HashtagService {
     private final HashtagRepository hashtagRepository;
-    private final PostRepository postRepository;
+
+    //private final PostRepository postRepository;
 
     public HashtagService(HashtagRepository hashtagRepository) {
         this.hashtagRepository = hashtagRepository;
@@ -39,7 +40,7 @@ public class HashtagService {
 
         Hashtag hashtag = this.getHashtagById(id);
 
-        List<Post> posts = postRepository.getAllPostsByHashtagNameDesc(hashtag.getName());
+        //List<Post> posts = postRepository.getAllPostsByHashtagNameDesc(hashtag.getName());
 
         // for each post, get hashtag list
 

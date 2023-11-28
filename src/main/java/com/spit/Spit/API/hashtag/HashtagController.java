@@ -37,10 +37,10 @@ public class HashtagController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<String> createHashtag(@RequestBody List<Hashtag> hashtags){
-        return null;
-    }
+//    @PostMapping
+//    public ResponseEntity<String> createHashtag(@RequestBody List<Hashtag> hashtags){
+//        return null;
+//    }
 
     @GetMapping
     public ResponseEntity<List<Hashtag>> getAllHashtags() {

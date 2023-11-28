@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.spit.Spit.API.account.Account;
 import com.spit.Spit.API.comment.Comment;
+import com.spit.Spit.API.hashtag.Hashtag;
 import com.spit.Spit.API.like._Like;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,7 +12,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @NamedNativeQuery(
         name = "getAllPostsDesc-query",
@@ -95,6 +98,12 @@ public class Post {
                 cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<_Like> likes;
+
+    @ManyToMany(fetch = FetchType.LAZY) //load associated entities only when explicitly requested
+    @JoinTable( name = "xref_post_hashtag",
+                joinColumns = @JoinColumn(name = "post_id"),
+                inverseJoinColumns = @JoinColumn(name = "hashtag_id"))
+    private Set<Hashtag> hashtags = new HashSet<>();;
 
     public Post(Date date, Account account, String message) {
         this.date = date;
