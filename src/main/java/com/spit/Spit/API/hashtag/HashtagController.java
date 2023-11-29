@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/hashtag")
@@ -37,23 +38,22 @@ public class HashtagController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    @PostMapping
-//    public ResponseEntity<String> createHashtag(@RequestBody List<Hashtag> hashtags){
-//        return null;
-//    }
+    @PostMapping
+    public ResponseEntity<String> createHashtags(@Valid @RequestBody Set<Hashtag> hashtags){
+        for (Hashtag h : hashtags) {
+            createHashtag(h);
+        }
+        return ResponseEntity.ok("");
+    }
 
     @GetMapping
     public ResponseEntity<List<Hashtag>> getAllHashtags() {
         return ResponseEntity.ok(hashtagService.getAllHashtags());
     }
 
-
-    //@GetMapping
-    //public ResponseEntity<List<Post>> getAllPostsByHashtagNameDesc(String hashtag){ return null; }
-
-    @DeleteMapping
-    public ResponseEntity<Void> deleteHashtagByName(String name) {
-        return null;
+    @GetMapping("/{id}")
+    public ResponseEntity<List<Hashtag>> getAllHashtagsOfPost(@PathVariable Long id) {
+        return ResponseEntity.ok(hashtagService.getAllHashtagsByPostId(id));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

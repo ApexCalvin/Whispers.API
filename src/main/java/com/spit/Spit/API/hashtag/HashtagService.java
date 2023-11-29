@@ -10,18 +10,15 @@ import java.util.List;
 public class HashtagService {
     private final HashtagRepository hashtagRepository;
 
-    //private final PostRepository postRepository;
+    private final PostRepository postRepository;
 
-    public HashtagService(HashtagRepository hashtagRepository) {
+    public HashtagService(HashtagRepository hashtagRepository, PostRepository postRepository) {
         this.hashtagRepository = hashtagRepository;
+        this.postRepository = postRepository;
     }
 
     public void createHashtag(Hashtag hashtag) {
         hashtagRepository.save(hashtag);
-    }
-
-    public void createHashtag(List<Hashtag> hashtag) {
-        hashtagRepository.saveAll(hashtag);
     }
 
     public Hashtag getHashtagById(Long id) {
@@ -36,11 +33,16 @@ public class HashtagService {
         return hashtagRepository.findAll();
     }
 
+    public List<Hashtag> getAllHashtagsByPostId(Long id) {
+
+        return null;
+    }
+
     public void deleteHashtagById(Long id) {
 
         Hashtag hashtag = this.getHashtagById(id);
 
-        //List<Post> posts = postRepository.getAllPostsByHashtagNameDesc(hashtag.getName());
+        //List<Post> posts = postRepository.getAllPostsByHashtagNameDesc(hashtag.getName()); //TODO
 
         // for each post, get hashtag list
 
