@@ -27,20 +27,20 @@ public class HashtagController {
         this.postService = postService;
     }
 
-    @PostMapping
-    public ResponseEntity<String> createHashtag(@Valid @RequestBody Hashtag hashtag){
-        boolean hashtagAvailability = hashtagService.isHashtagAvailable(hashtag.getName());
-
-        if(hashtagAvailability) {
-            Hashtag found = hashtagService.getHashtagByName(hashtag.getName());
-            hashtag.setId(found.getId());
-            hashtagService.createHashtag(hashtag); //saves
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }
-
-        hashtagService.createHashtag(hashtag); //creates new
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//    @PostMapping
+//    public ResponseEntity<String> createHashtag(@Valid @RequestBody Hashtag hashtag){
+//        boolean hashtagAvailability = hashtagService.isHashtagAvailable(hashtag.getName());
+//
+//        if(hashtagAvailability) {
+//            Hashtag found = hashtagService.getHashtagByName(hashtag.getName());
+//            hashtag.setId(found.getId());
+//            hashtagService.createHashtag(hashtag); //saves
+//            return new ResponseEntity<>(HttpStatus.CREATED);
+//        }
+//
+//        hashtagService.createHashtag(hashtag); //creates new
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
 //    public ResponseEntity<String> createHashtags(@Valid @RequestBody Set<Hashtag> hashtags){
 //        for (Hashtag h : hashtags) {

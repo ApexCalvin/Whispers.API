@@ -17,8 +17,27 @@ public class HashtagService {
         this.postRepository = postRepository;
     }
 
-    public void createHashtag(Hashtag hashtag) {
-        hashtagRepository.save(hashtag);
+    public void createHashtags(Long postId, List<String> hashtags) {
+        if(!hashtags.isEmpty()) {
+            for (String hashtag : hashtags) {
+                validateAndSaveHashtag(postId, hashtag);
+            }
+        }
+    }
+
+    public void validateAndSaveHashtag(Long postId, String hashtagName) {
+        boolean newHashtag = isNewHashtag(hashtagName);
+
+        if(newHashtag) {
+            Hashtag hashtag = new Hashtag();
+            hashtag.setName(hashtagName);
+            hashtagRepository.save(hashtag);
+            //createXref(postId, newHashtag);
+            //return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+
+        Hashtag oldHashtag = getHashtagByName(hashtagName);
+        //createXref(postId, oldHashtag);
     }
 
     public Hashtag getHashtagById(Long id) {
@@ -53,7 +72,7 @@ public class HashtagService {
         hashtagRepository.deleteById(id);
     }
 
-    public Boolean isHashtagAvailable(String name) {
+    public Boolean isNewHashtag(String name) {
         return getHashtagByName(name) == null;
     }
 }

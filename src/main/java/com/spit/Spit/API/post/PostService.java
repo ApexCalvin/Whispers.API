@@ -2,6 +2,7 @@ package com.spit.Spit.API.post;
 
 import com.spit.Spit.API.account.Account;
 import com.spit.Spit.API.account.AccountService;
+import com.spit.Spit.API.hashtag.HashtagService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +14,12 @@ public class PostService {
 
     private final AccountService accountService;
 
-    public PostService(PostRepository postRepository, AccountService accountService) {
+    private final HashtagService hashtagService;
+
+    public PostService(PostRepository postRepository, AccountService accountService, HashtagService hashtagService) {
         this.postRepository = postRepository;
         this.accountService = accountService;
+        this.hashtagService = hashtagService;
     }
 
     public void createPost(CreatePostDTO createPostDTO) {
@@ -24,6 +28,8 @@ public class PostService {
         post.setAccount(account);
         post.setMessage(createPostDTO.getMessage());
         postRepository.save(post);
+        hashtagService.createHashtags(post.getId(), createPostDTO.getHashtags());
+        //save to Posts' hashtag set?
     }
 
     public Post getPostById(Long id) {
