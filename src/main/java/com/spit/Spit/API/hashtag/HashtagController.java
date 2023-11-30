@@ -1,6 +1,8 @@
 package com.spit.Spit.API.hashtag;
 
+import com.spit.Spit.API.post.GetPostDTO;
 import com.spit.Spit.API.post.Post;
+import com.spit.Spit.API.post.PostService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +20,11 @@ import java.util.Set;
 public class HashtagController {
 
     private final HashtagService hashtagService;
+    private final PostService postService;
 
-    public HashtagController(HashtagService hashtagService) {
+    public HashtagController(HashtagService hashtagService, PostService postService) {
         this.hashtagService = hashtagService;
+        this.postService = postService;
     }
 
     @PostMapping
@@ -53,6 +57,10 @@ public class HashtagController {
     @GetMapping("/{id}")
     public ResponseEntity<List<Hashtag>> getAllHashtagsOfPost(@PathVariable Long id) {
         return ResponseEntity.ok(hashtagService.getAllHashtagsByPostId(id));
+    }
+    @GetMapping("/{hashtag}/posts")
+    public ResponseEntity<List<Post>> getAllPostByHashtagNameDesc(@PathVariable String hashtag) {
+        return ResponseEntity.ok(postService.getAllPostsByHashtag(hashtag));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

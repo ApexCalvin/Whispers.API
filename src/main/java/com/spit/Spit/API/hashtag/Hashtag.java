@@ -22,7 +22,16 @@ public class Hashtag {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy ="hashtags",
-                fetch = FetchType.LAZY) ////load associated entities only when explicitly requested
-    private Set<Post> posts = new HashSet<>();
+//    @ManyToMany(mappedBy ="hashtags",
+//                fetch = FetchType.LAZY) ////load associated entities only when explicitly requested
+//    private Set<Post> posts = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "Hashtag{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                //", posts=" + posts.size() +
+                '}';
+    }
 }

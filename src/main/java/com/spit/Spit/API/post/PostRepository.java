@@ -18,5 +18,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(name = "getLikedPostsByAccountId", nativeQuery = true)
     List<GetPostDTO> getLikedPostsByAccountId(Long accountId);
 
+    List<Post> findByHashtags_Name(String hashtags_Name);
+
     //public List<Post> getPostsByHashtagDESC(Long id);
 }
