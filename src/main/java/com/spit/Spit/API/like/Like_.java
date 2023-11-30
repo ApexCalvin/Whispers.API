@@ -15,7 +15,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "like_")
-public class _Like { //like is a reserved word for HQL
+public class Like_ { //like is a reserved word for HQL
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

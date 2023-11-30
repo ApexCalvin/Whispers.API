@@ -38,13 +38,12 @@ public class HashtagController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<String> createHashtags(@Valid @RequestBody Set<Hashtag> hashtags){
-        for (Hashtag h : hashtags) {
-            createHashtag(h);
-        }
-        return ResponseEntity.ok("");
-    }
+//    public ResponseEntity<String> createHashtags(@Valid @RequestBody Set<Hashtag> hashtags){
+//        for (Hashtag h : hashtags) {
+//            createHashtag(h);
+//        }
+//        return ResponseEntity.ok("");
+//    }
 
     @GetMapping
     public ResponseEntity<List<Hashtag>> getAllHashtags() {

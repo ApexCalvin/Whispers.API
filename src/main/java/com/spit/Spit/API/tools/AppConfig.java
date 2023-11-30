@@ -5,7 +5,7 @@ import com.spit.Spit.API.account.AccountRepository;
 import com.spit.Spit.API.comment.Comment;
 import com.spit.Spit.API.comment.CommentRepository;
 import com.spit.Spit.API.like.LikeRepository;
-import com.spit.Spit.API.like._Like;
+import com.spit.Spit.API.like.Like_;
 import com.spit.Spit.API.post.Post;
 import com.spit.Spit.API.post.PostRepository;
 import jakarta.annotation.PostConstruct;
@@ -79,19 +79,19 @@ public class AppConfig {
         postRepository.saveAll(Arrays.asList(cooking, fitness, tech, travel, movie));
         commentRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5, f1, f2, f3, f4, t1, t2, t3, t4, r1, r2, r3, r4, m1, m2, m3, m4, m5));
 
-        _Like like1 = new _Like();
+        Like_ like1 = new Like_();
         like1.setPost(cooking);
         like1.setAccount(user4);
 
-        _Like like2 = new _Like();
+        Like_ like2 = new Like_();
         like2.setPost(fitness);
         like2.setAccount(user4);
 
-        _Like like3 = new _Like();
+        Like_ like3 = new Like_();
         like3.setPost(cooking);
         like3.setAccount(user1);
 
-        _Like like4 = new _Like();
+        Like_ like4 = new Like_();
         like4.setPost(tech);
         like4.setAccount(user1);
 

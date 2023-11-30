@@ -48,12 +48,12 @@ public class AccountServiceTest {
     void getAccountById_returnAccount() {
         Long id = 2L;
         Account account = new Account();
-        account.setAccount_id(id);
+        account.setId(id);
         when(accountRepository.findById(id)).thenReturn(Optional.of(account));
 
         Account actual = subject.getAccountById(id);
 
-        assertThat(actual.getAccount_id()).isEqualTo(account.getAccount_id());
+        assertThat(actual.getId()).isEqualTo(account.getId());
     }
 
     @Test

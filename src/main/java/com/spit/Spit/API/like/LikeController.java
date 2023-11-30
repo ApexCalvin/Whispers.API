@@ -15,18 +15,18 @@ public class LikeController {
     private LikeService likeService;
 
     @PostMapping
-    public ResponseEntity<_Like> createLike(@RequestBody CreateLikeDTO likeDTO) {
+    public ResponseEntity<Like_> createLike(@RequestBody CreateLikeDTO likeDTO) {
         if(likeService.doesUserAlreadyLikePost(likeDTO)){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }else {
-            _Like createdLike = likeService.createLike(likeDTO);
+            Like_ createdLike = likeService.createLike(likeDTO);
             return new ResponseEntity<>(createdLike, HttpStatus.CREATED);
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<_Like> getLikeById(@PathVariable Long id) {
-        _Like like = likeService.getLikeById(id);
+    public ResponseEntity<Like_> getLikeById(@PathVariable Long id) {
+        Like_ like = likeService.getLikeById(id);
         if (like != null) {
             return new ResponseEntity<>(like, HttpStatus.OK);
         } else {
@@ -35,8 +35,8 @@ public class LikeController {
     }
 
     @GetMapping("/handle/{handle}/post/{postId}")
-    public ResponseEntity<_Like> getLikeByHandleAndPost(@PathVariable String handle, @PathVariable Long postId) {
-        _Like like = likeService.getLikeByHandleAndPost(handle, postId);
+    public ResponseEntity<Like_> getLikeByHandleAndPost(@PathVariable String handle, @PathVariable Long postId) {
+        Like_ like = likeService.getLikeByHandleAndPost(handle, postId);
         if (like != null) {
             return new ResponseEntity<>(like, HttpStatus.OK);
         } else {
@@ -45,8 +45,8 @@ public class LikeController {
     }
 
     @GetMapping
-    public ResponseEntity<List<_Like>> getAllLikes() {
-        List<_Like> likes = likeService.getAllLikes();
+    public ResponseEntity<List<Like_>> getAllLikes() {
+        List<Like_> likes = likeService.getAllLikes();
         return new ResponseEntity<>(likes, HttpStatus.OK);
     }
 

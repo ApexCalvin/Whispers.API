@@ -109,7 +109,7 @@ public class AccountControllerTest {
     void deleteAccountById() {
         Long id = 2L;
         Account account = new Account();
-        account.setAccount_id(id);
+        account.setId(id);
         when(accountService.getAccountById(any(Long.class))).thenReturn(account);
 
         ResponseEntity<String> actual = subject.deleteAccountById(id);

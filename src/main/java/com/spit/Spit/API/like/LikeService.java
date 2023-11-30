@@ -22,8 +22,8 @@ public class LikeService {
         this.postService = postService;
         this.accountService = accountService;
     }
-    public _Like createLike(CreateLikeDTO likeDTO) {
-        _Like like = new _Like();
+    public Like_ createLike(CreateLikeDTO likeDTO) {
+        Like_ like = new Like_();
         Post post = postService.getPostById(likeDTO.getPostId());
         like.setPost(post);
         Account account = accountService.getAccountByHandle(likeDTO.getAccountHandle());
@@ -32,11 +32,11 @@ public class LikeService {
         return likeRepository.save(like);
     }
 
-    public _Like getLikeById(Long id) {
+    public Like_ getLikeById(Long id) {
         return likeRepository.findById(id).orElse(null);
     }
 
-    public List<_Like> getAllLikes() {
+    public List<Like_> getAllLikes() {
         return likeRepository.findAll();
     }
 
@@ -48,7 +48,7 @@ public class LikeService {
         return false;
     }
 
-    public _Like getLikeByHandleAndPost(String handle, Long postId) {
+    public Like_ getLikeByHandleAndPost(String handle, Long postId) {
         return likeRepository.findByAccountHandleAndPostId(handle, postId);
     }
     public boolean doesUserAlreadyLikePost(CreateLikeDTO likeDTO) {

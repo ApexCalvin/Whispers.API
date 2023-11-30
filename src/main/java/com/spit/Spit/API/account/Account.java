@@ -2,7 +2,7 @@ package com.spit.Spit.API.account;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.spit.Spit.API.comment.Comment;
-import com.spit.Spit.API.like._Like;
+import com.spit.Spit.API.like.Like_;
 import com.spit.Spit.API.post.Post;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -19,7 +19,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id")
-    private Long account_id;
+    private Long id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -40,7 +40,7 @@ public class Account {
     @OneToMany( mappedBy = "account",
                 cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<_Like> likes;
+    private List<Like_> likes;
 
     public Account(String name, String handle) {
         this.name = name;
@@ -50,7 +50,7 @@ public class Account {
     @Override
     public String toString() {
         return "Account{" +
-                "account_id=" + account_id +
+                "account_id=" + id +
                 ", name='" + name + '\'' +
                 ", handle='" + handle + '\'' +
                 '}';

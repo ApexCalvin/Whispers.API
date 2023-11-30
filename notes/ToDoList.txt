@@ -1,14 +1,16 @@
 To-Do:
 
-Calvin 11/21:
+Calvin 11/29:
 
     large refactor of account_id to id for Account class
 
-    add Hashtag feature
+    create Hashtag when creating a post
 
     create tests of Hashtag
 
     decide if some things should be url or path body
+
+    fix: getAllCommentsByPostId, getAllCommentsByAccountId
 
     Start frontend
 
@@ -27,3 +29,11 @@ for Nina (maybe):
     create tests for commentService
 
     create tests for commentController
+
+Eryk 11/29:
+
+    getAllPostByHashtagNameDesc
+
+    deleting Hashtags when deleting a post
+
+    getLikeByHandleAndPost

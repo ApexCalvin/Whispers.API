@@ -27,12 +27,12 @@ public class CommentController {
         return new ResponseEntity<>("Comment has been successfully saved.", HttpStatus.CREATED);
     }
 
-    @GetMapping("/post/{postId}")
+    @GetMapping("/post/{postId}") //TODO:
     public ResponseEntity<List<GetCommentDTO>> getAllCommentsByPostId(@PathVariable Long postId) {
         return ResponseEntity.ok(commentService.getAllCommentsByPostId(postId));
     }
 
-    @GetMapping("/account/{accountId}")
+    @GetMapping("/account/{accountId}") //TODO:
     public ResponseEntity<List<GetCommentDTO>> getAllCommentsByAccountId(@PathVariable Long accountId) {
         return ResponseEntity.ok(commentService.getAllCommentsByAccountId(accountId));
     }

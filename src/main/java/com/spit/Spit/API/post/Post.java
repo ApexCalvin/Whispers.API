@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.spit.Spit.API.account.Account;
 import com.spit.Spit.API.comment.Comment;
 import com.spit.Spit.API.hashtag.Hashtag;
-import com.spit.Spit.API.like._Like;
+import com.spit.Spit.API.like.Like_;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -97,7 +97,7 @@ public class Post {
     @OneToMany( mappedBy = "post",
                 cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<_Like> likes;
+    private List<Like_> likes;
 
     @ManyToMany(fetch = FetchType.LAZY) //load associated entities only when explicitly requested
     @JoinTable( name = "xref_post_hashtag",
