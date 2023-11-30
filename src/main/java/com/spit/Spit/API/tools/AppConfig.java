@@ -4,6 +4,8 @@ import com.spit.Spit.API.account.Account;
 import com.spit.Spit.API.account.AccountRepository;
 import com.spit.Spit.API.comment.Comment;
 import com.spit.Spit.API.comment.CommentRepository;
+import com.spit.Spit.API.hashtag.Hashtag;
+import com.spit.Spit.API.hashtag.HashtagRepository;
 import com.spit.Spit.API.like.LikeRepository;
 import com.spit.Spit.API.like.Like_;
 import com.spit.Spit.API.post.Post;
@@ -14,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Set;
 
 @Configuration
 public class AppConfig {
@@ -30,12 +33,16 @@ public class AppConfig {
     @Autowired
     LikeRepository likeRepository;
 
+    @Autowired
+    HashtagRepository hashtagRepository;
+
+    private boolean runAppConfig = false;
+
     @PostConstruct
     public void setup(){
-        boolean runAppConfig = false;
-
-        if (!runAppConfig) return; // Exit the method if setup is not enabled
-
+        if (!runAppConfig) {
+            return; // Exit the method if setup is not enabled
+        }
 
         Account user1 = new Account("John", "Homelander");
         Account user2 = new Account("Kevin", "The Deep");
@@ -97,15 +104,14 @@ public class AppConfig {
 
         likeRepository.saveAll(Arrays.asList(like1, like2, like3, like4));
 
+        Hashtag hashtag = new Hashtag();
+        hashtag.setName("first");
+        Hashtag hashtag2 = new Hashtag();
+        hashtag2.setName("second");
+        travel.setHashtags(Set.of(hashtag, hashtag2));
+        tech.setHashtags(Set.of(hashtag));
+        hashtagRepository.saveAll(Arrays.asList(hashtag, hashtag2));
+        postRepository.saveAll(Arrays.asList(travel, tech));
 
-//        try {
-//            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//            String data = "01/01/2023 15:30:45";
-//            Date date = sdf.parse(data);
-//            Post post = new Post(date, "Homelander message 1", homelander);
-//            postRepository.save(post);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
 }
