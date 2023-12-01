@@ -32,7 +32,9 @@ public class PostServiceTest {
 
     @Test
     void createPost() {
-        CreatePostDTO createPostDTO = new CreatePostDTO(1L, "test");
+        CreatePostDTO createPostDTO = new CreatePostDTO();
+        createPostDTO.setAccountId(1L);
+        createPostDTO.setMessage("Test");
         Post post = new Post();
         post.setId(1L);
         post.setMessage("test");

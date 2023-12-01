@@ -32,7 +32,9 @@ public class PostControllerTest {
 
     @Test
     void createPost(){
-        CreatePostDTO postDTO = new CreatePostDTO(1L, "Test");
+        CreatePostDTO postDTO = new CreatePostDTO();
+        postDTO.setAccountId(1L);
+        postDTO.setMessage("Test");
         when(accountService.getAccountById(postDTO.getAccountId())).thenReturn(new Account());
 
         ResponseEntity<String> actual = subject.createPost(postDTO);
