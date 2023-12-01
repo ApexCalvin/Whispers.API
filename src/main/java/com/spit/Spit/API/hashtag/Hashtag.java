@@ -1,5 +1,7 @@
 package com.spit.Spit.API.hashtag;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.spit.Spit.API.post.Post;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -22,9 +24,10 @@ public class Hashtag {
     @Column(name = "name", nullable = false)
     private String name;
 
-//    @ManyToMany(mappedBy ="hashtags",
-//                fetch = FetchType.LAZY) ////load associated entities only when explicitly requested
-//    private Set<Post> posts = new HashSet<>();
+    @ManyToMany(mappedBy ="hashtags",
+                fetch = FetchType.LAZY) ////load associated entities only when explicitly requested
+    @JsonIgnoreProperties
+    private Set<Post> posts = new HashSet<>();
 
     @Override
     public String toString() {

@@ -27,9 +27,9 @@ public class PostService {
         Account account = accountService.getAccountById(createPostDTO.getAccountId());
         post.setAccount(account);
         post.setMessage(createPostDTO.getMessage());
+
         postRepository.save(post);
         hashtagService.createHashtags(post.getId(), createPostDTO.getHashtags());
-        //save to Posts' hashtag set?
     }
 
     public Post getPostById(Long id) {

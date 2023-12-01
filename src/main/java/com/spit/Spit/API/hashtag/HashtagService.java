@@ -28,21 +28,19 @@ public class HashtagService {
     public void validateAndSaveHashtag(Long postId, String hashtagName) {
         boolean newHashtag = isNewHashtag(hashtagName);
 
-        if(newHashtag) {
-            Hashtag hashtag = new Hashtag();
-            hashtag.setName(hashtagName);
-            hashtagRepository.save(hashtag);
+        //grab existing hashtag or null
+        Hashtag hashtagToSave = getHashtagByName(hashtagName);;
 
-            Post post = postRepository.findById(postId).orElse(null);
-            post.getHashtags().add(hashtag);
-            postRepository.save(post);
-
-            //createXref(postId, newHashtag);
-            //return new ResponseEntity<>(HttpStatus.CREATED);
+        if(newHashtag) { //else, write over & save new hashtag
+            hashtagToSave.setName(hashtagName);
+            hashtagRepository.save(hashtagToSave);
         }
 
-        Hashtag oldHashtag = getHashtagByName(hashtagName);
-        //createXref(postId, oldHashtag);
+        Post post = postRepository.findById(postId).orElse(null);
+        post.getHashtags().add(hashtagToSave);
+        postRepository.save(post);
+
+        //return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     public Hashtag getHashtagById(Long id) {
