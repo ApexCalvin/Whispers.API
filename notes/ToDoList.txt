@@ -4,10 +4,6 @@ Calvin 11/29:
 
     large refactor of account_id to id for Account class
 
-    create Hashtag when creating a post
-
-        getAllHashtagsByPostId
-
     create tests of Hashtag
 
     decide if some things should be url or path body

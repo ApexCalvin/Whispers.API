@@ -2,10 +2,12 @@ package com.spit.Spit.API.post;
 
 import com.spit.Spit.API.account.Account;
 import com.spit.Spit.API.account.AccountService;
+import com.spit.Spit.API.hashtag.Hashtag;
 import com.spit.Spit.API.hashtag.HashtagService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class PostService {
@@ -28,12 +30,10 @@ public class PostService {
         post.setAccount(account);
         post.setMessage(createPostDTO.getMessage());
 
+        Set<Hashtag> hashtagsToSave = hashtagService.createHashtags(post.getId(), createPostDTO.getHashtags());
+        post.setHashtags(hashtagsToSave);
+
         postRepository.save(post);
-
-        //return all hashtags as a set
-        hashtagService.createHashtags(post.getId(), createPostDTO.getHashtags());
-
-        //assigned to post and save
     }
 
     public Post getPostById(Long id) {
@@ -63,6 +63,5 @@ public class PostService {
     public List<Post> getAllPostsByHashtag(String hashtag) {
         return postRepository.findByHashtags_Name(hashtag);
     }
-
 }
 

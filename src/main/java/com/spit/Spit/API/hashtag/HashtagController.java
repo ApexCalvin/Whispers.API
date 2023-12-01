@@ -20,6 +20,7 @@ import java.util.Set;
 public class HashtagController {
 
     private final HashtagService hashtagService;
+
     private final PostService postService;
 
     public HashtagController(HashtagService hashtagService, PostService postService) {
@@ -27,40 +28,25 @@ public class HashtagController {
         this.postService = postService;
     }
 
-//    @PostMapping
-//    public ResponseEntity<String> createHashtag(@Valid @RequestBody Hashtag hashtag){
-//        boolean hashtagAvailability = hashtagService.isHashtagAvailable(hashtag.getName());
-//
-//        if(hashtagAvailability) {
-//            Hashtag found = hashtagService.getHashtagByName(hashtag.getName());
-//            hashtag.setId(found.getId());
-//            hashtagService.createHashtag(hashtag); //saves
-//            return new ResponseEntity<>(HttpStatus.CREATED);
-//        }
-//
-//        hashtagService.createHashtag(hashtag); //creates new
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
-
-//    public ResponseEntity<String> createHashtags(@Valid @RequestBody Set<Hashtag> hashtags){
-//        for (Hashtag h : hashtags) {
-//            createHashtag(h);
-//        }
-//        return ResponseEntity.ok("");
-//    }
-
     @GetMapping
     public ResponseEntity<List<Hashtag>> getAllHashtags() {
         return ResponseEntity.ok(hashtagService.getAllHashtags());
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<List<Hashtag>> getAllHashtagsOfPost(@PathVariable Long id) {
-//        return ResponseEntity.ok(hashtagService.getAllHashtagsByPostId(id));
-//    }
     @GetMapping("/{hashtag}/posts")
     public ResponseEntity<List<Post>> getAllPostByHashtagNameDesc(@PathVariable String hashtag) {
         return ResponseEntity.ok(postService.getAllPostsByHashtag(hashtag));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteHashtagById(@PathVariable Long id) {
+        Hashtag hashtag = hashtagService.getHashtagById(id);
+
+        if(hashtag != null) {
+            hashtagService.deleteHashtagById(id);
+            return new ResponseEntity<>("Hashtag has been successfully deleted.", HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
