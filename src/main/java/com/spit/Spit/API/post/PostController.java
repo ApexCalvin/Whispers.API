@@ -2,6 +2,8 @@ package com.spit.Spit.API.post;
 
 import com.spit.Spit.API.account.Account;
 import com.spit.Spit.API.account.AccountService;
+import com.spit.Spit.API.comment.CommentService;
+import com.spit.Spit.API.comment.GetCommentDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +23,12 @@ public class PostController {
     private final PostService postService;
     private final AccountService accountService;
 
-    public PostController(PostService postService, AccountService accountService) {
+    private final CommentService commentService;
+
+    public PostController(PostService postService, AccountService accountService, CommentService commentService) {
         this.postService = postService;
         this.accountService = accountService;
+        this.commentService = commentService;
     }
 
     @PostMapping
@@ -78,12 +83,9 @@ public class PostController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    public ResponseEntity<String> putPostById() {
-        return null;
-    }
-
-    public ResponseEntity<String> patchPostById() {
-        return null;
+    @GetMapping("/{postId}/comments")
+    public ResponseEntity<List<GetCommentDTO>> getAllCommentsByPostId(@PathVariable Long postId) {
+        return ResponseEntity.ok(commentService.getAllCommentsByPostId(postId));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

@@ -1,5 +1,7 @@
 package com.spit.Spit.API.account;
 
+import com.spit.Spit.API.comment.CommentService;
+import com.spit.Spit.API.comment.GetCommentDTO;
 import com.spit.Spit.API.post.GetPostDTO;
 import com.spit.Spit.API.post.PostService;
 import jakarta.validation.Valid;
@@ -20,10 +22,12 @@ public class AccountController {
 
     private final AccountService accountService;
     private final PostService postService;
-    @Autowired
-    public AccountController(AccountService accountServices, PostService postService) {
+    private final CommentService commentService;
+
+    public AccountController(AccountService accountServices, PostService postService, CommentService commentService) {
         this.accountService = accountServices;
         this.postService = postService;
+        this.commentService = commentService;
     }
 
     @PostMapping
@@ -103,6 +107,11 @@ public class AccountController {
             return new ResponseEntity<>("Updating every field is a PUT request.", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/{accountId}/comments") //TODO:
+    public ResponseEntity<List<GetCommentDTO>> getAllCommentsByAccountId(@PathVariable Long accountId) {
+        return ResponseEntity.ok(commentService.getAllCommentsByAccountId(accountId));
     }
 
     public static boolean hasOnlyOneNullField(UpdateAccountDTO updatedAccount) {

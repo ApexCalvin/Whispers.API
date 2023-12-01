@@ -8,8 +8,6 @@ Calvin 11/29:
 
     decide if some things should be url or path body
 
-    fix: getAllCommentsByPostId, getAllCommentsByAccountId
-
     Start frontend
 
         create comment
@@ -35,3 +33,5 @@ Eryk 11/29:
     deleting Hashtags when deleting a post
 
     getLikeByHandleAndPost
+
+    deleteHashtagById (not necessary)
