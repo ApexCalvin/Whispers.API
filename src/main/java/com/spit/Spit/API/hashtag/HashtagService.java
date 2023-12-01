@@ -32,6 +32,11 @@ public class HashtagService {
             Hashtag hashtag = new Hashtag();
             hashtag.setName(hashtagName);
             hashtagRepository.save(hashtag);
+
+            Post post = postRepository.findById(postId).orElse(null);
+            post.getHashtags().add(hashtag);
+            postRepository.save(post);
+
             //createXref(postId, newHashtag);
             //return new ResponseEntity<>(HttpStatus.CREATED);
         }
