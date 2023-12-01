@@ -24,10 +24,10 @@ public class Hashtag {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy ="hashtags",
-                fetch = FetchType.LAZY) ////load associated entities only when explicitly requested
-    @JsonIgnoreProperties
-    private Set<Post> posts = new HashSet<>();
+//    @ManyToMany(mappedBy ="hashtags",
+//                fetch = FetchType.LAZY) ////load associated entities only when explicitly requested
+//    @JsonIgnoreProperties
+//    private Set<Post> posts = new HashSet<>();
 
     @Override
     public String toString() {

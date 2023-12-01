@@ -1,5 +1,6 @@
 package com.spit.Spit.API.hashtag;
 
+import com.spit.Spit.API.account.Account;
 import com.spit.Spit.API.post.Post;
 import com.spit.Spit.API.post.PostRepository;
 import org.springframework.stereotype.Service;
@@ -53,11 +54,6 @@ public class HashtagService {
 
     public List<Hashtag> getAllHashtags() {
         return hashtagRepository.findAll();
-    }
-
-    public List<Hashtag> getAllHashtagsByPostId(Long id) {
-
-        return null;
     }
 
     public void deleteHashtagById(Long id) {

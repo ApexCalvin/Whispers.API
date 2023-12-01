@@ -54,10 +54,10 @@ public class HashtagController {
         return ResponseEntity.ok(hashtagService.getAllHashtags());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<Hashtag>> getAllHashtagsOfPost(@PathVariable Long id) {
-        return ResponseEntity.ok(hashtagService.getAllHashtagsByPostId(id));
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<List<Hashtag>> getAllHashtagsOfPost(@PathVariable Long id) {
+//        return ResponseEntity.ok(hashtagService.getAllHashtagsByPostId(id));
+//    }
     @GetMapping("/{hashtag}/posts")
     public ResponseEntity<List<Post>> getAllPostByHashtagNameDesc(@PathVariable String hashtag) {
         return ResponseEntity.ok(postService.getAllPostsByHashtag(hashtag));

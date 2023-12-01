@@ -29,7 +29,11 @@ public class PostService {
         post.setMessage(createPostDTO.getMessage());
 
         postRepository.save(post);
+
+        //return all hashtags as a set
         hashtagService.createHashtags(post.getId(), createPostDTO.getHashtags());
+
+        //assigned to post and save
     }
 
     public Post getPostById(Long id) {
@@ -60,7 +64,5 @@ public class PostService {
         return postRepository.findByHashtags_Name(hashtag);
     }
 
-
-    //public List<Post> getPostByHashtagDESC(Long id) { return null; }
 }
 
