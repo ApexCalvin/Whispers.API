@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class HashtagService {
@@ -17,29 +18,26 @@ public class HashtagService {
         this.hashtagRepository = hashtagRepository;
     }
 
-    public Set<Hashtag> createHashtags(Long postId, List<String> hashtags) {
-        Set<Hashtag> hashtagsToSave = new HashSet<>();
-        if(!hashtags.isEmpty()) {
-            for (String hashtag : hashtags) {
-                hashtagsToSave.add(validateAndSaveHashtag(postId, hashtag));
-            }
-        }
-        return hashtagsToSave;
+    public Set<Hashtag> createHashtags(List<String> hashtags) {
+//        Set<Hashtag> hashtagsToSave = new HashSet<>();
+//        for (String hashtag : hashtags) {
+//            hashtagsToSave.add(validateAndSaveHashtag(hashtag));
+//        }
+//        return hashtagsToSave;
+        return hashtags.stream().map(this::validateAndSaveHashtag).collect(Collectors.toSet());
     }
 
-    public Hashtag validateAndSaveHashtag(Long postId, String hashtagName) {
-        boolean newHashtag = isNewHashtag(hashtagName);
-
+    private Hashtag validateAndSaveHashtag( String hashtagName) {
         //grab existing hashtag or null
-        Hashtag hashtagToSave = getHashtagByName(hashtagName);;
+        Hashtag existingHashtag = getHashtagByName(hashtagName);;
 
-        if(newHashtag) { //else, write over & save new hashtag
+        if(existingHashtag == null) {
+            Hashtag hashtagToSave = new Hashtag();
+            //else, write over & save new hashtag
             hashtagToSave.setName(hashtagName);
-            hashtagRepository.save(hashtagToSave);
+            return hashtagRepository.save(hashtagToSave);
         }
-
-        return hashtagToSave;
-        //return new ResponseEntity<>(HttpStatus.CREATED);
+        return existingHashtag;
     }
 
     public Hashtag getHashtagById(Long id) {
