@@ -2,22 +2,20 @@ package com.spit.Spit.API.post;
 
 import com.spit.Spit.API.account.Account;
 import com.spit.Spit.API.account.AccountService;
+import com.spit.Spit.API.hashtag.Hashtag;
 import com.spit.Spit.API.hashtag.HashtagService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class PostServiceTest {
@@ -35,18 +33,47 @@ public class PostServiceTest {
     HashtagService hashtagService;
 
     @Test
-    void createPost() {
+    void createPost_withNoHashtags_savesPostWithFields() {
         CreatePostDTO createPostDTO = new CreatePostDTO();
         createPostDTO.setAccountId(1L);
         createPostDTO.setMessage("Test");
-        Post post = new Post();
-        post.setId(1L);
-        post.setMessage("test");
-        when(accountService.getAccountById(any(Long.class))).thenReturn(new Account());
+        Account expectedAccount = new Account();
+        when(accountService.getAccountById(1L)).thenReturn(expectedAccount);
+        ArgumentCaptor<Post> postArgumentCaptor = ArgumentCaptor.forClass(Post.class);
 
         subject.createPost(createPostDTO);
 
-        verify(postRepository).save(any(Post.class));
+        verify(hashtagService, never()).createHashtags(any());
+        verify(postRepository).save(postArgumentCaptor.capture());
+        assertThat(postArgumentCaptor.getValue().getAccount()).isEqualTo(expectedAccount);
+        assertThat(postArgumentCaptor.getValue().getMessage()).isEqualTo("Test");
+    }
+
+    @Test
+    void createPost_withHashtags_savesPostWithHashtags() {
+        CreatePostDTO createPostDTO = new CreatePostDTO();
+        createPostDTO.setAccountId(1L);
+        createPostDTO.setMessage("Test");
+        ArrayList<String> hashtagNames = new ArrayList<>(Arrays.asList("Hash1", "Hash2"));
+        createPostDTO.setHashtags(hashtagNames);
+        Hashtag hash1 = new Hashtag();
+        hash1.setName("Hash1");
+        Hashtag hash2 = new Hashtag();
+        hash2.setName("Hash2");
+        Set<Hashtag> hashtags = new HashSet<>(Set.of(hash1, hash2));
+        createPostDTO.setHashtags(hashtagNames);
+        Account expectedAccount = new Account();
+        when(accountService.getAccountById(1L)).thenReturn(expectedAccount);
+        when(hashtagService.createHashtags(hashtagNames)).thenReturn(hashtags);
+        ArgumentCaptor<Post> postArgumentCaptor = ArgumentCaptor.forClass(Post.class);
+
+        subject.createPost(createPostDTO);
+
+        verify(hashtagService).createHashtags(hashtagNames);
+        verify(postRepository).save(postArgumentCaptor.capture());
+        assertThat(postArgumentCaptor.getValue().getAccount()).isEqualTo(expectedAccount);
+        assertThat(postArgumentCaptor.getValue().getMessage()).isEqualTo("Test");
+        assertThat(postArgumentCaptor.getValue().getHashtags()).isEqualTo(hashtags);
     }
 
     @Test

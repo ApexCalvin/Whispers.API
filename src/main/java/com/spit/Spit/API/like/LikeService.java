@@ -6,6 +6,7 @@ import com.spit.Spit.API.post.Post;
 import com.spit.Spit.API.post.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,6 +23,8 @@ public class LikeService {
         this.postService = postService;
         this.accountService = accountService;
     }
+
+    @Transactional
     public Like_ createLike(CreateLikeDTO likeDTO) {
         Like_ like = new Like_();
         Post post = postService.getPostById(likeDTO.getPostId());

@@ -5,6 +5,7 @@ import com.spit.Spit.API.account.AccountService;
 import com.spit.Spit.API.hashtag.Hashtag;
 import com.spit.Spit.API.hashtag.HashtagService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -24,13 +25,14 @@ public class PostService {
         this.hashtagService = hashtagService;
     }
 
+    @Transactional //multiple DB saves ensures entire method finished before persisting anything
     public void createPost(CreatePostDTO createPostDTO) {
         Post post = new Post();
         Account account = accountService.getAccountById(createPostDTO.getAccountId());
         post.setAccount(account);
         post.setMessage(createPostDTO.getMessage());
         if(!createPostDTO.getHashtags().isEmpty()){
-            Set<Hashtag> hashtagsToSave = hashtagService.createHashtags( createPostDTO.getHashtags());
+            Set<Hashtag> hashtagsToSave = hashtagService.createHashtags(createPostDTO.getHashtags());
             post.setHashtags(hashtagsToSave);
         }
 
@@ -62,7 +64,7 @@ public class PostService {
     }
 
     public List<Post> getAllPostsByHashtagName(String hashtag) {
-        return postRepository.findByHashtags_Name(hashtag);
+        return postRepository.findByHashtags_NameOrderByDateDesc(hashtag);
     }
 }
 
