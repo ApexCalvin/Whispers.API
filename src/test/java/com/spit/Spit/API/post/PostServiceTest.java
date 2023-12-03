@@ -37,6 +37,7 @@ public class PostServiceTest {
         CreatePostDTO createPostDTO = new CreatePostDTO();
         createPostDTO.setAccountId(1L);
         createPostDTO.setMessage("Test");
+        createPostDTO.setHashtags(new ArrayList<>());
         Account expectedAccount = new Account();
         when(accountService.getAccountById(1L)).thenReturn(expectedAccount);
         ArgumentCaptor<Post> postArgumentCaptor = ArgumentCaptor.forClass(Post.class);
