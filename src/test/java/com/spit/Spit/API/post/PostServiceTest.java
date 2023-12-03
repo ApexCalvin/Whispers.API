@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -19,25 +20,18 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class PostServiceTest {
-
     @InjectMocks
     PostService subject;
-
     @Mock
     PostRepository postRepository;
-
     @Mock
     AccountService accountService;
-
     @Mock
     HashtagService hashtagService;
 
     @Test
     void createPost_withNoHashtags_savesPostWithFields() {
-        CreatePostDTO createPostDTO = new CreatePostDTO();
-        createPostDTO.setAccountId(1L);
-        createPostDTO.setMessage("Test");
-        createPostDTO.setHashtags(new ArrayList<>());
+        CreatePostDTO createPostDTO = buildCreatePostDTO(1L, "Test", new ArrayList<String>());
         Account expectedAccount = new Account();
         when(accountService.getAccountById(1L)).thenReturn(expectedAccount);
         ArgumentCaptor<Post> postArgumentCaptor = ArgumentCaptor.forClass(Post.class);
@@ -50,21 +44,16 @@ public class PostServiceTest {
         assertThat(postArgumentCaptor.getValue().getMessage()).isEqualTo("Test");
     }
 
+
+
     @Test
     void createPost_withHashtags_savesPostWithHashtags() {
-        CreatePostDTO createPostDTO = new CreatePostDTO();
-        createPostDTO.setAccountId(1L);
-        createPostDTO.setMessage("Test");
         ArrayList<String> hashtagNames = new ArrayList<>(Arrays.asList("Hash1", "Hash2"));
-        createPostDTO.setHashtags(hashtagNames);
-        Hashtag hash1 = new Hashtag();
-        hash1.setName("Hash1");
-        Hashtag hash2 = new Hashtag();
-        hash2.setName("Hash2");
-        Set<Hashtag> hashtags = new HashSet<>(Set.of(hash1, hash2));
+        CreatePostDTO createPostDTO = buildCreatePostDTO(1L, "Test", hashtagNames);
         createPostDTO.setHashtags(hashtagNames);
         Account expectedAccount = new Account();
         when(accountService.getAccountById(1L)).thenReturn(expectedAccount);
+        Set<Hashtag> hashtags = buildHashtagSet("Hash1", "Hash2");
         when(hashtagService.createHashtags(hashtagNames)).thenReturn(hashtags);
         ArgumentCaptor<Post> postArgumentCaptor = ArgumentCaptor.forClass(Post.class);
 
@@ -76,6 +65,8 @@ public class PostServiceTest {
         assertThat(postArgumentCaptor.getValue().getMessage()).isEqualTo("Test");
         assertThat(postArgumentCaptor.getValue().getHashtags()).isEqualTo(hashtags);
     }
+
+
 
     @Test
     void getPostById_returnAccount() {
@@ -146,5 +137,21 @@ public class PostServiceTest {
     @Test
     void getAllPostsByHashtagName() {
 
+    }
+    private static CreatePostDTO buildCreatePostDTO(long accountId, String message, ArrayList<String> hashtags) {
+        CreatePostDTO createPostDTO = new CreatePostDTO();
+        createPostDTO.setAccountId(accountId);
+        createPostDTO.setMessage(message);
+        createPostDTO.setHashtags(hashtags);
+        return createPostDTO;
+    }
+    private static Set<Hashtag> buildHashtagSet(String... names) {
+        return Arrays.stream(names)
+                .map(name -> {
+                    Hashtag hashtag = new Hashtag();
+                    hashtag.setName(name);
+                    return hashtag;
+                })
+                .collect(Collectors.toSet());
     }
 }

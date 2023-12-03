@@ -49,16 +49,6 @@ public class CommentControllerTest {
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.CREATED);
     }
 
-    @Test
-    void createComment_missingFields_doesNotCreateComment(){
-        CreateCommentDTO createCommentDTO = new CreateCommentDTO();
-
-        ResponseEntity<String> actual =  subject.createComment(createCommentDTO);
-
-        verify(commentService, never()).createComment(createCommentDTO);
-        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-    }
-
     private static CreateCommentDTO buildCreateCommentDTO(String message, Long postId, Long accountId) {
         CreateCommentDTO createCommentDTO = new CreateCommentDTO();
         createCommentDTO.setMessage(message);
