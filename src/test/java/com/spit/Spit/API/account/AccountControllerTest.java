@@ -1,5 +1,9 @@
 package com.spit.Spit.API.account;
 
+import com.spit.Spit.API.comment.CommentService;
+import com.spit.Spit.API.comment.GetCommentDTO;
+import com.spit.Spit.API.post.GetPostDTO;
+import com.spit.Spit.API.post.PostService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,6 +28,12 @@ public class AccountControllerTest {
 
     @Mock
     AccountService accountService;
+
+    @Mock
+    PostService postService;
+
+    @Mock
+    CommentService commentService;
 
     @Test
     void createAccount() {
@@ -120,6 +130,19 @@ public class AccountControllerTest {
     }
 
     @Test
+    void getLikedPostsForAccount_returnListOfPosts() {
+        List<GetPostDTO> posts = new ArrayList<>();
+        posts.add(new GetPostDTO());
+        posts.add(new GetPostDTO());
+        when(postService.getLikedPostsByAccountId(any(Long.class))).thenReturn(posts);
+
+        ResponseEntity<List<GetPostDTO>> actual = subject.getLikedPostsForAccount(2L);
+
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(actual.getBody()).isEqualTo(posts);
+    }
+
+    @Test
     void deleteAccountById_notFound() {
         when(accountService.getAccountById(any(Long.class))).thenReturn(null);
 
@@ -163,6 +186,7 @@ public class AccountControllerTest {
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(actual.getBody()).isEqualTo("Account has been partially updated.");
     }
+
     @Test
     void patchAccountById_patchName() {
         UpdateAccountDTO updateAccountDTO = new UpdateAccountDTO("Billy", null);
@@ -194,6 +218,19 @@ public class AccountControllerTest {
 
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
         assertThat(actual.getBody()).isEqualTo("Updating every field is a PUT request.");
+    }
+
+    @Test
+    void getAllCommentsByAccountId_returnListOfComments() {
+        List<GetCommentDTO> comments = new ArrayList<>();
+        comments.add(new GetCommentDTO());
+        comments.add(new GetCommentDTO());
+        when(commentService.getAllCommentsByAccountId(any(Long.class))).thenReturn(comments);
+
+        ResponseEntity<List<GetCommentDTO>> actual = subject.getAllCommentsByAccountId(2L);
+
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(actual.getBody()).isEqualTo(comments);
     }
 
     @Test

@@ -5,7 +5,6 @@ import com.spit.Spit.API.comment.GetCommentDTO;
 import com.spit.Spit.API.post.GetPostDTO;
 import com.spit.Spit.API.post.PostService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -109,9 +108,10 @@ public class AccountController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/{accountId}/comments") //TODO:
+    @GetMapping("/{accountId}/comments")
     public ResponseEntity<List<GetCommentDTO>> getAllCommentsByAccountId(@PathVariable Long accountId) {
-        return ResponseEntity.ok(commentService.getAllCommentsByAccountId(accountId));
+        List<GetCommentDTO> userComments = commentService.getAllCommentsByAccountId(accountId);
+        return ResponseEntity.ok(userComments);
     }
 
     public static boolean hasOnlyOneNullField(UpdateAccountDTO updatedAccount) {
