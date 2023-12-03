@@ -61,7 +61,7 @@ public class PostService {
         return postRepository.getLikedPostsByAccountId(accountId);
     }
 
-    public List<Post> getAllPostsByHashtag(String hashtag) {
+    public List<Post> getAllPostsByHashtagName(String hashtag) {
         return postRepository.findByHashtags_Name(hashtag);
     }
 }

@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 @NamedNativeQuery(
-        name = "getAllPostsDesc-query",
+        name = "getAllPostsDesc",
         query = """
                 SELECT a.handle, a.name, p.date, p.message, p.id FROM account a
                 JOIN post p ON a.account_id = p.account_id
@@ -27,7 +27,7 @@ import java.util.Set;
 )
 
 @NamedNativeQuery(
-        name = "getPostsByHandleDesc-query",
+        name = "getPostsByHandleDesc",
         query = """
                 SELECT a.handle, a.name, p.date, p.message, p.id FROM account a
                 JOIN post p ON a.account_id = p.account_id

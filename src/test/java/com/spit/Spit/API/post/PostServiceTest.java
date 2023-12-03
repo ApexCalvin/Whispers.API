@@ -2,6 +2,7 @@ package com.spit.Spit.API.post;
 
 import com.spit.Spit.API.account.Account;
 import com.spit.Spit.API.account.AccountService;
+import com.spit.Spit.API.hashtag.HashtagService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,6 +31,9 @@ public class PostServiceTest {
     @Mock
     AccountService accountService;
 
+    @Mock
+    HashtagService hashtagService;
+
     @Test
     void createPost() {
         CreatePostDTO createPostDTO = new CreatePostDTO();
@@ -43,16 +47,6 @@ public class PostServiceTest {
         subject.createPost(createPostDTO);
 
         verify(postRepository).save(any(Post.class));
-    }
-
-    @Test
-    void getAllPosts_returnPostList() {
-        List<Post> expected = new ArrayList<>(Arrays.asList(new Post(), new Post()));
-        when(postRepository.findAll()).thenReturn(expected);
-
-        List<Post> actual = subject.getAllPosts();
-
-        assertThat(actual.size()).isEqualTo(2);
     }
 
     @Test
@@ -80,6 +74,16 @@ public class PostServiceTest {
     }
 
     @Test
+    void getAllPosts_returnPostList() {
+        List<Post> expected = new ArrayList<>(Arrays.asList(new Post(), new Post()));
+        when(postRepository.findAll()).thenReturn(expected);
+
+        List<Post> actual = subject.getAllPosts();
+
+        assertThat(actual.size()).isEqualTo(2);
+    }
+
+    @Test
     void deletePostById() {
         subject.deletePostById(1L);
         verify(postRepository).deleteById(any(Long.class));
@@ -104,5 +108,15 @@ public class PostServiceTest {
         List<GetPostDTO> actual = subject.getPostsByHandleDesc(handle);
 
         assertThat(actual).isEqualTo(posts);
+    }
+
+    @Test
+    void getLikedPostsByAccountId() {
+
+    }
+
+    @Test
+    void getAllPostsByHashtagName() {
+
     }
 }

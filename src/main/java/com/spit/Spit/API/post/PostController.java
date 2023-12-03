@@ -22,7 +22,6 @@ public class PostController {
 
     private final PostService postService;
     private final AccountService accountService;
-
     private final CommentService commentService;
 
     public PostController(PostService postService, AccountService accountService, CommentService commentService) {

@@ -1,9 +1,7 @@
 package com.spit.Spit.API.hashtag;
 
-import com.spit.Spit.API.post.GetPostDTO;
 import com.spit.Spit.API.post.Post;
 import com.spit.Spit.API.post.PostService;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/hashtag")
@@ -35,7 +32,7 @@ public class HashtagController {
 
     @GetMapping("/{hashtag}/posts")
     public ResponseEntity<List<Post>> getAllPostByHashtagNameDesc(@PathVariable String hashtag) {
-        return ResponseEntity.ok(postService.getAllPostsByHashtag(hashtag));
+        return ResponseEntity.ok(postService.getAllPostsByHashtagName(hashtag));
     }
 
     @DeleteMapping("/{id}")
