@@ -44,8 +44,6 @@ public class PostServiceTest {
         assertThat(postArgumentCaptor.getValue().getMessage()).isEqualTo("Test");
     }
 
-
-
     @Test
     void createPost_withHashtags_savesPostWithHashtags() {
         ArrayList<String> hashtagNames = new ArrayList<>(Arrays.asList("Hash1", "Hash2"));
@@ -65,8 +63,6 @@ public class PostServiceTest {
         assertThat(postArgumentCaptor.getValue().getMessage()).isEqualTo("Test");
         assertThat(postArgumentCaptor.getValue().getHashtags()).isEqualTo(hashtags);
     }
-
-
 
     @Test
     void getPostById_returnAccount() {
@@ -131,13 +127,26 @@ public class PostServiceTest {
 
     @Test
     void getLikedPostsByAccountId() {
+        Long id = 1L;
+        List<GetPostDTO> posts = new ArrayList<>(Arrays.asList(new GetPostDTO(), new GetPostDTO()));
+        when(postRepository.getLikedPostsByAccountId(id)).thenReturn(posts);
 
+        List<GetPostDTO> actual = subject.getLikedPostsByAccountId(id);
+
+        assertThat(actual).isEqualTo(posts);
     }
 
     @Test
     void getAllPostsByHashtagName() {
+        String hashtag = "hero";
+        List<Post> posts = new ArrayList<>(Arrays.asList(new Post(), new Post()));
+        when(postRepository.findByHashtags_NameOrderByDateDesc(hashtag)).thenReturn(posts);
 
+        List<Post> actual = subject.getAllPostsByHashtagName(hashtag);
+
+        assertThat(actual).isEqualTo(posts);
     }
+
     private static CreatePostDTO buildCreatePostDTO(long accountId, String message, ArrayList<String> hashtags) {
         CreatePostDTO createPostDTO = new CreatePostDTO();
         createPostDTO.setAccountId(accountId);
@@ -145,6 +154,7 @@ public class PostServiceTest {
         createPostDTO.setHashtags(hashtags);
         return createPostDTO;
     }
+
     private static Set<Hashtag> buildHashtagSet(String... names) {
         return Arrays.stream(names)
                 .map(name -> {
