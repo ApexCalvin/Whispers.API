@@ -1,6 +1,5 @@
 package com.spit.Spit.API.hashtag;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.spit.Spit.API.post.Post;
 import jakarta.persistence.*;

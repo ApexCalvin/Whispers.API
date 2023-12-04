@@ -20,13 +20,10 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class PostControllerTest {
-
     @InjectMocks
     PostController subject;
-
     @Mock
     PostService postService;
-
     @Mock
     AccountService accountService;
 
@@ -154,8 +151,4 @@ public class PostControllerTest {
         assertThat(actual.getBody()).isEqualTo(null);
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
-
-    void putPostById(){}
-
-    void patchPostById(){}
 }
