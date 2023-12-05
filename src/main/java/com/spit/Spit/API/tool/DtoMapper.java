@@ -1,4 +1,4 @@
-package com.spit.Spit.API.tools;
+package com.spit.Spit.API.tool;
 
 
 import com.spit.Spit.API.account.Account;

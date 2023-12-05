@@ -6,6 +6,8 @@ Calvin 11/29:
 
     create tests of Hashtag
 
+        test deleteHashtagById
+
     decide if some things should be url or path body
 
     Start frontend
