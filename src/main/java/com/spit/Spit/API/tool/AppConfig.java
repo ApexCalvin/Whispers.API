@@ -40,9 +40,7 @@ public class AppConfig {
 
     @PostConstruct
     public void setup(){
-        if (!runAppConfig) {
-            return; // Exit the method if setup is not enabled
-        }
+        if (!runAppConfig) return;
 
         Account user1 = new Account("John", "Homelander");
         Account user2 = new Account("Kevin", "The Deep");
@@ -84,7 +82,12 @@ public class AppConfig {
 
         accountRepository.saveAll(Arrays.asList(user1, user2, user3, user4, user5));
         postRepository.saveAll(Arrays.asList(cooking, fitness, tech, travel, movie));
-        commentRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5, f1, f2, f3, f4, t1, t2, t3, t4, r1, r2, r3, r4, m1, m2, m3, m4, m5));
+        commentRepository.saveAll(Arrays.asList(    c1, c2, c3, c4, c5,
+                                                    f1, f2, f3, f4,
+                                                    t1, t2, t3, t4,
+                                                    r1, r2, r3, r4,
+                                                    m1, m2, m3, m4, m5
+                                                ));
 
         Like_ like1 = new Like_();
         like1.setPost(cooking);

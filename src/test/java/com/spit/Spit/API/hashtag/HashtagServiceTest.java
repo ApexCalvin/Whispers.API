@@ -9,8 +9,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,16 +32,47 @@ public class HashtagServiceTest {
     void createHashtags_plural() {}
 
     @Test
-    void validateAndSaveHashtag_newHashtag() {}
+    void validateAndSaveHashtag_newHashtag() {
+        when(subject.getHashtagByName(any(String.class))).thenReturn(null);
+
+        Hashtag actual = subject.validateAndSaveHashtag("Test");
+
+        verify(hashtagRepository).save(any(Hashtag.class));
+        assertThat(actual.getName()).isEqualTo("Test");
+    }
 
     @Test
-    void validateAndSaveHashtag_existingHashtag() {}
+    void validateAndSaveHashtag_existingHashtag() {
+        Hashtag expected = new Hashtag();
+        expected.setName("Test");
+        when(subject.getHashtagByName(any(String.class))).thenReturn(expected);
+
+        Hashtag actual = subject.validateAndSaveHashtag("Test");
+
+        assertThat(actual).isEqualTo(expected);
+        assertThat(actual.getName()).isEqualTo(expected.getName());
+    }
 
     @Test
-    void getHashtagById() {}
+    void getHashtagById() {
+        Long id = 1L;
+        Hashtag expected = new Hashtag();
+        when(hashtagRepository.findById(id)).thenReturn(Optional.of(expected));
+
+        Hashtag actual = subject.getHashtagById(id);
+
+        assertThat(actual).isEqualTo(expected);
+    }
 
     @Test
-    void getHashtagById_returnNull() {}
+    void getHashtagById_returnNull() {
+        Long id = 1L;
+        when(hashtagRepository.findById(id)).thenReturn(Optional.empty());
+
+        Hashtag actual = subject.getHashtagById(id);
+
+        assertThat(actual).isEqualTo(null);
+    }
 
     @Test
     void getHashtagByName() {
@@ -63,7 +97,10 @@ public class HashtagServiceTest {
     }
 
     @Test
-    void deleteHashtagById() {}
+    void deleteHashtagById() {
+        subject.deleteHashtagById(2L);
+        verify(hashtagRepository).deleteById(any(Long.class));
+    }
 
     @Test
     void isNewHashtag_true() {

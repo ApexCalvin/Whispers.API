@@ -1,32 +1,26 @@
 To-Do:
 
-Calvin 11/29:
+Calvin 12/5:
+
+    Hashtag:
+
+        createHashtag in service tests
+
+        controller tests
 
     large refactor of account_id to id for Account class
 
-    create tests of Hashtag
-
-        test deleteHashtagById
+    test all end points and create a new postman lib, add more to AppConfig
 
     decide if some things should be url or path body
 
-    Start frontend
+    Front End:
 
-        create comment
-
-        create post
+        create comment/post
 
         switch acc
 
-        search by handle
-
-        search by hashtag
-
-for Nina (maybe):
-
-    create tests for commentService
-
-    create tests for commentController
+        search by handle/hashtag
 
 Eryk 12/4:
     getLikeByHandleAndPost refactor/redesign

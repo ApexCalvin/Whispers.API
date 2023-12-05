@@ -1,8 +1,5 @@
 package com.spit.Spit.API.hashtag;
 
-import com.spit.Spit.API.account.Account;
-import com.spit.Spit.API.post.Post;
-import com.spit.Spit.API.post.PostRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -27,15 +24,15 @@ public class HashtagService {
         return hashtags.stream().map(this::validateAndSaveHashtag).collect(Collectors.toSet());
     }
 
-    private Hashtag validateAndSaveHashtag( String hashtagName) {
-        //grab existing hashtag or null
+    //changed to "public" to be able to test
+    public Hashtag validateAndSaveHashtag(String hashtagName) {
         Hashtag existingHashtag = getHashtagByName(hashtagName);;
 
         if(existingHashtag == null) {
             Hashtag hashtagToSave = new Hashtag();
-            //else, write over & save new hashtag
             hashtagToSave.setName(hashtagName);
-            return hashtagRepository.save(hashtagToSave);
+            hashtagRepository.save(hashtagToSave);
+            return hashtagToSave;
         }
         return existingHashtag;
     }
