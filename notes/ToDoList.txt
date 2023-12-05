@@ -28,12 +28,7 @@ for Nina (maybe):
 
     create tests for commentController
 
-Eryk 11/29:
+Eryk 12/4:
+    getLikeByHandleAndPost refactor/redesign
 
-    getAllPostByHashtagNameDesc
-
-    deleting Hashtags when deleting a post
-
-    getLikeByHandleAndPost
-
-    deleteHashtagById (not necessary)
+    which endpoints can use DTO and which can use entity class
