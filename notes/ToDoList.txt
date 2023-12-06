@@ -2,11 +2,7 @@ To-Do:
 
 Calvin 12/5:
 
-    Hashtag:
-
-        createHashtag in service tests
-
-        controller tests
+    createHashtag in service tests
 
     large refactor of account_id to id for Account class
 
