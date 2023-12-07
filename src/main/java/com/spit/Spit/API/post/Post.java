@@ -20,7 +20,7 @@ import java.util.Set;
         name = "getAllPostsDesc",
         query = """
                 SELECT a.handle, a.name, p.date, p.message, p.id FROM account a
-                JOIN post p ON a.account_id = p.account_id
+                JOIN post p ON a.id = p.account_id
                 ORDER BY p.date DESC
                 """,
         resultSetMapping = "mapToGetPostDTO"
@@ -30,7 +30,7 @@ import java.util.Set;
         name = "getPostsByHandleDesc",
         query = """
                 SELECT a.handle, a.name, p.date, p.message, p.id FROM account a
-                JOIN post p ON a.account_id = p.account_id
+                JOIN post p ON a.id = p.account_id
                 WHERE a.handle = :handle
                 ORDER BY p.date DESC;
                 """,
@@ -42,7 +42,7 @@ import java.util.Set;
         query = """
                 SELECT p.DATE, p.message, p.id, a.handle, a.name FROM post p
                 INNER JOIN post_like pl ON p.id = pl.post_id
-                INNER JOIN account a ON pl.account_id = a.account_id
+                INNER JOIN account a ON pl.account_id = a.id
                 WHERE pl.account_id = :accountId
                 ORDER BY p.date DESC;
                 """,

@@ -4,8 +4,6 @@ Calvin 12/5:
 
     createHashtag in service tests
 
-    large refactor of account_id to id for Account class
-
     test all end points and create a new postman lib, add more to AppConfig
 
     decide if some things should be url or path body

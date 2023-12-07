@@ -25,7 +25,7 @@ import java.util.Date;
         query = """
                 SELECT c.id, c.date, c.message, a.name, a.handle FROM comment c
                 JOIN account a ON c.account_id = a.account_id
-                WHERE a.account_id = :accountId
+                WHERE a.id = :accountId
                 """,
         resultSetMapping = "mapToGetCommentDTO"
 )
