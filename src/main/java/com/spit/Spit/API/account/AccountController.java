@@ -29,17 +29,6 @@ public class AccountController {
         this.commentService = commentService;
     }
 
-    @PostMapping
-    public ResponseEntity<String> createAccount(@Valid @RequestBody CreateAccountDTO newAccount) {
-        boolean handleAvailability = accountService.isHandleAvailable(newAccount.getHandle());
-
-        if(handleAvailability) {
-            accountService.createAccount(newAccount);
-            return new ResponseEntity<>("Account has been successfully saved.", HttpStatus.CREATED);
-        }
-        return new ResponseEntity<>("Handle is unavailable.", HttpStatus.BAD_REQUEST);
-    }
-
     @GetMapping
     public ResponseEntity<List<Account>> getAllAccounts() {
         List<Account> accounts = accountService.getAllAccounts();
@@ -66,10 +55,15 @@ public class AccountController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/{accountId}/liked-posts")
-    public ResponseEntity<List<GetPostDTO>> getLikedPostsForAccount(@PathVariable Long accountId) {
-        List<GetPostDTO> likedPosts = postService.getLikedPostsByAccountId(accountId);
-        return ResponseEntity.ok(likedPosts);
+    @PostMapping
+    public ResponseEntity<String> createAccount(@Valid @RequestBody CreateAccountDTO newAccount) {
+        boolean handleAvailability = accountService.isHandleAvailable(newAccount.getHandle());
+
+        if(handleAvailability) {
+            accountService.createAccount(newAccount);
+            return new ResponseEntity<>("Account has been successfully saved.", HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>("Handle is unavailable.", HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/{id}")
@@ -79,17 +73,6 @@ public class AccountController {
         if(account != null) {
             accountService.deleteAccountById(id);
             return new ResponseEntity<>("Account has been successfully deleted.", HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<String> putAccountById(@PathVariable Long id, @Valid @RequestBody CreateAccountDTO updatedAccount) {
-        Account account = accountService.getAccountById(id);
-
-        if(account != null) {
-            accountService.putAccountById(account, updatedAccount);
-            return new ResponseEntity<>("Account has been fully updated.", HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -108,10 +91,27 @@ public class AccountController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<String> putAccountById(@PathVariable Long id, @Valid @RequestBody CreateAccountDTO updatedAccount) {
+        Account account = accountService.getAccountById(id);
+
+        if(account != null) {
+            accountService.putAccountById(account, updatedAccount);
+            return new ResponseEntity<>("Account has been fully updated.", HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     @GetMapping("/{accountId}/comments")
     public ResponseEntity<List<GetCommentDTO>> getAllCommentsByAccountId(@PathVariable Long accountId) {
         List<GetCommentDTO> userComments = commentService.getAllCommentsByAccountId(accountId);
         return ResponseEntity.ok(userComments);
+    }
+
+    @GetMapping("/{accountId}/liked-posts")
+    public ResponseEntity<List<GetPostDTO>> getLikedPostsForAccount(@PathVariable Long accountId) {
+        List<GetPostDTO> likedPosts = postService.getLikedPostsByAccountId(accountId);
+        return ResponseEntity.ok(likedPosts);
     }
 
     public static boolean hasOnlyOneNullField(UpdateAccountDTO updatedAccount) {

@@ -1,12 +1,6 @@
 
-Account:
+Account Controllers API: completed except for getLikedPostsForAccount
 
-    get all
 
-    get by id
-
-    get by handle
-
-    create
 
 
