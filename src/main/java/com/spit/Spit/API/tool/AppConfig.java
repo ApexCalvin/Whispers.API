@@ -36,7 +36,7 @@ public class AppConfig {
     @Autowired
     HashtagRepository hashtagRepository;
 
-    private boolean runAppConfig = true;
+    private boolean runAppConfig = false;
 
     @PostConstruct
     public void setup(){

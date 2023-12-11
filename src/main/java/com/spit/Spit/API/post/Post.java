@@ -41,9 +41,9 @@ import java.util.Set;
         name = "getLikedPostsByAccountId",
         query = """
                 SELECT p.DATE, p.message, p.id, a.handle, a.name FROM post p
-                INNER JOIN post_like pl ON p.id = pl.post_id
-                INNER JOIN account a ON pl.account_id = a.id
-                WHERE pl.account_id = :accountId
+                INNER JOIN like_ l ON p.id = l.post_id
+                INNER JOIN account a ON l.account_id = a.id
+                WHERE l.account_id = :accountId
                 ORDER BY p.date DESC;
                 """,
         resultSetMapping = "mapToGetPostDTO"
