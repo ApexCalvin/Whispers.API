@@ -2,7 +2,9 @@ To-Do:
 
 Calvin 12/5:
 
-    createHashtag in service tests
+    Mock testing for Controllers: getLikedPostsForAccount (AccountCon), getAllCommentsByPostId (PostCon)
+
+    Mock testing for Services: createHashtag
 
     decide if some things should be url or path body
 

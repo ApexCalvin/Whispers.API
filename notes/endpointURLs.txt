@@ -1,8 +1,10 @@
-Manual Endpoint testing:
+Manual Endpoint testing: 12/12/23
 
 Account Controllers API: completed
 
 Post Controller API: completed
 
+Comment Controller API: completed
 
+Hashtag Controller API: completed
 

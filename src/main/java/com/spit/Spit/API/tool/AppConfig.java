@@ -1,15 +1,15 @@
 package com.spit.Spit.API.tool;
 
-import com.spit.Spit.API.account.Account;
-import com.spit.Spit.API.account.AccountRepository;
-import com.spit.Spit.API.comment.Comment;
-import com.spit.Spit.API.comment.CommentRepository;
-import com.spit.Spit.API.hashtag.Hashtag;
-import com.spit.Spit.API.hashtag.HashtagRepository;
+import com.spit.Spit.API.model.Account;
+import com.spit.Spit.API.repository.AccountRepository;
+import com.spit.Spit.API.model.Comment;
+import com.spit.Spit.API.repository.CommentRepository;
+import com.spit.Spit.API.model.Hashtag;
+import com.spit.Spit.API.repository.HashtagRepository;
 import com.spit.Spit.API.like.LikeRepository;
 import com.spit.Spit.API.like.Like_;
-import com.spit.Spit.API.post.Post;
-import com.spit.Spit.API.post.PostRepository;
+import com.spit.Spit.API.model.Post;
+import com.spit.Spit.API.repository.PostRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

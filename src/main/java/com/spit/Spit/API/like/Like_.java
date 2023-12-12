@@ -1,8 +1,8 @@
 package com.spit.Spit.API.like;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.spit.Spit.API.account.Account;
-import com.spit.Spit.API.post.Post;
+import com.spit.Spit.API.model.Account;
+import com.spit.Spit.API.model.Post;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

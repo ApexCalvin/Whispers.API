@@ -1,9 +1,9 @@
 package com.spit.Spit.API.like;
 
-import com.spit.Spit.API.account.Account;
-import com.spit.Spit.API.account.AccountService;
-import com.spit.Spit.API.post.Post;
-import com.spit.Spit.API.post.PostService;
+import com.spit.Spit.API.model.Account;
+import com.spit.Spit.API.service.AccountService;
+import com.spit.Spit.API.model.Post;
+import com.spit.Spit.API.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

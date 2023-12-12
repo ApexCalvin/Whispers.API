@@ -1,8 +1,8 @@
 package com.spit.Spit.API.tool;
 
-import com.spit.Spit.API.account.Account;
-import com.spit.Spit.API.account.AccountService;
-import com.spit.Spit.API.account.CreateAccountDTO;
+import com.spit.Spit.API.model.Account;
+import com.spit.Spit.API.service.AccountService;
+import com.spit.Spit.API.dto.CreateAccountDTO;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

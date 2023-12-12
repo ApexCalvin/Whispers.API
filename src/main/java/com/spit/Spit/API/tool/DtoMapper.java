@@ -1,9 +1,10 @@
 package com.spit.Spit.API.tool;
 
 
-import com.spit.Spit.API.account.Account;
-import com.spit.Spit.API.account.AccountService;
-import com.spit.Spit.API.account.CreateAccountDTO;
+import com.spit.Spit.API.dto.CreateCommentDTO;
+import com.spit.Spit.API.model.Account;
+import com.spit.Spit.API.service.AccountService;
+import com.spit.Spit.API.dto.CreateAccountDTO;
 
 public class DtoMapper {
 
@@ -20,10 +21,11 @@ public class DtoMapper {
         return account;
     }
 
-//    public static Post fromCreatePostDTO(CreatePostDTO createPostDTO){
-//        Post post = new Post();
-//        post.setAccount(accountService.getAccountById(createPostDTO.getAccountId()));
-//        post.setMessage(createPostDTO.getMessage());
-//        return post;
-//    }
+    public static CreateCommentDTO buildCreateCommentDTO(String message, Long postId, Long accountId) {
+        CreateCommentDTO createCommentDTO = new CreateCommentDTO();
+        createCommentDTO.setMessage(message);
+        createCommentDTO.setPostId(postId);
+        createCommentDTO.setAccountId(accountId);
+        return createCommentDTO;
+    }
 }
