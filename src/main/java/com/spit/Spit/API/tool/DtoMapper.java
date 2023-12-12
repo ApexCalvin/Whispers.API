@@ -1,6 +1,5 @@
 package com.spit.Spit.API.tool;
 
-
 import com.spit.Spit.API.dto.CreateCommentDTO;
 import com.spit.Spit.API.dto.CreatePostDTO;
 import com.spit.Spit.API.model.Account;

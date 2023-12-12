@@ -1,6 +1,6 @@
 To-Do:
 
-Calvin 12/5:
+Calvin 12/12:
 
     Mock testing for Controllers: getLikedPostsForAccount (AccountCon), getAllCommentsByPostId (PostCon)
 
@@ -8,15 +8,17 @@ Calvin 12/5:
 
     Unit testing for DtoMapper
 
-    url or path body (eg. Deleting a comment - send id through a button?)
-
     Front End:
+
+        *fix get all comments?
 
         create comment/post
 
         switch acc
 
         search by handle/hashtag
+
+    url or path body (eg. Deleting a comment - send id through a button?)
 
 Eryk 12/4:
     getLikeByHandleAndPost refactor/redesign

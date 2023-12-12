@@ -23,16 +23,12 @@ public class AppConfig {
 
     @Autowired
     PostRepository postRepository;
-
     @Autowired
     AccountRepository accountRepository;
-
     @Autowired
     CommentRepository commentRepository;
-
     @Autowired
     LikeRepository likeRepository;
-
     @Autowired
     HashtagRepository hashtagRepository;
 
