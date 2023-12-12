@@ -35,17 +35,6 @@ public class HashtagController {
         return ResponseEntity.ok(postService.getAllPostsByHashtagName(hashtag));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteHashtagById(@PathVariable Long id) {
-        Hashtag hashtag = hashtagService.getHashtagById(id);
-
-        if(hashtag != null) {
-            hashtagService.deleteHashtagById(id);
-            return new ResponseEntity<>("Hashtag has been successfully deleted.", HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {

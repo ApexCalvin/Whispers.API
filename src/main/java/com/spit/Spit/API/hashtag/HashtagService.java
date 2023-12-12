@@ -49,10 +49,6 @@ public class HashtagService {
         return hashtagRepository.findAll();
     }
 
-    public void deleteHashtagById(Long id) {
-        hashtagRepository.deleteById(id);
-    }
-
     public Boolean isNewHashtag(String name) {
         return getHashtagByName(name) == null;
     }

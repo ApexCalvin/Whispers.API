@@ -7,34 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "account - create",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\" : \"Tony\",\r\n    \"handle\" : \"Stark\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/account",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"account"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "account - all",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -115,7 +87,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/account/handle/homelander",
+					"raw": "http://localhost:8080/account/handle/Homelander",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -124,14 +96,42 @@
 					"path": [
 						"account",
 						"handle",
-						"homelander"
+						"Homelander"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "account - delete by id",
+			"name": "account - create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Tony\",\r\n    \"handle\" : \"Stark\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "account - by id",
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -145,7 +145,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/account/2",
+					"raw": "http://localhost:8080/account/6",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -153,14 +153,14 @@
 					"port": "8080",
 					"path": [
 						"account",
-						"2"
+						"6"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "account - edit by id",
+			"name": "account - by id",
 			"request": {
 				"method": "PATCH",
 				"header": [],
@@ -189,7 +189,7 @@
 			"response": []
 		},
 		{
-			"name": "account - replace by id",
+			"name": "account - by id",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -218,13 +218,16 @@
 			"response": []
 		},
 		{
-			"name": "post - create",
+			"name": "account - all comments by account id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"accountId\": 1,\r\n    \"message\" : \"Hello World!\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -232,14 +235,16 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/post",
+					"raw": "http://localhost:8080/account/1/comments",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"post"
+						"account",
+						"1",
+						"comments"
 					]
 				}
 			},
@@ -309,6 +314,27 @@
 			"response": []
 		},
 		{
+			"name": "post - all by handle",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/post/handle/Stormfront",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"handle",
+						"Stormfront"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "post - by id",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -341,28 +367,35 @@
 			"response": []
 		},
 		{
-			"name": "post - get all by handle",
+			"name": "post - create",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountId\": 1,\r\n    \"message\" : \"Hello World!\",\r\n    \"hashtags\" : []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8080/post/handle/homelander",
+					"raw": "http://localhost:8080/post",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"post",
-						"handle",
-						"homelander"
+						"post"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "post - delete by id",
+			"name": "post - by id",
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -376,7 +409,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/post/2",
+					"raw": "http://localhost:8080/post/6",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -384,7 +417,7 @@
 					"port": "8080",
 					"path": [
 						"post",
-						"2"
+						"6"
 					]
 				}
 			},
@@ -419,7 +452,27 @@
 			"response": []
 		},
 		{
-			"name": "comment - all by post id",
+			"name": "comment - by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/comment/23",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"comment",
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hashtag - all",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -436,35 +489,78 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/comment/1",
+					"raw": "http://localhost:8080/hashtag",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"comment",
-						"1"
+						"hashtag"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "comment - delete",
+			"name": "hashtag - all posts by hashtag desc",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "DELETE",
+				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8080/comment/2",
+					"raw": "http://localhost:8080/hashtag/first/posts",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"comment",
-						"2"
+						"hashtag",
+						"first",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "likes - all",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/likes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"likes"
 					]
 				}
 			},

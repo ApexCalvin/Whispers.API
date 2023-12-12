@@ -4,8 +4,6 @@ Calvin 12/5:
 
     createHashtag in service tests
 
-    test all end points and create a new postman lib, refactor mock test, add more to AppConfig
-
     decide if some things should be url or path body
 
     Front End:
