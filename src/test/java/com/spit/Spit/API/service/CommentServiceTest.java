@@ -3,11 +3,8 @@ package com.spit.Spit.API.service;
 import com.spit.Spit.API.dto.CreateCommentDTO;
 import com.spit.Spit.API.dto.GetCommentDTO;
 import com.spit.Spit.API.model.Account;
-import com.spit.Spit.API.service.AccountService;
 import com.spit.Spit.API.model.Comment;
 import com.spit.Spit.API.model.Post;
-import com.spit.Spit.API.service.CommentService;
-import com.spit.Spit.API.service.PostService;
 import com.spit.Spit.API.repository.CommentRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,6 +24,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class CommentServiceTest {
+
     @InjectMocks
     private CommentService subject;
     @Mock

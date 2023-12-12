@@ -4,7 +4,6 @@ import com.spit.Spit.API.dto.CreateAccountDTO;
 import com.spit.Spit.API.dto.UpdateAccountDTO;
 import com.spit.Spit.API.model.Account;
 import com.spit.Spit.API.repository.AccountRepository;
-import com.spit.Spit.API.service.AccountService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

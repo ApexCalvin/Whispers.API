@@ -9,6 +9,7 @@ import com.spit.Spit.API.service.HashtagService;
 import com.spit.Spit.API.model.Post;
 import com.spit.Spit.API.repository.PostRepository;
 import com.spit.Spit.API.service.PostService;
+import com.spit.Spit.API.tool.DtoMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class PostServiceTest {
+
     @InjectMocks
     PostService subject;
     @Mock
@@ -36,7 +38,7 @@ public class PostServiceTest {
 
     @Test
     void createPost_withNoHashtags_savesPostWithFields() {
-        CreatePostDTO createPostDTO = buildCreatePostDTO(1L, "Test", new ArrayList<String>());
+        CreatePostDTO createPostDTO = DtoMapper.buildCreatePostDTO(1L, "Test", new ArrayList<String>());
         Account expectedAccount = new Account();
         when(accountService.getAccountById(1L)).thenReturn(expectedAccount);
         ArgumentCaptor<Post> postArgumentCaptor = ArgumentCaptor.forClass(Post.class);
@@ -52,11 +54,11 @@ public class PostServiceTest {
     @Test
     void createPost_withHashtags_savesPostWithHashtags() {
         ArrayList<String> hashtagNames = new ArrayList<>(Arrays.asList("Hash1", "Hash2"));
-        CreatePostDTO createPostDTO = buildCreatePostDTO(1L, "Test", hashtagNames);
+        CreatePostDTO createPostDTO = DtoMapper.buildCreatePostDTO(1L, "Test", hashtagNames);
         createPostDTO.setHashtags(hashtagNames);
         Account expectedAccount = new Account();
         when(accountService.getAccountById(1L)).thenReturn(expectedAccount);
-        Set<Hashtag> hashtags = buildHashtagSet("Hash1", "Hash2");
+        Set<Hashtag> hashtags = DtoMapper.buildHashtagSet("Hash1", "Hash2");
         when(hashtagService.createHashtags(hashtagNames)).thenReturn(hashtags);
         ArgumentCaptor<Post> postArgumentCaptor = ArgumentCaptor.forClass(Post.class);
 
@@ -150,23 +152,5 @@ public class PostServiceTest {
         List<Post> actual = subject.getAllPostsByHashtagName(hashtag);
 
         assertThat(actual).isEqualTo(posts);
-    }
-
-    private static CreatePostDTO buildCreatePostDTO(long accountId, String message, ArrayList<String> hashtags) {
-        CreatePostDTO createPostDTO = new CreatePostDTO();
-        createPostDTO.setAccountId(accountId);
-        createPostDTO.setMessage(message);
-        createPostDTO.setHashtags(hashtags);
-        return createPostDTO;
-    }
-
-    private static Set<Hashtag> buildHashtagSet(String... names) {
-        return Arrays.stream(names)
-                .map(name -> {
-                    Hashtag hashtag = new Hashtag();
-                    hashtag.setName(name);
-                    return hashtag;
-                })
-                .collect(Collectors.toSet());
     }
 }

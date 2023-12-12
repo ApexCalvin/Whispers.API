@@ -9,6 +9,7 @@ import com.spit.Spit.API.dto.UpdateAccountDTO;
 import com.spit.Spit.API.model.Account;
 import com.spit.Spit.API.dto.GetPostDTO;
 import com.spit.Spit.API.service.PostService;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -220,6 +221,7 @@ public class AccountControllerTest {
         assertThat(actual.getBody()).isEqualTo(comments);
     }
 
+    @Disabled
     @Test //TODO
     void getLikedPostsForAccount() {
 

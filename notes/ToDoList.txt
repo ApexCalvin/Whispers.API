@@ -4,9 +4,11 @@ Calvin 12/5:
 
     Mock testing for Controllers: getLikedPostsForAccount (AccountCon), getAllCommentsByPostId (PostCon)
 
-    Mock testing for Services: createHashtag
+    Mock testing for Services: createHashtag, getHashtagByName_returnNull
 
-    decide if some things should be url or path body
+    Unit testing for DtoMapper
+
+    url or path body (eg. Deleting a comment - send id through a button?)
 
     Front End:
 

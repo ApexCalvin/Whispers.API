@@ -25,7 +25,6 @@ public class HashtagService {
         return hashtags.stream().map(this::validateAndSaveHashtag).collect(Collectors.toSet());
     }
 
-    //changed to "public" to be able to test
     public Hashtag validateAndSaveHashtag(String hashtagName) {
         Hashtag existingHashtag = getHashtagByName(hashtagName);;
 

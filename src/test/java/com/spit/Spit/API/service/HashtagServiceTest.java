@@ -2,7 +2,7 @@ package com.spit.Spit.API.service;
 
 import com.spit.Spit.API.model.Hashtag;
 import com.spit.Spit.API.repository.HashtagRepository;
-import com.spit.Spit.API.service.HashtagService;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,15 +24,20 @@ public class HashtagServiceTest {
 
     @InjectMocks
     HashtagService subject;
-
     @Mock
     HashtagRepository hashtagRepository;
 
+    @Disabled
     @Test
-    void createHashtags_singular() {}
+    void createHashtags_singular() {
 
+    }
+
+    @Disabled
     @Test
-    void createHashtags_plural() {}
+    void createHashtags_plural() {
+
+    }
 
     @Test
     void validateAndSaveHashtag_newHashtag() {
@@ -89,6 +94,12 @@ public class HashtagServiceTest {
         assertThat(actual).isEqualTo(expected);
     }
 
+    @Disabled
+    @Test //TODO
+    void getHashtagByName_returnNull() {
+
+    }
+
     @Test
     void getAllHashtags() {
         List<Hashtag> hashtags = new ArrayList<>(Arrays.asList(new Hashtag(), new Hashtag()));
@@ -98,12 +109,6 @@ public class HashtagServiceTest {
 
         assertThat(actual).isEqualTo(hashtags);
     }
-
-//    @Test
-//    void deleteHashtagById() {
-//        subject.deleteHashtagById(2L);
-//        verify(hashtagRepository).deleteById(any(Long.class));
-//    }
 
     @Test
     void isNewHashtag_true() {
