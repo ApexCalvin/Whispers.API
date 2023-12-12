@@ -30,26 +30,6 @@ public class PostController {
         this.commentService = commentService;
     }
 
-    @PostMapping
-    public ResponseEntity<String> createPost(@Valid @RequestBody CreatePostDTO postDTO) {
-        Account account = accountService.getAccountById(postDTO.getAccountId());
-
-        if(account == null) return new ResponseEntity<>("Associated account does not exist.", HttpStatus.NOT_FOUND);
-
-        postService.createPost(postDTO);
-        return new ResponseEntity<>("Post has been successfully saved.", HttpStatus.CREATED);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Post> getPostById(@PathVariable Long id) {
-        Post post = postService.getPostById(id);
-
-        if(post != null) {
-            return new ResponseEntity<>(post, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
     @GetMapping
     public ResponseEntity<List<Post>> getAllPosts() {
         return ResponseEntity.ok(postService.getAllPosts());
@@ -71,6 +51,31 @@ public class PostController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Post> getPostById(@PathVariable Long id) {
+        Post post = postService.getPostById(id);
+
+        if(post != null) {
+            return new ResponseEntity<>(post, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/{postId}/comments")
+    public ResponseEntity<List<GetCommentDTO>> getAllCommentsByPostId(@PathVariable Long postId) {
+        return ResponseEntity.ok(commentService.getAllCommentsByPostId(postId));
+    }
+
+    @PostMapping
+    public ResponseEntity<String> createPost(@Valid @RequestBody CreatePostDTO postDTO) {
+        Account account = accountService.getAccountById(postDTO.getAccountId());
+
+        if(account == null) return new ResponseEntity<>("Associated account does not exist.", HttpStatus.NOT_FOUND);
+
+        postService.createPost(postDTO);
+        return new ResponseEntity<>("Post has been successfully saved.", HttpStatus.CREATED);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletePostById(@PathVariable Long id) {
         Post post = postService.getPostById(id);
@@ -80,11 +85,6 @@ public class PostController {
             return new ResponseEntity<>("Post has been successfully deleted.", HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @GetMapping("/{postId}/comments")
-    public ResponseEntity<List<GetCommentDTO>> getAllCommentsByPostId(@PathVariable Long postId) {
-        return ResponseEntity.ok(commentService.getAllCommentsByPostId(postId));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

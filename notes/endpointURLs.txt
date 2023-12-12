@@ -1,6 +1,8 @@
+Manual Endpoint testing:
 
-Account Controllers API: completed except for getLikedPostsForAccount
+Account Controllers API: completed
 
+Post Controller API: completed
 
 
 
