@@ -1,8 +1,8 @@
 package com.spit.Spit.API.like;
 
 import com.spit.Spit.API.model.Account;
-import com.spit.Spit.API.service.AccountService;
 import com.spit.Spit.API.model.Post;
+import com.spit.Spit.API.service.AccountService;
 import com.spit.Spit.API.service.PostService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,15 +16,12 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class LikeServiceTest {
-
     @InjectMocks
     private LikeService subject;
-
     @Mock
     private LikeRepository likeRepository;
     @Mock
@@ -34,9 +31,7 @@ public class LikeServiceTest {
 
     @Test
     void createLike_SaveLike(){
-        CreateLikeDTO createLikeDTO = new CreateLikeDTO();
-        createLikeDTO.setPostId(2L);
-        createLikeDTO.setAccountHandle("Stormfront");
+        CreateLikeDTO createLikeDTO = new CreateLikeDTO("Stormfront", 2L);
         Post expectedPost = new Post();
         when(postService.getPostById(createLikeDTO.getPostId())).thenReturn(expectedPost);
         Account expectedAccount = new Account();
@@ -122,9 +117,7 @@ public class LikeServiceTest {
         long id = 1L;
         String handle = "Homelander";
         Like_ expected = new Like_();
-        CreateLikeDTO likeDTO = new CreateLikeDTO();
-        likeDTO.setPostId(id);
-        likeDTO.setAccountHandle(handle);
+        CreateLikeDTO likeDTO = new CreateLikeDTO(handle, id);
         when(likeRepository.findByAccountHandleAndPostId(handle,id)).thenReturn(expected);
 
         boolean actual = subject.doesUserAlreadyLikePost(likeDTO);
@@ -137,9 +130,7 @@ public class LikeServiceTest {
     void doesUserAlreadyLikePost_false(){
         long id = 1L;
         String handle = "Homelander";
-        CreateLikeDTO likeDTO = new CreateLikeDTO();
-        likeDTO.setPostId(id);
-        likeDTO.setAccountHandle(handle);
+        CreateLikeDTO likeDTO = new CreateLikeDTO(handle, id);
         when(likeRepository.findByAccountHandleAndPostId(handle,id)).thenReturn(null);
 
         boolean actual = subject.doesUserAlreadyLikePost(likeDTO);
