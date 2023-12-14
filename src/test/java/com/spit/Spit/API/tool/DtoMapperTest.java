@@ -26,18 +26,26 @@ public class DtoMapperTest {
         assertThat(actual.getHandle()).isEqualTo(expected.getHandle());
     }
 
-    @Disabled
-    @Test //TODO
+    @Test
     void buildCreateCommentDTO() {
-
         CreateCommentDTO actual = DtoMapper.buildCreateCommentDTO("test", 1L, 2L);
+
+        assertThat(actual.getMessage()).isEqualTo("test");
+        assertThat(actual.getPostId()).isEqualTo(1L);
+        assertThat(actual.getAccountId()).isEqualTo(2L);
     }
 
-    @Disabled
-    @Test //TODO
+    @Test
     void buildCreatePostDTO() {
+        ArrayList<String> al = new ArrayList<>();
+        al.add("Hello");
+        al.add("World");
 
-        CreatePostDTO actual = DtoMapper.buildCreatePostDTO(1L, "test", new ArrayList<String>());
+        CreatePostDTO actual = DtoMapper.buildCreatePostDTO(1L, "test", al);
+
+        assertThat(actual.getMessage()).isEqualTo("test");
+        assertThat(actual.getAccountId()).isEqualTo(1L);
+        assertThat(actual.getHashtags().size()).isEqualTo(2);
     }
 
     @Disabled
