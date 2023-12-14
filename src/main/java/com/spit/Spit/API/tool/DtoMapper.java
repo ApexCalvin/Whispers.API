@@ -28,7 +28,7 @@ public class DtoMapper {
         return createCommentDTO;
     }
 
-    public static CreatePostDTO buildCreatePostDTO(long accountId, String message, ArrayList<String> hashtags) {
+    public static CreatePostDTO buildCreatePostDTO(Long accountId, String message, ArrayList<String> hashtags) {
         CreatePostDTO createPostDTO = new CreatePostDTO();
         createPostDTO.setAccountId(accountId);
         createPostDTO.setMessage(message);
