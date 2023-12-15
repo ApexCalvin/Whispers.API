@@ -7,8 +7,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "hashtag")
+@Table(name = "hashtag", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Hashtag {
+
+    public Hashtag(String name){
+        this.name = name;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

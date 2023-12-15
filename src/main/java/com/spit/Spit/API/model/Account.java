@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "account")
+@Table(name = "account", uniqueConstraints = @UniqueConstraint(columnNames = "handle"))
 public class Account {
 
     @Id
