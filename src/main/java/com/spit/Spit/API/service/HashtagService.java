@@ -17,16 +17,11 @@ public class HashtagService {
     }
 
     public Set<Hashtag> createHashtags(List<String> hashtags) {
-//        Set<Hashtag> hashtagsToSave = new HashSet<>();
-//        for (String hashtag : hashtags) {
-//            hashtagsToSave.add(validateAndSaveHashtag(hashtag));
-//        }
-//        return hashtagsToSave;
-        return hashtags.stream().map(this::validateAndSaveHashtag).collect(Collectors.toSet());
+        return hashtags.stream().distinct().map(this::validateAndSaveHashtag).collect(Collectors.toSet());
     }
 
-    public Hashtag validateAndSaveHashtag(String hashtagName) {
-        Hashtag existingHashtag = getHashtagByName(hashtagName);;
+    private Hashtag validateAndSaveHashtag(String hashtagName) {// don't expose methods as public just for testing. test the logic from the caller public method
+        Hashtag existingHashtag = getHashtagByName(hashtagName); //
 
         if(existingHashtag == null) {
             Hashtag hashtagToSave = new Hashtag();

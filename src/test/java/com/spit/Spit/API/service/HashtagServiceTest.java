@@ -3,6 +3,7 @@ package com.spit.Spit.API.service;
 import com.spit.Spit.API.model.Hashtag;
 import com.spit.Spit.API.repository.HashtagRepository;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,8 +14,7 @@ import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class HashtagServiceTest {
@@ -62,25 +62,38 @@ public class HashtagServiceTest {
     }
 
     @Test
-    void validateAndSaveHashtag_newHashtag() {
-        when(subject.getHashtagByName(any(String.class))).thenReturn(null);
+    @DisplayName("When hashtag does not exist returns there already existing hashtag from database")
+    void createHashTags_hashtagDoesNotExistAlready() {
+        when(hashtagRepository.findByName(any(String.class))).thenReturn(null); //don't mock subjects behavior only mock external dependencies when necessary
 
-        Hashtag actual = subject.validateAndSaveHashtag("Test");
+        Set<Hashtag> actual = subject.createHashtags(Arrays.asList("1", "2"));
 
-        verify(hashtagRepository).save(any(Hashtag.class));
-        assertThat(actual.getName()).isEqualTo("Test");
+        verify(hashtagRepository, times(2)).save(any(Hashtag.class));
+        assertThat(actual.size()).isEqualTo(2);
     }
 
     @Test
-    void validateAndSaveHashtag_existingHashtag() {
+    @DisplayName("When hashtag already exists return hashtag from database")
+    void createHashTags_hashtagAlreadyExists_doesNotSaveNewHashtagReturnExisting() {
         Hashtag expected = new Hashtag();
         expected.setName("Test");
-        when(subject.getHashtagByName(any(String.class))).thenReturn(expected);
+        when(hashtagRepository.findByName("Test")).thenReturn(expected);
 
-        Hashtag actual = subject.validateAndSaveHashtag("Test");
+        Set<Hashtag> actual = subject.createHashtags(Arrays.asList("Test"));
 
-        assertThat(actual).isEqualTo(expected);
-        assertThat(actual.getName()).isEqualTo(expected.getName());
+        verify(hashtagRepository, never()).save(any(Hashtag.class));
+        assertThat(actual).contains(expected);
+    }
+
+    @Test
+    @DisplayName("Filter out duplicate incoming hashtags save 1 time only")
+    void createHashTags_duplicateHashtags() {
+        when(hashtagRepository.findByName(any(String.class))).thenReturn(null);
+
+        Set<Hashtag> actual = subject.createHashtags(Arrays.asList("1", "1"));
+
+        verify(hashtagRepository, times(1)).save(any(Hashtag.class));
+        assertThat(actual.size()).isEqualTo(1);
     }
 
     @Test
@@ -139,7 +152,7 @@ public class HashtagServiceTest {
     @Test
     void isNewHashtag_true() {
         String name = "Test";
-        when(subject.getHashtagByName(name)).thenReturn(null);
+        when(hashtagRepository.findByName(name)).thenReturn(null);
 
         boolean actual = subject.isNewHashtag(name);
 
