@@ -4,12 +4,13 @@ import com.spit.Spit.API.dto.CreateCommentDTO;
 import com.spit.Spit.API.dto.CreatePostDTO;
 import com.spit.Spit.API.model.Account;
 import com.spit.Spit.API.dto.CreateAccountDTO;
-import org.junit.jupiter.api.Disabled;
+import com.spit.Spit.API.model.Hashtag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -48,10 +49,11 @@ public class DtoMapperTest {
         assertThat(actual.getHashtags().size()).isEqualTo(2);
     }
 
-    @Disabled
-    @Test //TODO
+    @Test
     void buildHashtagSet() {
+        Set<Hashtag> actual = DtoMapper.buildHashtagSet("test1", "test2");
 
+        assertThat(actual.size()).isEqualTo(2);
     }
 
 }

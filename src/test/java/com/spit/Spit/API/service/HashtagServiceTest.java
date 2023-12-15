@@ -9,10 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,13 +27,38 @@ public class HashtagServiceTest {
     @Disabled
     @Test
     void createHashtags_singular() {
+        List<String> hashtags = new ArrayList<>();
+        hashtags.add("first");
+        //when().thenReturn();
 
+        Set<Hashtag> actual = subject.createHashtags(hashtags);
+
+        assertThat(actual.size()).isEqualTo(1);
     }
 
     @Disabled
     @Test
     void createHashtags_plural() {
+        List<String> hashtags = new ArrayList<>();
+        hashtags.add("first");
+        hashtags.add("second");
+        hashtags.add("third");
+        //when().thenReturn();
 
+        Set<Hashtag> actual = subject.createHashtags(hashtags);
+
+        assertThat(actual.size()).isEqualTo(3);
+    }
+
+    @Disabled
+    @Test
+    void createHashtags_sendEmptyList() {
+        List<String> hashtags = new ArrayList<>();
+        //when().thenReturn(null);
+
+        Set<Hashtag> actual = subject.createHashtags(hashtags);
+
+        assertThat(actual.size()).isEqualTo(null);
     }
 
     @Test

@@ -6,8 +6,6 @@ Calvin 12/14:
 
     Mock testing for Services: createHashtag
 
-    Unit testing for DtoMapper
-
     Front End:
 
         *fix get all comments?
