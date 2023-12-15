@@ -2,10 +2,12 @@ package com.spit.Spit.API.controller;
 
 
 import com.spit.Spit.API.dto.CreatePostDTO;
+import com.spit.Spit.API.dto.GetCommentDTO;
 import com.spit.Spit.API.dto.GetPostDTO;
 import com.spit.Spit.API.model.Account;
 import com.spit.Spit.API.service.AccountService;
 import com.spit.Spit.API.model.Post;
+import com.spit.Spit.API.service.CommentService;
 import com.spit.Spit.API.service.PostService;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -33,6 +35,8 @@ public class PostControllerTest {
     PostService postService;
     @Mock
     AccountService accountService;
+    @Mock
+    CommentService commentService;
 
     @Test
     void getAllPost(){
@@ -109,10 +113,17 @@ public class PostControllerTest {
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
-    @Disabled
-    @Test //TODO
+    @Test
     void getAllCommentsByPostId() {
+        List<GetCommentDTO> expected = new ArrayList<>();
+        expected.add(new GetCommentDTO());
+        expected.add(new GetCommentDTO());
+        when(commentService.getAllCommentsByPostId(any(Long.class))).thenReturn(expected);
 
+        ResponseEntity<List<GetCommentDTO>> actual = subject.getAllCommentsByPostId(1L);
+
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(actual.getBody().size()).isEqualTo(expected.size());
     }
 
     @Test

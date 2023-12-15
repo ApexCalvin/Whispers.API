@@ -94,10 +94,14 @@ public class HashtagServiceTest {
         assertThat(actual).isEqualTo(expected);
     }
 
-    @Disabled
-    @Test //TODO
+    @Test
     void getHashtagByName_returnNull() {
+        String name = "test";
+        when(hashtagRepository.findByName(name)).thenReturn(null);
 
+        Hashtag actual = subject.getHashtagByName(name);
+
+        assertThat(actual).isEqualTo(null);
     }
 
     @Test

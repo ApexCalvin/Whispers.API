@@ -1,10 +1,10 @@
 To-Do:
 
-Calvin 12/12:
+Calvin 12/14:
 
-    Mock testing for Controllers: getLikedPostsForAccount (AccountCon), getAllCommentsByPostId (PostCon)
+    Mock testing for Controllers: getLikedPostsForAccount (AccountCon)
 
-    Mock testing for Services: createHashtag, getHashtagByName_returnNull
+    Mock testing for Services: createHashtag
 
     Unit testing for DtoMapper
 
