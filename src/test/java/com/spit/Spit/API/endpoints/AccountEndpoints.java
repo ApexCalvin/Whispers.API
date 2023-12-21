@@ -12,7 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest(classes = Application.class)
 @AutoConfigureMockMvc
@@ -29,6 +29,14 @@ public class AccountEndpoints {
                 .content(toJson(account)))
                 .andExpect(status().isCreated());
                 //.andExpect(content().string("Post has been successfully saved."));
+    }
+
+    @Test
+    public void getAllAccounts() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/account"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.length()").value(5));
     }
 
     private String toJson(Object obj) throws JsonProcessingException {
