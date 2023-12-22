@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -26,13 +27,16 @@ public class HashtagServiceTest {
 
     @Disabled
     @Test
-    void createHashtags_singular() {
+    void createHashtags_singular_newHashtag() {
         List<String> hashtags = new ArrayList<>();
         hashtags.add("first");
-        //when().thenReturn();
-
+        when(hashtagRepository.findByName("first")).thenReturn(null);
+        ArgumentCaptor<Hashtag> hashtagArgumentCaptor = ArgumentCaptor.forClass(Hashtag.class);
         Set<Hashtag> actual = subject.createHashtags(hashtags);
 
+        verify(hashtagRepository).save(hashtagArgumentCaptor.capture());
+        //verify(hashtagRepository, times(1)).save()
+        assertThat(hashtagArgumentCaptor.getValue().getName()).isEqualTo("first");
         assertThat(actual.size()).isEqualTo(1);
     }
 
