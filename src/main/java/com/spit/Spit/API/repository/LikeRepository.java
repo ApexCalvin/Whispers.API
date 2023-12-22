@@ -1,5 +1,6 @@
-package com.spit.Spit.API.like;
+package com.spit.Spit.API.repository;
 
+import com.spit.Spit.API.model.Like_;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

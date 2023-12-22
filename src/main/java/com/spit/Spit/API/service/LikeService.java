@@ -1,6 +1,9 @@
-package com.spit.Spit.API.like;
+package com.spit.Spit.API.service;
 
+import com.spit.Spit.API.dto.CreateLikeDTO;
 import com.spit.Spit.API.model.Account;
+import com.spit.Spit.API.model.Like_;
+import com.spit.Spit.API.repository.LikeRepository;
 import com.spit.Spit.API.service.AccountService;
 import com.spit.Spit.API.model.Post;
 import com.spit.Spit.API.service.PostService;

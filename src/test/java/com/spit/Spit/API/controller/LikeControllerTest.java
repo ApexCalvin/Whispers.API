@@ -1,5 +1,9 @@
-package com.spit.Spit.API.like;
+package com.spit.Spit.API.controller;
 
+import com.spit.Spit.API.controller.LikeController;
+import com.spit.Spit.API.dto.CreateLikeDTO;
+import com.spit.Spit.API.model.Like_;
+import com.spit.Spit.API.service.LikeService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -8,7 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;

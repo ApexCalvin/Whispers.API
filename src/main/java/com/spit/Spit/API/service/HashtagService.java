@@ -21,7 +21,7 @@ public class HashtagService {
     }
 
     private Hashtag validateAndSaveHashtag(String hashtagName) {// don't expose methods as public just for testing. test the logic from the caller public method
-        Hashtag existingHashtag = getHashtagByName(hashtagName); //
+        Hashtag existingHashtag = getHashtagByName(hashtagName);
 
         if(existingHashtag == null) {
             Hashtag hashtagToSave = new Hashtag();

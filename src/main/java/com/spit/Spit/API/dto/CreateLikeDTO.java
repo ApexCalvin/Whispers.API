@@ -1,4 +1,4 @@
-package com.spit.Spit.API.like;
+package com.spit.Spit.API.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

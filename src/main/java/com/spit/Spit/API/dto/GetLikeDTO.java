@@ -1,4 +1,4 @@
-package com.spit.Spit.API.like;
+package com.spit.Spit.API.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

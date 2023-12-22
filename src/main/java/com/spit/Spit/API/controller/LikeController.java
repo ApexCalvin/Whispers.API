@@ -1,5 +1,8 @@
-package com.spit.Spit.API.like;
+package com.spit.Spit.API.controller;
 
+import com.spit.Spit.API.dto.CreateLikeDTO;
+import com.spit.Spit.API.service.LikeService;
+import com.spit.Spit.API.model.Like_;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

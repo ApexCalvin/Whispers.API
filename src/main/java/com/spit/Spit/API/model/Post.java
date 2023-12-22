@@ -2,7 +2,6 @@ package com.spit.Spit.API.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.spit.Spit.API.like.Like_;
 import com.spit.Spit.API.dto.GetPostDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

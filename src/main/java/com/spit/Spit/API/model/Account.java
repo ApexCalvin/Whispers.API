@@ -1,7 +1,6 @@
 package com.spit.Spit.API.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.spit.Spit.API.like.Like_;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

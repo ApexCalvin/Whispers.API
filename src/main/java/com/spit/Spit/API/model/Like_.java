@@ -1,4 +1,4 @@
-package com.spit.Spit.API.like;
+package com.spit.Spit.API.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.spit.Spit.API.model.Account;
