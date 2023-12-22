@@ -1,8 +1,6 @@
 To-Do:
 
-Calvin 12/121:
-
-    ArgumentCaptor for Create tests
+Calvin 12/21:
 
     Mock testing for Services: createHashtag
 

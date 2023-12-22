@@ -6,6 +6,7 @@ import com.spit.Spit.API.model.Account;
 import com.spit.Spit.API.repository.AccountRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -32,10 +33,12 @@ public class AccountServiceTest {
     @Test
     void createAccount() {
         CreateAccountDTO expected = new CreateAccountDTO("Joe", "SuperHero");
-
+        ArgumentCaptor<Account> accAC = ArgumentCaptor.forClass(Account.class);
         subject.createAccount(expected);
 
-        verify(accountRepository).save(any(Account.class));
+        verify(accountRepository).save(accAC.capture());
+        assertThat(accAC.getValue().getName()).isEqualTo(expected.getName());
+        assertThat(accAC.getValue().getHandle()).isEqualTo(expected.getHandle());
     }
 
     @Test

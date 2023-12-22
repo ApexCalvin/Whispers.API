@@ -3,12 +3,9 @@ package com.spit.Spit.API.service;
 import com.spit.Spit.API.dto.CreatePostDTO;
 import com.spit.Spit.API.dto.GetPostDTO;
 import com.spit.Spit.API.model.Account;
-import com.spit.Spit.API.service.AccountService;
 import com.spit.Spit.API.model.Hashtag;
-import com.spit.Spit.API.service.HashtagService;
 import com.spit.Spit.API.model.Post;
 import com.spit.Spit.API.repository.PostRepository;
-import com.spit.Spit.API.service.PostService;
 import com.spit.Spit.API.tool.DtoMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;

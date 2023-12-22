@@ -35,9 +35,14 @@ public class HashtagServiceTest {
         Set<Hashtag> actual = subject.createHashtags(hashtags);
 
         verify(hashtagRepository).save(hashtagArgumentCaptor.capture());
-        //verify(hashtagRepository, times(1)).save()
         assertThat(hashtagArgumentCaptor.getValue().getName()).isEqualTo("first");
         assertThat(actual.size()).isEqualTo(1);
+    }
+
+    @Disabled
+    @Test
+    void createHashtags_singular_existingHashtag() {
+
     }
 
     @Disabled
@@ -51,6 +56,7 @@ public class HashtagServiceTest {
 
         Set<Hashtag> actual = subject.createHashtags(hashtags);
 
+        //verify(hashtagRepository, times(1)).save()
         assertThat(actual.size()).isEqualTo(3);
     }
 

@@ -8,6 +8,7 @@ import com.spit.Spit.API.model.Post;
 import com.spit.Spit.API.repository.CommentRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -42,10 +43,12 @@ public class CommentServiceTest {
         expected.setMessage("Test");
         when(accountService.getAccountById(any(Long.class))).thenReturn(new Account());
         when(postService.getPostById(any(Long.class))).thenReturn(new Post());
+        ArgumentCaptor<Comment> commAC = ArgumentCaptor.forClass(Comment.class);
 
         subject.createComment(expected);
 
-        verify(commentRepository).save(any(Comment.class));
+        verify(commentRepository).save(commAC.capture());
+        assertThat(commAC.getValue().getMessage()).isEqualTo(expected.getMessage());
     }
 
     @Test
