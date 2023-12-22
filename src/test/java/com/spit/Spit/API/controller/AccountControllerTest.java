@@ -1,15 +1,13 @@
 package com.spit.Spit.API.controller;
 
+import com.spit.Spit.API.dto.GetPostDTO;
 import com.spit.Spit.API.service.AccountService;
 import com.spit.Spit.API.service.CommentService;
-import com.spit.Spit.API.controller.AccountController;
 import com.spit.Spit.API.dto.CreateAccountDTO;
 import com.spit.Spit.API.dto.GetCommentDTO;
 import com.spit.Spit.API.dto.UpdateAccountDTO;
 import com.spit.Spit.API.model.Account;
-import com.spit.Spit.API.dto.GetPostDTO;
 import com.spit.Spit.API.service.PostService;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -35,6 +34,8 @@ public class AccountControllerTest {
     AccountService accountService;
     @Mock
     CommentService commentService;
+    @Mock
+    PostService postService;
 
     @Test
     void getAllAccounts() {
@@ -221,10 +222,32 @@ public class AccountControllerTest {
         assertThat(actual.getBody()).isEqualTo(comments);
     }
 
-    @Disabled
-    @Test //TODO
+    @Test
     void getLikedPostsForAccount() {
+        Long accId = 1L;
+        List<GetPostDTO> expected = new ArrayList<>();
+        expected.add(new GetPostDTO());
+        expected.add(new GetPostDTO());
+        when(postService.getLikedPostsByAccountId(accId)).thenReturn(expected);
 
+        ResponseEntity<List<GetPostDTO>> actual = subject.getLikedPostsForAccount(accId);
+
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(actual.getBody()).isEqualTo(expected);
+        assertThat(actual.getBody().size()).isEqualTo(expected.size());
+    }
+
+    @Test
+    void getLikedPostsForAccount_returnEmptyList() {
+        Long accId = 1L;
+        List<GetPostDTO> expected = new ArrayList<>();
+        when(postService.getLikedPostsByAccountId(accId)).thenReturn(expected);
+
+        ResponseEntity<List<GetPostDTO>> actual = subject.getLikedPostsForAccount(accId);
+
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(actual.getBody()).isEqualTo(expected);
+        assertTrue(actual.getBody().isEmpty());
     }
 
     @Test

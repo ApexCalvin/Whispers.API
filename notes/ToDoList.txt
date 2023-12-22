@@ -19,6 +19,7 @@ Calvin 12/14:
     url or path body (eg. Deleting a comment - send id through a button?)
 
 Eryk 12/4:
+
     getLikeByHandleAndPost refactor/redesign
 
     which endpoints can use DTO and which can use entity class
