@@ -25,13 +25,13 @@ public class HashtagServiceTest {
     @Mock
     HashtagRepository hashtagRepository;
 
-    @Disabled
     @Test
     void createHashtags_singular_newHashtag() {
         List<String> hashtags = new ArrayList<>();
         hashtags.add("first");
         when(hashtagRepository.findByName("first")).thenReturn(null);
         ArgumentCaptor<Hashtag> hashtagArgumentCaptor = ArgumentCaptor.forClass(Hashtag.class);
+
         Set<Hashtag> actual = subject.createHashtags(hashtags);
 
         verify(hashtagRepository).save(hashtagArgumentCaptor.capture());
@@ -39,10 +39,19 @@ public class HashtagServiceTest {
         assertThat(actual.size()).isEqualTo(1);
     }
 
-    @Disabled
     @Test
     void createHashtags_singular_existingHashtag() {
+        List<String> hashtags = new ArrayList<>();
+        hashtags.add("first");
+        Hashtag h = new Hashtag();
+        h.setName("first");
+        when(hashtagRepository.findByName("first")).thenReturn(h);
 
+        Set<Hashtag> actual = subject.createHashtags(hashtags);
+
+        verify(hashtagRepository, never()).save(any());
+        assertThat(actual.stream().findFirst().get().getName()).isEqualTo(h.getName());
+        assertThat(actual.size()).isEqualTo(1);
     }
 
     @Disabled
