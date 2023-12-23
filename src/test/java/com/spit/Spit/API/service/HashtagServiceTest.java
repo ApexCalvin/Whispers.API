@@ -2,7 +2,6 @@ package com.spit.Spit.API.service;
 
 import com.spit.Spit.API.model.Hashtag;
 import com.spit.Spit.API.repository.HashtagRepository;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -54,30 +53,26 @@ public class HashtagServiceTest {
         assertThat(actual.size()).isEqualTo(1);
     }
 
-    @Disabled
     @Test
     void createHashtags_plural() {
         List<String> hashtags = new ArrayList<>();
         hashtags.add("first");
         hashtags.add("second");
         hashtags.add("third");
-        //when().thenReturn();
 
         Set<Hashtag> actual = subject.createHashtags(hashtags);
 
-        //verify(hashtagRepository, times(1)).save()
+        verify(hashtagRepository, times(3)).save(any(Hashtag.class));
         assertThat(actual.size()).isEqualTo(3);
     }
 
-    @Disabled
     @Test
     void createHashtags_sendEmptyList() {
         List<String> hashtags = new ArrayList<>();
-        //when().thenReturn(null);
 
         Set<Hashtag> actual = subject.createHashtags(hashtags);
 
-        assertThat(actual.size()).isEqualTo(null);
+        assertThat(actual.size()).isEqualTo(0);
     }
 
     @Test
