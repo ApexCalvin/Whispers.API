@@ -76,8 +76,18 @@ public class AppConfig {
         Comment m4 = new Comment(movie, user3, "Oh, I love that one too! The visuals are stunning. Have you seen Memento? It's by the same director.");
         Comment m5 = new Comment(movie, user4, " Yes, it's amazing! That director always delivers.");
 
+        Post filler = new Post(new Date(1669084800000L), user1, "-filler-");
+        Post filler2 = new Post(new Date(1669084800000L), user1, "-filler-");
+        Post filler3 = new Post(new Date(1669084800000L), user1, "-filler-");
+        Post filler4 = new Post(new Date(1669084800000L), user1, "-filler-");
+        Post filler5 = new Post(new Date(1669084800000L), user1, "-filler-");
+        Post filler6 = new Post(new Date(1669084800000L), user1, "-filler-");
+
         accountRepository.saveAll(Arrays.asList(user1, user2, user3, user4, user5));
-        postRepository.saveAll(Arrays.asList(cooking, fitness, tech, travel, movie));
+        postRepository.saveAll(Arrays.asList(
+                                                filler, filler2, filler3, filler4, filler5, filler6,
+                                                cooking, fitness, tech, travel, movie
+                                            ));
         commentRepository.saveAll(Arrays.asList(    c1, c2, c3, c4, c5,
                                                     f1, f2, f3, f4,
                                                     t1, t2, t3, t4,

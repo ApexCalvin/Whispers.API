@@ -1,6 +1,6 @@
 function loadSelectedPost(postId) {
     const post_url = "/post/" + postId;
-    const comments_url = "/comment/post/" + postId;
+    const comments_url = "/post/" + postId + "/comments";
 
     const fetchData = async (url) => {
         return fetch(url)
