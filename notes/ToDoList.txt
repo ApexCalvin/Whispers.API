@@ -4,11 +4,11 @@ Calvin 12/22:
 
     Front End:
 
-        create comment/post
-
         switch acc
 
         search by handle/hashtag
+
+        create comment/post
 
     url or path body (eg. Deleting a comment - send post id via json body through a button?)
 

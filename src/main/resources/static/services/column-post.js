@@ -41,14 +41,15 @@ function loadSelectedPost(postId) {
         const commentForm = `
                             <div class="postBlockFromFeed">
                                 <form style="text-align: center;">
-                                    <input id="new-comment-message" placeholder="Type Comment Here">
+                                    <input type="text" id="new-comment-message" placeholder="Type Comment Here">
                                     <br>
                                     <br>
                                     <button type="button" onClick="createCommentTest(
                                                                                         ${data1.id}, 
-                                                                                        ${activeUserId},
-                                                                                        ${document.getElementById("new-comment-message").value}
-                                                                                    )">Submit</button>
+                                                                                        ${activeUserId}
+                                                                                        
+                                                                                        
+                                                                                        )">Submit</button>
                                 </form>
                             </div>
                             `
@@ -70,13 +71,16 @@ class Comment {
 }
 
 function createCommentTest(postId, activeUserId, message) {
-    console.log('[in test method] Post = '+ postId + ', Active = ' + activeUserId)
-    console.log('msg = ' +message)
+    console.log('[in test method refe] Post = '+ postId + ', Active = ' + activeUserId)
+    const s = document.getElementById("new-comment-message");
+    const sa = s.value;
+    console.log('msg = ' + message)
+    console.log('msg = ' + sa)
 }
 
 function createComment(postId, activeUserId) {
 
-    console.log('[create comment method] Post = '+ postId + ', Active = ' + activeUserId)
+    //console.log('[create comment method] Post = '+ postId + ', Active = ' + activeUserId)
     
     //event.preventDefault(); //??
     // console.log("createComment " + postId + activeUserId);

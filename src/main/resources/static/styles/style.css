@@ -14,7 +14,7 @@ body {
 .column {
     flex: 1;
     background-color: #F1F1F1;
-    border: 1px solid #68E1FF;
+    border: 1px dotted #68E1FF;
     padding: 15px;
     box-sizing: border-box;
 }
