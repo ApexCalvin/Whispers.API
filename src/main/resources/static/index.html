@@ -11,16 +11,17 @@
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
     </head>
-    <body>
+    <body>  
         <div class="navbar-container">
             <h2 style="border: 1px dotted #000; padding: 10px; margin: 10px;" >Sp!t</h2>
             <ul class="navbar" style="border: 1px dotted #000; padding: 10px; margin: 10px;" >
+                <li class="nav-item"><a class="nav-link" href="#" onClick="loadPage()">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="#" onClick="searchMenu()">Search</a></li>
                 <li class="nav-item"><a class="nav-link" href="#" onClick="accountsMenu()">Accounts</a></li>
             </ul> 
         </div>
 
-        <div class="columns-container">
+        <div class="columns-container" id="columns-container">
             <div class="column" id="column-profile">
                 <div class="postBlockFromSelected" style="text-align: center;">
                     <img id="profile-photo" src="" alt="Image of Profile" style="border-radius: 50%;">
@@ -35,7 +36,7 @@
         </div>
 
         <script src="services/column-feed.js"></script>
-        <script src="services/column-post.js"></script>
+        <script src="services/column-details.js"></script>
         <script src="services/column-profile.js"></script>
         <script src="services/navbar.js"></script>
         <script src="services/service.js"></script>

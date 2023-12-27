@@ -6,8 +6,9 @@ function loadFeed() {
                 return `
                     <div class="postBlockFromFeed" onClick="loadSelectedPost(${object.id})">
                         <h4 style="text-align: center; color: #1190E7;">${object.name} @${object.handle}</h2>
-                        <h4 style="text-align: center;">${object.message}</h3>
+                        <h4 style="text-align: center;">${object.message}</h4>
                         <p style="text-align: center;">${moment(object.date).format('MMMM Do YYYY, h:mm:ss a')}</p>
+                        <p style="text-align: center; color: #1190E7;"><em>Click for more details</em><p>
                     </div>
                 `;
             });
