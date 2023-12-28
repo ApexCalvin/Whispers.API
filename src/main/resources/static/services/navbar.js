@@ -1,5 +1,24 @@
 function searchMenu() {
-    console.log("search method")
+    console.log("searchMenu method")
+
+    const searchMenu =  `
+                        <div id="search-Menu" class="postBlockFromFeed">
+                            <input>
+                            <button onClick="searchHandle()">Handle Search</button>
+                            <button onClick="searchHashtag()";>Hashtag Search</button>
+                        </div>
+                        `;
+
+    const display = document.getElementById('nav-select');
+    display.innerHTML = searchMenu;
+}
+
+function searchHandle() {
+    console.log("searchHandle method")
+}
+
+function searchHashtag() {
+    console.log("searchHashtag method")
 }
 
 function accountsMenu() {
@@ -14,7 +33,7 @@ function accountsMenu() {
             const accounts = data.map(object => {
                 return `
                     <div class="postBlockFromFeed" onClick="setActiveUser(${object.id})">
-                        <img id="accounts-photo" src="./images/${object.id}.jpg" alt="Image of Profile" style="border-radius: 50%;">
+                        <img id="accounts-photo" src="./images/${object.id}.jpg" alt="Image of Profile" style="border-radius: 50%; width: 10px; height: auto;">
                         <div>
                             <h4 style="text-align: center; color: #1190E7;">${object.name}</h2>
                             <p style="text-align: center; color: #1190E7;">@${object.handle}<p>

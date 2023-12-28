@@ -4,7 +4,7 @@ Calvin 12/22:
 
     Front End:
 
-        switch acc
+        shrink div after selecting acc, work on css
 
         search by handle/hashtag
 
