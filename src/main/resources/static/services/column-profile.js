@@ -1,5 +1,5 @@
 function loadProfile() {
-    document.getElementById('profile-photo').src = `images/${activeUserId}.jpg`;
+    document.getElementById('profile-photo').src = `./images/${activeUserId}.jpg`;
     
     fetch('/account/' + activeUserId)
         .then(response => response.json())
