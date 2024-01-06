@@ -44,12 +44,7 @@ function loadSelectedPost(postId) {
                                     <input type="text" id="new-comment-message" placeholder="Type Comment Here">
                                     <br>
                                     <br>
-                                    <button type="button" onClick="createCommentTest(
-                                                                                        ${data1.id}, 
-                                                                                        ${activeUserId}
-                                                                                        
-                                                                                        
-                                                                                        )">Submit</button>
+                                    <button type="button" onClick="createCommentTest()">Submit</button>
                                 </form>
                             </div>
                             `
@@ -62,6 +57,9 @@ function loadSelectedPost(postId) {
     }); 
 }
 
+//${data1.id}, 
+//${activeUserId},
+
 class Comment {
     constructor(accountId, postId, message) {
         this.accountId = accountId;
@@ -70,12 +68,18 @@ class Comment {
     }
 }
 
-function createCommentTest(postId, activeUserId, message) {
-    console.log('[in test method refe] Post = '+ postId + ', Active = ' + activeUserId)
-    const s = document.getElementById("new-comment-message");
-    const sa = s.value;
-    console.log('msg = ' + message)
-    console.log('msg = ' + sa)
+//function createCommentTest(postId, activeUserId, message) {
+function createCommentTest() {
+    //console.log('[in test method refe] Post = '+ postId + ', Active = ' + activeUserId)
+    console.log("inside createCommentTest()");
+    
+    const s = document.getElementById("new-comment-message").value;
+    console.log("msg = " + s)
+
+
+    // const sa = s.value;
+    // console.log('msg = ' + message)
+    // console.log('msg = ' + sa)
 }
 
 function createComment(postId, activeUserId) {
