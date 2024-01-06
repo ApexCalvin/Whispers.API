@@ -41,10 +41,10 @@ function loadSelectedPost(postId) {
         const commentForm = `
                             <div class="postBlockFromFeed">
                                 <form style="text-align: center;">
-                                    <input type="text" id="new-comment-message" placeholder="Type Comment Here">
+                                    <input type="text" id="new-comment-message" placeholder="Type Comment Here"/>
                                     <br>
                                     <br>
-                                    <button type="button" onClick="createCommentTest()">Submit</button>
+                                    <button type="button" onClick="createCommentTest(document.getElementById('new-comment-message').value)">Submit</button>
                                 </form>
                             </div>
                             `
@@ -69,12 +69,12 @@ class Comment {
 }
 
 //function createCommentTest(postId, activeUserId, message) {
-function createCommentTest() {
+function createCommentTest(message) {
     //console.log('[in test method refe] Post = '+ postId + ', Active = ' + activeUserId)
     console.log("inside createCommentTest()");
     
-    const s = document.getElementById("new-comment-message").value;
-    console.log("msg = " + s)
+    //const s = document.getElementById("new-comment-message").value;
+    console.log("msg = " + message)
 
 
     // const sa = s.value;
