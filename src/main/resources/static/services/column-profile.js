@@ -12,7 +12,7 @@ function loadProfile() {
             const postForm = `
                                 <div class="postBlockFromFeed">
                                     <form style="text-align: center;">
-                                        <input id="new-comment-message" placeholder="Type Message Here">
+                                        <input id="new-post-message" placeholder="Type Message Here">
                                         <br>
                                         <br>
                                         <button onClick="createPost()">Submit</button>
@@ -34,7 +34,7 @@ function loadProfile() {
 function createPost() {
     console.log('createPost method');
 
-    const msg = document.getElementById("new-comment-message").value;
+    const msg = document.getElementById("new-post-message").value;
 
     // Data to be sent in the request body
     const postData = {
