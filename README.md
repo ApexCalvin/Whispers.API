@@ -9,3 +9,6 @@ microblogger app using MySQL, Java, Spring Boot, HTML/CSS, JavaScript
 * Run `mvn clean install package` to generate target jar file
 * Run `docker-compose build` to build docker image
 * Run `docker-compose up` to run application with docker
+
+* ![whispers](https://github.com/user-attachments/assets/6f067508-797f-4561-96c1-5891bdac0c24)
+
