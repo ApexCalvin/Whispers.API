@@ -10,6 +10,11 @@ microblogger app using MySQL, Java, Spring Boot, HTML/CSS, JavaScript
 * Run `docker-compose build` to build docker image
 * Run `docker-compose up` to run application with docker
 
+# UML
+
+![whispersUML](https://github.com/user-attachments/assets/83f981f2-e7e5-47ab-966a-1ba426c5f240)
+
+# Front End:
 
 ![whispers](https://github.com/user-attachments/assets/6f067508-797f-4561-96c1-5891bdac0c24)
 
