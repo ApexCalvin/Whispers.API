@@ -1,0 +1,47 @@
+body {
+    background-color: #F1F1F1;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.columns-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.column {
+    flex: 1;
+    background-color: #F1F1F1;
+    border: 1px dotted #68E1FF;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.postBlockFromFeed {
+    background-color: #FFFFFF;
+    border-radius: 20px; /* Adjust the value to control the amount of curvature */
+}
+
+.postBlockFromSelected {
+    background-color: #FFFFFF;
+    border: 1px solid #68E1FF;
+    border-radius: 20px; /* Adjust the value to control the amount of curvature */
+}
+
+.navbar-container {
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+/* Style for list items */
+li {
+    margin-right: 30px; /* Add some spacing between list items */
+}

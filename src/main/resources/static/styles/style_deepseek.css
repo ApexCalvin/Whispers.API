@@ -69,17 +69,15 @@ body {
 
 #column-feed {
     flex: 2;
-    background-color: #f9f9f9; /* Light gray background for feed */
 }
 
 #column-post {
     flex: 1.5;
-    background-color: #e8f4f8; /* Light blue background for details */
 }
 
 /* Post Blocks */
 .postBlockFromFeed, .postBlockFromSelected {
-    background-color: #ffffff;
+    background-color: #f9f9f9;
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 8px;
@@ -94,43 +92,12 @@ body {
 
 .postBlockFromFeed h4, .postBlockFromSelected h4 {
     margin-bottom: 10px;
-    color: #1190E7; /* Username color */
+    color: #1190E7;
 }
 
 .postBlockFromFeed p, .postBlockFromSelected p {
-    color: #555; /* Message color */
+    color: #666;
     font-size: 0.9em;
-}
-
-/* Selected Message in Details Column */
-#column-post .postBlockFromSelected {
-    background-color: #ffffff;
-    border: 2px solid #1190E7; /* Highlight border */
-    box-shadow: 0 4px 8px rgba(17, 144, 231, 0.2); /* Highlight shadow */
-    margin-bottom: 20px;
-}
-
-#column-post .postBlockFromSelected h4 {
-    color: #1190E7; /* Username color */
-}
-
-#column-post .postBlockFromSelected p {
-    color: #333; /* Message color */
-}
-
-/* Comments in Details Column */
-#column-post .postBlockFromFeed {
-    background-color: #f0f0f0; /* Light gray background for comments */
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-}
-
-#column-post .postBlockFromFeed h4 {
-    color: #666; /* Username color for comments */
-}
-
-#column-post .postBlockFromFeed p {
-    color: #444; /* Message color for comments */
 }
 
 /* Profile Section */
