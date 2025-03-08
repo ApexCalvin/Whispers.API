@@ -1,3 +1,18 @@
+`Data Access Object (DAO)`: A **design pattern** that abstracts and encapsulates all interactions with a data source, typically a database. The DAO pattern provides methods for performing **CRUD operations** (Create, Read, Update, Delete) and hides the complexity of database interactions behind an interface. 
+
+DAO Implementation in Spring Boot:
+- `JpaRepository` extends `CrudRepository` and provides additional methods for pagination and sorting. It also supports JPQL (Java Persistence Query Language) and native SQL queries.
+  - provides built-in methods for common database operations like `save()`, `findAll()`, `delete()`
+  - Supports custom queries using annotations like `@Query`
+  - Automatically handles entity-to-database mapping
+
+- `EntityManager`: another way to handle data access in JPA. It offers more control over entity management and is particularly useful for complex or dynamic queries, as well as custom transactions.
+  - `private EntityManager entityManager;`
+
+In Spring Boot, DAOs are typically implemented as repositories or interfaces that extend Spring Data JPA's JpaRepository. JpaRepository is the preferred choice for creating DAOs due to its simplicity and seamless integration with Spring Data JPA. However, for more complex or dynamic queries that require greater control, EntityManager is a useful alternative.
+
+---
+
 `@Repository`:  indicates that the interface is a Spring Data repository and should be treated as a bean in the Spring context. It also enables exception translation, converting database-related exceptions into Spring’s DataAccessException.
 
 `extends JpaRepository`: a Spring Data JPA interface that provides methods for performing CRUD operations on an entity without needing to write any SQL or JPQL.

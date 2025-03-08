@@ -1,6 +1,5 @@
 **Lombok** - A Java library designed to reduce boilerplate code by generating common methods at compile time.
 
-
 - `@NoArgsConstructor`: Generates a default (nullary) constructor, which is required by JPA frameworks for entity instantiation.
 - `@AllArgsConstructor`: Generates a constructor with parameters for all fields in a class.
 - `@Data`: Combines the following Lombok annotations:
@@ -11,7 +10,16 @@
     - `@RequiredArgsConstructor`: Generates a constructor for all **required** (final and annotated with `@NonNull`) fields. Does not automatically create constructor overloads.
 ---
 
-__Java Persistence API (JPA)__ - A specification (not an implementation) for Object-Relational Mapping (ORM) in Java. JPA allows Java applications to interact with relational databases using Java objects (entities), abstracting away the database details and enabling focus on Java objects instead of raw SQL.
+**Object-Relational Mapping** - a programming technique that allows developers to interact with a relational database using object-oriented programming principles. It essentially maps database tables to classes in the code, allowing objects in an application to be stored and retrieved from the database without needing to write SQL queries manually.
+
+Popular ORM Frameworks:
+  -  `Hibernate`: One of the most widely used ORM frameworks in Java
+  -  `Java Persistence API (JPA)`: A specification for ORM in Java, with implementations like Hibernate, EclipseLink, and OpenJPA.
+  -  `Spring Data JPA`: A higher-level abstraction over JPA, simplifying the development of data access layers in Spring applications.
+
+---
+
+**Java Persistence API (JPA)** - A specification (not an implementation) for Object-Relational Mapping (ORM) in Java. JPA allows Java applications to interact with relational databases using Java objects (entities), abstracting away the database details and enabling focus on Java objects instead of raw SQL.
 
 **Hibernate** - the most common JPA implementation. It implements the JPA standard and adds extra capabilities.
 
