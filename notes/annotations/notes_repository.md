@@ -7,7 +7,9 @@ DAO Implementation in Spring Boot:
   - Automatically handles entity-to-database mapping
 
 - `EntityManager`: another way to handle data access in JPA. It offers more control over entity management and is particularly useful for complex or dynamic queries, as well as custom transactions.
-  - `private EntityManager entityManager;`
+```Java 
+  private EntityManager entityManager;
+  ```
 
 In Spring Boot, DAOs are typically implemented as repositories or interfaces that extend Spring Data JPA's JpaRepository. JpaRepository is the preferred choice for creating DAOs due to its simplicity and seamless integration with Spring Data JPA. However, for more complex or dynamic queries that require greater control, EntityManager is a useful alternative.
 

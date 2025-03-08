@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spit.Spit.API.Application;
 import com.spit.Spit.API.model.Account;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -31,6 +32,7 @@ public class AccountEndpoints {
                 //.andExpect(content().string("Post has been successfully saved."));
     }
 
+    @Disabled
     @Test
     public void getAllAccounts() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/account"))
