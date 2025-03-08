@@ -1,0 +1,3 @@
+`@Configuration`: Indicates that a class contains Spring bean definitions and is used for configuration purposes. It is typically used to define beans, settings, or properties that should be loaded into the Spring application context. The class is automatically processed by Spring during startup to register these beans.
+
+`@PostConstruct`: Marks a method to be executed after the bean’s properties have been set by Spring (i.e., after dependency injection). It's used to perform initialization tasks or setup operations after the bean is created and all dependencies have been injected.
