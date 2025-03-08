@@ -13,6 +13,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Entity
+@Table(name = "post")
 @NamedNativeQuery(
         name = "getAllPostsDesc",
         query = """
@@ -22,7 +27,6 @@ import java.util.Set;
                 """,
         resultSetMapping = "mapToGetPostDTO"
 )
-
 @NamedNativeQuery(
         name = "getPostsByHandleDesc",
         query = """
@@ -33,7 +37,6 @@ import java.util.Set;
                 """,
         resultSetMapping = "mapToGetPostDTO"
 )
-
 @NamedNativeQuery(
         name = "getLikedPostsByAccountId",
         query = """
@@ -45,7 +48,6 @@ import java.util.Set;
                 """,
         resultSetMapping = "mapToGetPostDTO"
 )
-
 @SqlResultSetMapping(
         name = "mapToGetPostDTO",
         classes =   @ConstructorResult( targetClass = GetPostDTO.class,
@@ -56,12 +58,6 @@ import java.util.Set;
                                             @ColumnResult(name = "date", type = Date.class),
                                             @ColumnResult(name = "message", type = String.class)
                                          }))
-
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-@Entity
-@Table(name = "post")
 public class Post {
 
     @Id
@@ -81,13 +77,13 @@ public class Post {
     private Account account;
 
     @Transient
-    private String accountName;
+    private String accountName; // java purposes only, not for db storage
 
     @Transient
-    private String accountHandle;
+    private String accountHandle; // java purposes only, not for db storage
 
     @OneToMany( mappedBy = "post",
-                cascade = CascadeType.ALL) //deleting the account also deletes children (posts, comments)
+                cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Comment> comments;
 
@@ -96,25 +92,25 @@ public class Post {
     @JsonManagedReference
     private List<Like_> likes;
 
-    @ManyToMany(fetch = FetchType.LAZY) //load associated entities only when explicitly requested
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable( name = "xref_post_hashtag",
                 joinColumns = @JoinColumn(name = "post_id"),
                 inverseJoinColumns = @JoinColumn(name = "hashtag_id"))
-    private Set<Hashtag> hashtags = new HashSet<>();;
+    private Set<Hashtag> hashtags = new HashSet<>();
 
     public Post(Date date, Account account, String message) {
         this.date = date;
         this.account = account;
         this.message = message;
     }
-    public String getAccountHandle() {
+    public String getAccountHandle() { // for @Transient instance vars
         if (account != null) {
             accountHandle = account.getHandle();
         }
         return accountHandle;
     }
 
-    public String getAccountName() {
+    public String getAccountName() { // for @Transient instance vars
         if (account != null) {
             accountName = account.getName();
         }

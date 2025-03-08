@@ -1,8 +1,6 @@
 package com.spit.Spit.API.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.spit.Spit.API.model.Account;
-import com.spit.Spit.API.model.Post;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +13,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "like_")
-public class Like_ { //like is a reserved word for HQL
+public class Like_ { //like is a reserved word for Hibernate Query Language (HQL)
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

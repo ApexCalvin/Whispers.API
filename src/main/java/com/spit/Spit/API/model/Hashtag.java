@@ -10,10 +10,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "hashtag", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Hashtag {
 
-    public Hashtag(String name){
-        this.name = name;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -22,10 +18,19 @@ public class Hashtag {
     @Column(name = "name", nullable = false)
     private String name;
 
-//    @ManyToMany(mappedBy ="hashtags",
-//                fetch = FetchType.LAZY) ////load associated entities only when explicitly requested
-//    @JsonIgnoreProperties
-//    private Set<Post> posts = new HashSet<>();
+    public Hashtag(String name){
+        this.name = name;
+    }
+
+    /*
+    For when you want to see Posts on the Hashtag side
+
+    @ManyToMany(mappedBy ="hashtags",
+                fetch = FetchType.LAZY)
+    @JsonIgnoreProperties
+    private Set<Post> posts = new HashSet<>();
+
+     */
 
     @Override
     public String toString() {

@@ -12,8 +12,8 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     @Query(name = "getAllCommentsByPostId-query", nativeQuery = true)
-    public List<GetCommentDTO> getAllCommentsByPostId(Long postId);
+    List<GetCommentDTO> getAllCommentsByPostId(Long postId);
 
     @Query(name = "getAllCommentsByAccountId-query", nativeQuery = true)
-    public List<GetCommentDTO> getAllCommentsByAccountId(Long accountId);
+    List<GetCommentDTO> getAllCommentsByAccountId(Long accountId);
 }

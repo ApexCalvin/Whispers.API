@@ -9,6 +9,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Entity
+@Table(name = "comment")
 @NamedNativeQuery(
         name = "getAllCommentsByPostId-query",
         query = """
@@ -18,7 +23,6 @@ import java.util.Date;
                 """,
         resultSetMapping = "mapToGetCommentDTO"
 )
-
 @NamedNativeQuery(
         name = "getAllCommentsByAccountId-query",
         query = """
@@ -28,24 +32,16 @@ import java.util.Date;
                 """,
         resultSetMapping = "mapToGetCommentDTO"
 )
-
-//order of ColumnResult matters when mapping
-@SqlResultSetMapping(
+@SqlResultSetMapping( //order of ColumnResult matters when mapping
         name = "mapToGetCommentDTO",
         classes =   @ConstructorResult( targetClass = GetCommentDTO.class,
-                                        columns = {
-                                                @ColumnResult(name = "id", type = Long.class),
-                                                @ColumnResult(name = "date", type = Date.class),
-                                                @ColumnResult(name = "message", type = String.class),
-                                                @ColumnResult(name = "name", type = String.class),
-                                                @ColumnResult(name = "handle", type = String.class),
-                                        }))
-
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-@Entity
-@Table(name = "comment")
+                columns = {
+                        @ColumnResult(name = "id", type = Long.class),
+                        @ColumnResult(name = "date", type = Date.class),
+                        @ColumnResult(name = "message", type = String.class),
+                        @ColumnResult(name = "name", type = String.class),
+                        @ColumnResult(name = "handle", type = String.class),
+                }))
 public class Comment {
 
     @Id

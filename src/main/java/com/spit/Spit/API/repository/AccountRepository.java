@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    public Account findByHandle(String handle); // JPQL query method
+    Account findByHandle(String handle); // Java Persistence Query Language (JPQL)
 }
