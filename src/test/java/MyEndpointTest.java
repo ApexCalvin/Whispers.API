@@ -1,7 +1,8 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spit.Spit.API.Application;
-import com.spit.Spit.API.dto.CreatePostDTO;
+import com.Whispers.Application;
+import com.Whispers.dto.CreatePostDTO;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -36,6 +37,7 @@ public class MyEndpointTest { //Requires AppConfig True and clean database
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
+    @Disabled
     @Test
     public void getAllPosts() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/post"))

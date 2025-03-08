@@ -1,17 +1,5 @@
 To-Do:
 
-Calvin 12/22:
-
-    Front End:
-
-        shrink div after selecting acc, work on css
-
-        search by handle/hashtag
-
-        create comment/post
-
-    url or path body (eg. Deleting a comment - send post id via json body through a button?)
-
 Eryk 12/4:
 
     getLikeByHandleAndPost refactor/redesign
