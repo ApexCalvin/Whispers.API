@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "4603f88c-d7e1-48cb-9e56-cf8c69c091e3",
-		"name": "Spit",
+		"name": "WhispersAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "24752612"
 	},
@@ -373,7 +373,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"accountId\": 1,\r\n    \"message\" : \"Hello World!\",\r\n    \"hashtags\" : []\r\n}",
+					"raw": "{\r\n    \"accountId\" : 1,\r\n    \"message\" : \"Hello World!\",\r\n    \"hashtags\" : []\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
