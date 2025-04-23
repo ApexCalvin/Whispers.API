@@ -1,39 +1,50 @@
-#FROM openjdk:17-jdk-slim
-#
-#WORKDIR /app
-#
-#COPY target/Spit.API-0.0.1-SNAPSHOT.jar /app/app.jar
-#
-#EXPOSE 8080
-#
-#CMD ["java", "-jar", "app.jar"]
-# Use an image that has both Maven and JDK (adjust the version as needed)
+# ---------------------------------
+# 🔧 Build Stage: Compiling the App
+# ---------------------------------
+
+# Use a Maven image with OpenJDK 17 to compile the Java application
 FROM maven:3.8.4-openjdk-17-slim AS build
+CMD ["echo", "Build - Completed FROM"]
 
-# Set the working directory
+# Set the working directory inside the container
 WORKDIR /app
+CMD ["echo", "Build - Completed WORKDIR"]
 
-# Copy the Maven project definition and download dependencies
+# Copy only the pom.xml to leverage Docker cache for dependency resolution
 COPY pom.xml .
+CMD ["echo", "Build - Completed pom COPY"]
+
+# Download project dependencies (without compiling the full source yet)
 RUN mvn dependency:go-offline
+CMD ["echo", "Build - Completed pom DEPENDENCIES"]
 
-# Copy the application source code
+# Copy the source code after dependencies are cached
 COPY src ./src
+CMD ["echo", "Build - Completed src COPY"]
 
-# Build the application with skipping tests
-RUN mvn package install -DskipTests
+# Compile and package the application into a .jar file (skipping tests to speed up build)
+RUN mvn clean package -DskipTests
+CMD ["echo", "Build - Completed jar"]
 
-# Use a lightweight image with JRE
+# ----------------------------------------------
+# 🚀 Runtime Stage: Minimal Image to Run the App
+# ----------------------------------------------
+
+#Use a lightweight OpenJDK 17 image for running the application
 FROM openjdk:17-jdk-slim
+CMD ["echo", "Run - Completed FROM"]
 
-# Set the working directory
+#Set the working directory inside the runtime container
 WORKDIR /app
+CMD ["echo", "Run - Completed WORKDIR"]
 
-# Copy the JAR file from the build stage
+#Copy the built .jar file from the build stage into the runtime image
 COPY --from=build /app/target/Spit.API-0.0.1-SNAPSHOT.jar app.jar
+CMD ["echo", "Run - Completed jar COPY"]
 
-# Expose the application's port
+#(Optional) Document the port your app listens on (Spring Boot default)
 EXPOSE 8080
 
-# Define the command to run the application
+#Define the default command to run when the container starts
 CMD ["java", "-jar", "app.jar"]
+CMD ["echo", "Run - Container started."]
