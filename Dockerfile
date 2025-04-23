@@ -39,7 +39,7 @@ WORKDIR /app
 CMD ["echo", "Run - Completed WORKDIR"]
 
 #Copy the built .jar file from the build stage into the runtime image
-COPY --from=build /app/target/Spit.API-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/Whispers-API-0.0.1-SNAPSHOT.jar app.jar
 CMD ["echo", "Run - Completed jar COPY"]
 
 #(Optional) Document the port your app listens on (Spring Boot default)
